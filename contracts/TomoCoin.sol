@@ -172,26 +172,12 @@ contract TomoCoin is SafeMath, StandardToken, Pausable {
   address public icoSaleDeposit;
   address public tokenSaleAddress;
 
-  uint256 public constant tomoSeed = 10000000 * 10**decimals;
-  uint256 public constant tomoPreSale = 10000000 * 10**decimals;
-  uint256 public constant tomoSale = 20000000 * 10**decimals;
   uint256 public constant tomoCommunity = 40000000 * 10**decimals;
-  uint256 public constant tomoCompany = 20000000 * 10**decimals;
 
-  address public tomoSeedDeposit        = 0x216e05BD4AA93E93Cd95422dA8615a3D15AEcCc3;
-  address public tomoPreSaleDeposit     = 0x2D5628021B1F73247C25ED129D12a8DDEaDCC3E3;
-  address public tomoSaleDeposit        = 0x8D34a59A18D1A7B2A8A6A3dd1f5c46eB2311852b;
-  address public tomoCommunityDeposit   = 0x3E3Ae28fA4A2F400781Fb5D77a88AD451D99cF4d;
-  address public tomoCompanyDeposit   = 0x57C883DeE48334c8201aF1bB7296639Ab1806D96;
+  function TomoCoin(address _tomoCommunityDeposit) { 
+    balances[_tomoCommunityDeposit] = tomoCommunity;
 
-  function TomoCoin() { 
-    balances[tomoSeedDeposit] = tomoSeed;
-    balances[tomoPreSaleDeposit] = tomoPreSale;
-    balances[tomoSaleDeposit] = tomoSale;
-    balances[tomoCommunityDeposit] = tomoCommunity;
-    balances[tomoCompanyDeposit] = tomoCompany;
-
-    totalSupply = tomoSeed + tomoPreSale + tomoSale + tomoCommunity + tomoCompany;
+    totalSupply = tomoCommunity + 60000000 * 10**decimals;
   }
 
   function transfer(address _to, uint _value) whenNotPaused returns (bool success) {
@@ -205,145 +191,5 @@ contract TomoCoin is SafeMath, StandardToken, Pausable {
   function balanceOf(address _owner) constant returns (uint balance) {
     return super.balanceOf(_owner);
   }
-
-  function setTokenSaleAddress(address _tokenSaleAddress) onlyOwner {
-    if (_tokenSaleAddress != address(0)) {
-      tokenSaleAddress = _tokenSaleAddress;
-    }
-  }
-
-  function mint(address _recipient, uint _value) whenNotPaused returns (bool success) {
-      assert(_value > 0);
-      require(msg.sender == tokenSaleAddress);
-
-      balances[tomoSaleDeposit] = safeSubtract(balances[tomoSaleDeposit], _value);
-      balances[ _recipient ] = safeAdd(balances[_recipient], _value);
-
-      Transfer(tomoSaleDeposit, _recipient, _value);
-      return true;
-  }
 }
-// ================= Ico Token Contract end =======================
-
-
-// ================= Whitelist start ====================
-contract TomoContributorWhitelist is Ownable {
-    mapping(address=>uint) public whitelist;
-
-    function TomoContributorWhitelist() {}
-
-    event ListAddress( address _user, uint _time );
-
-    function listAddress( address _user ) onlyOwner {
-        whitelist[_user] = 1;
-        ListAddress( _user, now );
-    }
-
-    function listAddresses( address[] _users ) onlyOwner {
-        for( uint i = 0 ; i < _users.length ; i++ ) {
-            listAddress( _users[i] );
-        }
-    }
-
-    function check( address _user ) constant returns(bool) {
-        uint cap = whitelist[_user];
-        return cap > 0;
-    }
-}
-// ================= Whitelist end ====================
-
-// ================= Actual Sale Contract Start ====================
-contract TomoTokenSale is SafeMath, Pausable {
-  TomoCoin public token;
-  TomoContributorWhitelist whitelist;
-
-  address public ethFundDeposit = 0x334eE502e8bB4E2e5af547310F7B793A742f99A3;
-  address public tomoFundDeposit   = 0x8D34a59A18D1A7B2A8A6A3dd1f5c46eB2311852b;
-
-  uint256 public tokenCreationCap;
-  uint256 public totalSupply;
-  uint256 public fundingStartTime = 1504051200; // 2017-08-30
-  uint256 public fundingEndTime = 1514592000; // 2017-12-30
-  uint256 public minContribution = 0.05 ether;
-
-  bool public isFinalized;
-
-  event MintTomo(address from, address to, uint256 val);
-
-  function TomoTokenSale(
-    TomoCoin _tomoCoinAddress,
-    TomoContributorWhitelist _tomoContributorWhitelistAddress
-  )
-  {
-    token = TomoCoin(_tomoCoinAddress);
-    whitelist = TomoContributorWhitelist(_tomoContributorWhitelistAddress);
-
-    tokenCreationCap = token.balanceOf(tomoFundDeposit);
-    isFinalized = false;
-  }
-
-  function buy(address to, uint256 val) internal returns (bool success) {
-    MintTomo(tomoFundDeposit, to, val);
-    return token.mint(to, val);
-  }
-
-  function () payable {    
-    createTokens(msg.sender, msg.value);
-  }
-
-  function createTokens(address _beneficiary, uint256 _value) internal whenNotPaused {
-    require (now >= fundingStartTime);
-    require (now <= fundingEndTime);
-    require (_value >= minContribution);
-    require (!isFinalized);
-
-    uint256 tokenExchangeRate = getExchangeRate(totalSupply);
-    uint256 tokens = safeMult(_value, tokenExchangeRate);
-
-    require (whitelist.check(msg.sender));
-
-    uint256 checkedSupply = safeAdd(totalSupply, tokens);
-
-    if (tokenCreationCap < checkedSupply) {        
-      uint256 tokensToAllocate = safeSubtract(tokenCreationCap, totalSupply);
-      uint256 tokensToRefund   = safeSubtract(tokens, tokensToAllocate);
-      totalSupply = tokenCreationCap;
-      uint256 etherToRefund = tokensToRefund / tokenExchangeRate;
-
-      require(buy(_beneficiary, tokensToAllocate));
-      msg.sender.transfer(etherToRefund);
-      ethFundDeposit.transfer(this.balance);
-      return;
-    }
-
-    totalSupply = checkedSupply;
-
-    require(buy(_beneficiary, tokens)); 
-    ethFundDeposit.transfer(this.balance);
-  }
-
-  function getExchangeRate(uint256 _checkedSupply) returns(uint) {
-    uint256 firstLevel = tokenCreationCap *  25 / 100;
-    uint256 secondLevel = tokenCreationCap *  50 / 100;
-    uint256 thirdLevel = tokenCreationCap *  75 / 100;
-
-    if (_checkedSupply >= firstLevel && _checkedSupply < secondLevel) {
-      return 4000;
-    }
-    if (_checkedSupply >= secondLevel && _checkedSupply < thirdLevel) {
-      return 3000;
-    }
-    if (_checkedSupply >= thirdLevel) {
-      return 2000;
-    }
-    return 6000;
-  }
-
-  /// @dev Ends the funding period and sends the ETH home
-  function finalize() external onlyOwner {
-    require (!isFinalized);
-    // move to operational
-    isFinalized = true;
-    ethFundDeposit.transfer(this.balance);
-  }
-}
+// ================= Tomocoin Token Contract end =======================

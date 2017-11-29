@@ -1,5 +1,6 @@
 pragma solidity ^0.4.18;
-import "./TomoCoinSidechain.sol";
+
+import "./TomoCoin.sol";
 import "./Lib.sol";
 
 contract CashInSidechain {
