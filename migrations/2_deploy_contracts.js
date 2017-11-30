@@ -3,6 +3,7 @@ var CashInSidechain = artifacts.require('./CashInSidechain');
 var CashOutSidechain = artifacts.require('./CashOutSidechain');
 var CashInMainchain = artifacts.require('./CashInMainchain');
 var CashOutMainchain = artifacts.require('./CashOutMainchain');
+var RewardEngine = artifacts.require('./RewardEngine');
 var Lib = artifacts.require('./Lib');
 
 module.exports = function(deployer) {
@@ -16,8 +17,26 @@ module.exports = function(deployer) {
       return deployer.deploy(TomoCoin, tomoCommunityDepositSidechain).then(() => {
         return TomoCoin.deployed().then(function(tc) {
           return deployer.deploy(CashInSidechain, tc.address, tomoCommunityDepositSidechain).then(() => {
-            return deployer.deploy(CashOutSidechain, tc.address, tomoCommunityDepositSidechain);
-          });
+            return CashInSidechain.deployed().then(cis => {
+              return tc.approve(cis.address, '40000000000000000000000000');
+            });
+          })
+            .then(() => {
+              return deployer.deploy(CashOutSidechain, tc.address, tomoCommunityDepositSidechain);
+            })
+            .then(()  => {
+              return CashOutSidechain.deployed().then(cos => {
+                return tc.approve(cos.address, '40000000000000000000000000');
+              });
+            })
+            .then(()  => {
+              return deployer.deploy(RewardEngine, tc.address, tomoCommunityDepositSidechain);
+            })
+            .then(()  => {
+              return RewardEngine.deployed().then(re => {
+                return tc.approve(re.address, '40000000000000000000000000');
+              });
+            });
         });
       });
     }
