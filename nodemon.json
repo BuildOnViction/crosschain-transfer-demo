@@ -1,4 +1,4 @@
 {
   "ignore": [".git/*", ".gitignore", ".eslintcache"],
-  "exec": "node --dev"
+  "exec": "node"
 }

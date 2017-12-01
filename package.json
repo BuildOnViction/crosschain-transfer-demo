@@ -33,13 +33,19 @@
     "nodemon": "^1.12.1",
     "style-loader": "^0.13.1",
     "truffle-contract": "^1.1.11",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.9",
     "web3": "^0.20.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^2.3.0",
+    "vue": "^2.5.9",
+    "vue-material": "^0.8.1",
+    "vue-router": "^3.0.1"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "config": "^1.28.1",
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-validator": "^4.3.0"
   }

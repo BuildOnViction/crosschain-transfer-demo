@@ -12,9 +12,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(validator({}));
 
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
 // import routers
 app.use(require('./apis'));
-app.use('/', express.static('./build'));
+app.use('/assets', express.static('./build'));
+app.use('/', function(req, res) {
+  res.render('app');
+});
 
 // start server
 const server = app.listen(config.get('server.port'), config.get('server.host'), function () {

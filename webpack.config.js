@@ -1,20 +1,27 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+var webpack = require('webpack')
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
-  entry: './app/javascripts/app.js',
+  entry: './app/app.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.js'
   },
-  plugins: [
-    // Copy our app's index.html to the build folder.
-    new CopyWebpackPlugin([
-      { from: './app/index.html', to: "index.html" }
-    ])
-  ],
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('app'),
+    }
+  },
   module: {
     rules: [
+      { test: /\.vue$/,
+        loader: "vue-loader",
+      },
       {
        test: /\.css$/,
        use: [ 'style-loader', 'css-loader' ]
