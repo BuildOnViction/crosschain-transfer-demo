@@ -3,21 +3,19 @@
 const express = require('express');
 const fs = require('fs');
 const config = require('config');
-const app = express();
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
 
 // body parse
+const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(validator({}));
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
-
-// import routers
-app.use(require('./apis'));
 app.use('/assets', express.static('./build'));
+app.use(require('./apis'));
 app.use('/', function(req, res) {
   res.render('app');
 });

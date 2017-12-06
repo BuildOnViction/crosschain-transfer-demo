@@ -5,7 +5,8 @@ module.exports = {
     sidechain: {
       host: 'localhost',
       port: 8545,
-      network_id: '*'
+      network_id: '*',
+      gas: 4712388
     },
     mainchain: {
       host: 'localhost',

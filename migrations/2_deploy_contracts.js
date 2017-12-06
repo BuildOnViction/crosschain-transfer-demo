@@ -13,7 +13,7 @@ module.exports = function(deployer) {
     deployer.link(Lib, CashInMainchain);
     deployer.link(Lib, CashOutMainchain);
     if (deployer.network === 'sidechain') {
-      const tomoCommunityDepositSidechain = '0xd083e864af30216500f74dddfb10e3fb5d1e85f3';
+      const tomoCommunityDepositSidechain = '0xbd9a8e9135d51f9cc2fcf96a42464aeeb3263bef';
       return deployer.deploy(TomoCoin, tomoCommunityDepositSidechain).then(() => {
         return TomoCoin.deployed().then(function(tc) {
           return deployer.deploy(CashInSidechain, tc.address, tomoCommunityDepositSidechain).then(() => {

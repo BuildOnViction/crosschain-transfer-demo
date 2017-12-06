@@ -32,10 +32,8 @@
     "json-loader": "^0.5.4",
     "nodemon": "^1.12.1",
     "style-loader": "^0.13.1",
-    "truffle-contract": "^1.1.11",
     "vue-loader": "^13.5.0",
     "vue-template-compiler": "^2.5.9",
-    "web3": "^0.20.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",
     "vue": "^2.5.9",
@@ -49,6 +47,8 @@
     "ejs": "^2.5.7",
     "ethereumjs-wallet": "^0.6.0",
     "express": "^4.16.2",
-    "express-validator": "^4.3.0"
+    "express-validator": "^4.3.0",
+    "truffle-contract": "^1.1.11",
+    "web3": "^0.20.0"
   }
 }
