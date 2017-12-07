@@ -5,12 +5,23 @@
       <div class="container">
         <p>Your address: {{ walletAddress }}</p>
         <p>Your backup key: <code>{{ walletMnemonic }}</code></p>
-        <p>You have: 10 TMC</p>
+        <p>You have: {{ tmcIn }} TMC in Tomochain</p>
+        <p>You have: 0 TMC in Ethereum Mainchain</p>
       </div>
       <h2>Reward me</h2>
       <div class="container">
         <div class="button-container">
-          <md-button class="md-raised md-primary">Mine TMC</md-button>
+          <md-button class="md-raised md-primary" @click="rewardMe()">Mine TMC</md-button>
+        </div>
+      </div>
+      <h2>Cash Out</h2>
+      <div class="container">
+        <div class="button-container">
+        <md-input-container>
+          <label>Cash Out Value</label>
+          <md-input type="text" v-model="cashOutValue" ></md-input>
+        </md-input-container>
+          <md-button class="md-raised md-primary" @click="cashOut()">Cash Out</md-button>
         </div>
       </div>
     </div>
@@ -23,6 +34,7 @@
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
+import axios from 'axios';
 
 import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract'
@@ -51,18 +63,35 @@ export default {
   data() {
     return {
       walletAddress: '0x' + wallet.getAddress().toString('hex'),
-      walletMnemonic: mnemonic
+      walletMnemonic: mnemonic,
+      tmcIn: 0,
+      cashOutValue: 0
     };
   },
   watch: {
-    '$route'() {
-      this.$nextTick(() => {
-      });
-    }
+    '$route'() { }
   },
   created() { },
   mounted() { },
-  methods: { }
+  methods: {
+    rewardMe() {
+      axios.post('http://localhost:3000' + '/api/wallets/rewardMe', {
+        walletAddress: this.walletAddress
+      })
+        .then(res => {
+          this.tmcIn = parseFloat(res.data.value/10**18);
+        });
+    },
+    cashOut() {
+      axios.post('http://localhost:3000' + '/api/wallets/cashOut', {
+        walletAddress: this.walletAddress,
+        cashOutValue: this.cashOutValue
+      })
+        .then(res => {
+          console.log(res);
+        });
+    }
+  }
 };
 </script>
 <style>

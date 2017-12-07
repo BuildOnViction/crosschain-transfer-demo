@@ -11,7 +11,8 @@ module.exports = {
     mainchain: {
       host: 'localhost',
       port: 8546,
-      network_id: '*'
+      network_id: '*',
+      gas: 4712388
     }
   }
 }

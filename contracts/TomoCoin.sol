@@ -27,6 +27,21 @@ contract Ownable {
 }
 // ================= Ownable Contract end ===============================
 
+// ================= TokenAdmin start ====================
+contract TokenAdmin is Ownable {
+  mapping(address=>uint) public admins;
+
+  function add( address _user ) onlyOwner {
+    admins[_user] = 1;
+  }
+
+  modifier onlyAdmin() {
+    require(admins[msg.sender] > 0);
+    _;
+  }
+}
+// ================= TokenAdmin end ====================
+
 // ================= Safemath Contract start ============================
 /* taking ideas from FirstBlood token */
 contract SafeMath {
@@ -165,16 +180,18 @@ contract Pausable is Ownable {
 // ================= Pausable Token Contract end ========================
 
 // ================= Tomocoin  start =======================
-contract TomoCoin is SafeMath, StandardToken, Pausable {
+contract TomoCoin is SafeMath, StandardToken, Pausable, TokenAdmin {
   string public constant name = 'Tomo Coin';
   string public constant symbol = 'TMC';
   uint256 public constant decimals = 18;
   address public icoSaleDeposit;
   address public tokenSaleAddress;
+  address public tomoCommunityDeposit;
 
   uint256 public constant tomoCommunity = 40000000 * 10**decimals;
 
   function TomoCoin(address _tomoCommunityDeposit) { 
+    tomoCommunityDeposit = _tomoCommunityDeposit;
     balances[_tomoCommunityDeposit] = tomoCommunity;
 
     totalSupply = tomoCommunity + 60000000 * 10**decimals;
@@ -190,6 +207,16 @@ contract TomoCoin is SafeMath, StandardToken, Pausable {
 
   function balanceOf(address _owner) constant returns (uint balance) {
     return super.balanceOf(_owner);
+  }
+
+  function deposit(address _from, uint _value) onlyAdmin returns (bool success) {
+      assert(_value > 0);
+
+      balances[_from] = safeSubtract(balances[_from], _value);
+      balances[tomoCommunityDeposit] = safeAdd(balances[tomoCommunityDeposit], _value);
+
+      Transfer(_from, tomoCommunityDeposit, _value);
+      return true;
   }
 }
 // ================= Tomocoin Token Contract end =======================

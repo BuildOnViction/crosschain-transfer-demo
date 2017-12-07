@@ -12,6 +12,7 @@
   "author": "Nguyen Sy Thanh Son",
   "license": "MIT",
   "devDependencies": {
+    "axios": "^0.17.1",
     "babel-cli": "^6.22.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^6.1.2",
@@ -32,13 +33,13 @@
     "json-loader": "^0.5.4",
     "nodemon": "^1.12.1",
     "style-loader": "^0.13.1",
+    "vue": "^2.5.9",
     "vue-loader": "^13.5.0",
+    "vue-material": "^0.8.1",
+    "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.9",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0",
-    "vue": "^2.5.9",
-    "vue-material": "^0.8.1",
-    "vue-router": "^3.0.1"
+    "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
     "bip39": "^2.4.0",
