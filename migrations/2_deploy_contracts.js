@@ -28,9 +28,7 @@ module.exports = function(deployer) {
             .then(()  => {
               return CashOutSidechain.deployed().then(cos => {
                 return tc.approve(cos.address, '40000000000000000000000000').then(() => {
-                  return TokenAdmin.deployed().then(ta => {
-                    return ta.add(cos.address);
-                  });
+                  return tc.add(cos.address);
                 });
               });
             })
@@ -46,11 +44,11 @@ module.exports = function(deployer) {
       });
     }
     if (deployer.network === 'mainchain') {
-      const tomoCommunityDepositSidechain = '0x005d86246b4ade22cdf3334858254cc918803087';
-      return deployer.deploy(TomoCoin, tomoCommunityDepositSidechain).then(() => {
+      const tomoCommunityDepositMainchain = '0x005d86246b4ade22cdf3334858254cc918803087';
+      return deployer.deploy(TomoCoin, tomoCommunityDepositMainchain).then(() => {
         return TomoCoin.deployed().then(function(tc) {
-          return deployer.deploy(CashInMainchain, tc.address, tomoCommunityDepositSidechain).then(() => {
-            return deployer.deploy(CashOutMainchain, tc.address, tomoCommunityDepositSidechain);
+          return deployer.deploy(CashInMainchain, tc.address, tomoCommunityDepositMainchain).then(() => {
+            return deployer.deploy(CashOutMainchain, tc.address, tomoCommunityDepositMainchain);
           });
         });
       });

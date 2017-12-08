@@ -22,10 +22,8 @@ TomoCoinMainchain.setProvider(mainchain.currentProvider);
 CashOutSidechain.setProvider(sidechain.currentProvider);
 CashOutMainchain.setProvider(mainchain.currentProvider);
 
-
 const rootAddressSidechain = '0xbd9a8e9135d51f9cc2fcf96a42464aeeb3263bef';
 const rootAddressMainchain = '0x005d86246b4ade22cdf3334858254cc918803087';
-
 
 // add new user device
 router.post('/rewardMe', function(req, res, next) {
@@ -35,7 +33,7 @@ router.post('/rewardMe', function(req, res, next) {
   RewardEngine.deployed().then((re) => {
     return re.reward(account, {from: rootAddressSidechain});
   })
-    .then(() => {
+    .then((e) => {
       return TomoCoinSidechain.deployed().then((tc) => {
         return tc.balanceOf.call(account, {from: rootAddressSidechain});
       })

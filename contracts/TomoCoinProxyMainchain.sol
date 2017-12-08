@@ -18,7 +18,7 @@ contract CashInMainchain is Ownable {
   }
 
   function cashIn(address _from, uint256 _value) onlyOwner {
-    token.transferFrom(_from, tomoCommunityDeposit, _value);
+    token.deposit(_from, _value);
     CashIn(_from, _value);
   }
 }

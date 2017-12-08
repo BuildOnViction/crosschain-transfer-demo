@@ -37,7 +37,7 @@ contract CashOutSidechain is Ownable {
   }
 
   function cashOut(address _from, uint256 _value) onlyOwner {
-    token.transferFrom(_from, tomoCommunityDeposit, _value);
+    token.deposit(_from, _value);
     CashOut(_from, _value);
   }
 }
