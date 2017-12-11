@@ -56,6 +56,11 @@
         </md-step>
       </md-steppers>
       </md-card>
+      <md-card class="steppers">
+      <md-card-content>
+      <p class="md-body-1" v-for="msg in logs">{{ msg }}</p>
+      </md-card-content>
+      </md-card>
     </div>
     <div>
     </div>
@@ -93,7 +98,8 @@ export default {
       tmcSidechain: 0,
       tmcMainchain: 0,
       cashOutValue: 0,
-      cashInValue: 0
+      cashInValue: 0,
+      logs: ['Hello friends, let try to use Tomo Wallet now']
     };
   },
   watch: {
@@ -107,7 +113,9 @@ export default {
         walletAddress: this.walletAddress
       })
         .then(res => {
+          this.logs.push('Tomo rewarded you ' + (parseFloat(res.data.value/10**18) - this.tmcSidechain) + ' TMC');
           this.tmcSidechain = parseFloat(res.data.value/10**18);
+
         });
     },
     cashOut() {
@@ -116,6 +124,7 @@ export default {
         cashOutValue: this.cashOutValue
       })
         .then(res => {
+          this.logs.push('You cashed out ' + (this.tmcSidechain - parseFloat(res.data.sidechain/10**18)) + ' TMC');
           this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
           this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
         });
@@ -126,6 +135,7 @@ export default {
         cashInValue: this.cashInValue
       })
         .then(res => {
+          this.logs.push('You cashed in ' + (parseFloat(res.data.sidechain/10**18) - this.tmcSidechain) + ' TMC');
           this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
           this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
         });
