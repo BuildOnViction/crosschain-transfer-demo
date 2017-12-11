@@ -1,11 +1,11 @@
 pragma solidity ^0.4.18;
-import "./TomoCoin.sol";
+import "./TomoCoinSidechain.sol";
 
 
 // This is a simple example for rewardengine algorithm. It is only used for Proof of Coding
 
 contract RewardEngine {
-  TomoCoin public token;
+  TomoCoinSidechain public token;
   address public tomoCommunityDeposit;
   uint256 public constant decimals = 18;
 
@@ -13,11 +13,11 @@ contract RewardEngine {
   uint256 public rewardCap;
 
   function RewardEngine(
-    TomoCoin _tomoCoinAddress,
+    TomoCoinSidechain _tomoCoinAddress,
     address _tomoCommunityDeposit
   )
   {
-    token = TomoCoin(_tomoCoinAddress);
+    token = TomoCoinSidechain(_tomoCoinAddress);
     tomoCommunityDeposit = _tomoCommunityDeposit;
     rewardCap = totalRewardCap;
   }

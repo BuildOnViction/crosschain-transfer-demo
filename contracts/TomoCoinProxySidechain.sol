@@ -1,18 +1,18 @@
 pragma solidity ^0.4.18;
 
-import "./TomoCoin.sol";
+import "./TomoCoinSidechain.sol";
 import "./Lib.sol";
 
 contract CashInSidechain is Ownable {
-  TomoCoin public token;
+  TomoCoinSidechain public token;
   address public tomoCommunityDeposit;
 
   function CashInSidechain(
-    TomoCoin _tomoCoinAddress,
+    TomoCoinSidechain _tomoCoinAddress,
     address _tomoCommunityDeposit
   )
   {
-    token = TomoCoin(_tomoCoinAddress);
+    token = TomoCoinSidechain(_tomoCoinAddress);
     tomoCommunityDeposit = _tomoCommunityDeposit;
   }
 
@@ -22,17 +22,17 @@ contract CashInSidechain is Ownable {
 }
 
 contract CashOutSidechain is Ownable {
-  TomoCoin public token;
+  TomoCoinSidechain public token;
   address public tomoCommunityDeposit;
 
   event CashOut( address _from, uint _value );
 
   function CashOutSidechain(
-    TomoCoin _tomoCoinAddress,
+    TomoCoinSidechain _tomoCoinAddress,
     address _tomoCommunityDeposit
   )
   {
-    token = TomoCoin(_tomoCoinAddress);
+    token = TomoCoinSidechain(_tomoCoinAddress);
     tomoCommunityDeposit = _tomoCommunityDeposit;
   }
 

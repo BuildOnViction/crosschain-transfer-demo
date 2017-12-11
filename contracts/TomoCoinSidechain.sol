@@ -180,7 +180,7 @@ contract Pausable is Ownable {
 // ================= Pausable Token Contract end ========================
 
 // ================= Tomocoin  start =======================
-contract TomoCoin is SafeMath, StandardToken, Pausable, TokenAdmin {
+contract TomoCoinSidechain is SafeMath, StandardToken, Pausable, TokenAdmin {
   string public constant name = 'Tomo Coin';
   string public constant symbol = 'TMC';
   uint256 public constant decimals = 18;
@@ -190,10 +190,10 @@ contract TomoCoin is SafeMath, StandardToken, Pausable, TokenAdmin {
 
   uint256 public constant tomoCommunity = 40000000 * 10**decimals;
 
-  function TomoCoin(address _tomoCommunityDeposit) { 
-    tomoCommunityDeposit = _tomoCommunityDeposit;
+  function TomoCoinSidechain(address _tomoCommunityDeposit) { 
     balances[_tomoCommunityDeposit] = tomoCommunity;
 
+    tomoCommunityDeposit = _tomoCommunityDeposit;
     totalSupply = tomoCommunity + 60000000 * 10**decimals;
   }
 
@@ -210,13 +210,13 @@ contract TomoCoin is SafeMath, StandardToken, Pausable, TokenAdmin {
   }
 
   function deposit(address _from, uint _value) onlyAdmin returns (bool success) {
-      assert(_value > 0);
+    assert(_value > 0);
 
-      balances[_from] = safeSubtract(balances[_from], _value);
-      balances[tomoCommunityDeposit] = safeAdd(balances[tomoCommunityDeposit], _value);
+    balances[_from] = safeSubtract(balances[_from], _value);
+    balances[tomoCommunityDeposit] = safeAdd(balances[tomoCommunityDeposit], _value);
 
-      Transfer(_from, tomoCommunityDeposit, _value);
-      return true;
+    Transfer(_from, tomoCommunityDeposit, _value);
+    return true;
   }
 }
 // ================= Tomocoin Token Contract end =======================

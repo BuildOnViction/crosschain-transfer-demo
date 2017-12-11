@@ -1,4 +1,5 @@
-var TomoCoin = artifacts.require('./TomoCoin');
+var TomoCoinSidechain = artifacts.require('./TomoCoinSidechain');
+var TomoCoinMainchain = artifacts.require('./TomoCoinMainchain');
 var CashInSidechain = artifacts.require('./CashInSidechain');
 var CashOutSidechain = artifacts.require('./CashOutSidechain');
 var CashInMainchain = artifacts.require('./CashInMainchain');
@@ -15,8 +16,8 @@ module.exports = function(deployer) {
     deployer.link(Lib, CashOutMainchain);
     if (deployer.network === 'sidechain') {
       const tomoCommunityDepositSidechain = '0xbd9a8e9135d51f9cc2fcf96a42464aeeb3263bef';
-      return deployer.deploy(TomoCoin, tomoCommunityDepositSidechain).then(() => {
-        return TomoCoin.deployed().then(function(tc) {
+      return deployer.deploy(TomoCoinSidechain, tomoCommunityDepositSidechain).then(() => {
+        return TomoCoinSidechain.deployed().then(function(tc) {
           return deployer.deploy(CashInSidechain, tc.address, tomoCommunityDepositSidechain).then(() => {
             return CashInSidechain.deployed().then(cis => {
               return tc.approve(cis.address, '40000000000000000000000000');
@@ -45,10 +46,22 @@ module.exports = function(deployer) {
     }
     if (deployer.network === 'mainchain') {
       const tomoCommunityDepositMainchain = '0x005d86246b4ade22cdf3334858254cc918803087';
-      return deployer.deploy(TomoCoin, tomoCommunityDepositMainchain).then(() => {
-        return TomoCoin.deployed().then(function(tc) {
+      return deployer.deploy(TomoCoinMainchain, tomoCommunityDepositMainchain).then(() => {
+        return TomoCoinMainchain.deployed().then(function(tc) {
           return deployer.deploy(CashInMainchain, tc.address, tomoCommunityDepositMainchain).then(() => {
+            return CashInMainchain.deployed().then(cim => {
+              return tc.approve(cim.address, '40000000000000000000000000').then(() => {
+                return tc.add(cim.address);
+              });
+            });
+          })
+          .then(() => {
             return deployer.deploy(CashOutMainchain, tc.address, tomoCommunityDepositMainchain);
+          })
+          .then(() => {
+            return CashOutMainchain.deployed().then(com => {
+              return tc.approve(com.address, '40000000000000000000000000');
+            });
           });
         });
       });

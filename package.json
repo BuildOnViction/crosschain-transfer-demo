@@ -6,6 +6,7 @@
     "lint": "eslint ./",
     "build": "webpack",
     "dev": "npm run webpack & npm run nodemon",
+    "contracts": "truffle deploy --reset --network sidechain --compile-all && truffle deploy --reset --network mainchain --compile-all",
     "nodemon": "./node_modules/.bin/nodemon index.js",
     "webpack": "node ./node_modules/webpack/bin/webpack.js -d --w"
   },
@@ -38,6 +39,7 @@
     "vue-material": "^0.8.1",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.9",
+    "truffle-contract": "^1.1.11",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },
@@ -49,7 +51,6 @@
     "ethereumjs-wallet": "^0.6.0",
     "express": "^4.16.2",
     "express-validator": "^4.3.0",
-    "truffle-contract": "^1.1.11",
-    "web3": "^0.20.0"
+    "web3": "^0.20.2"
   }
 }

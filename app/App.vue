@@ -1,12 +1,11 @@
 <template>
   <div id="app">
     <div class="page-layout">
-      <h1>Tomocoin</h1>
+      <h1>TomoWallet</h1>
       <div class="container">
         <p>Your address: {{ walletAddress }}</p>
         <p>Your backup key: <code>{{ walletMnemonic }}</code></p>
-        <p>You have: {{ tmcIn }} TMC in Tomochain</p>
-        <p>You have: 0 TMC in Ethereum Mainchain</p>
+        <p>Your balance : {{ tmcSidechain + tmcMainchain }} TMC ({{ tmcSidechain }} TMC in Tomochain, {{ tmcMainchain }} TMC in Ethereum Mainchain)</p>
       </div>
       <h2>Reward me</h2>
       <div class="container">
@@ -22,6 +21,16 @@
           <md-input type="text" v-model="cashOutValue" ></md-input>
         </md-input-container>
           <md-button class="md-raised md-primary" @click="cashOut()">Cash Out</md-button>
+        </div>
+      </div>
+      <h2>Cash In</h2>
+      <div class="container">
+        <div class="button-container">
+        <md-input-container>
+          <label>Cash In Value</label>
+          <md-input type="text" v-model="cashInValue" ></md-input>
+        </md-input-container>
+          <md-button class="md-raised md-primary" @click="cashIn()">Cash In</md-button>
         </div>
       </div>
     </div>
@@ -64,8 +73,10 @@ export default {
     return {
       walletAddress: '0x' + wallet.getAddress().toString('hex'),
       walletMnemonic: mnemonic,
-      tmcIn: 0,
-      cashOutValue: 0
+      tmcSidechain: 0,
+      tmcMainchain: 0,
+      cashOutValue: 0,
+      cashInValue: 0
     };
   },
   watch: {
@@ -79,7 +90,7 @@ export default {
         walletAddress: this.walletAddress
       })
         .then(res => {
-          this.tmcIn = parseFloat(res.data.value/10**18);
+          this.tmcSidechain = parseFloat(res.data.value/10**18);
         });
     },
     cashOut() {
@@ -88,7 +99,18 @@ export default {
         cashOutValue: this.cashOutValue
       })
         .then(res => {
-          console.log(res);
+          this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
+          this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
+        });
+    },
+    cashIn() {
+      axios.post('http://localhost:3000' + '/api/wallets/cashIn', {
+        walletAddress: this.walletAddress,
+        cashInValue: this.cashInValue
+      })
+        .then(res => {
+          this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
+          this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
         });
     }
   }
