@@ -1,40 +1,63 @@
 <template>
   <div id="app">
     <div class="page-layout">
-      <h1>TomoWallet</h1>
+      <div class="md-display-2">Tomo Wallet</div>
       <div class="container">
         <p>Your address: {{ walletAddress }}</p>
         <p>Your backup key: <code>{{ walletMnemonic }}</code></p>
-        <p>Your balance : {{ tmcSidechain + tmcMainchain }} TMC ({{ tmcSidechain }} TMC in Tomochain, {{ tmcMainchain }} TMC in Ethereum Mainchain)</p>
+        <p>Your private key: <code>{{ walletPrivateKey }}</code></p>
       </div>
-      <h2>Reward me</h2>
-      <div class="container">
-        <div class="button-container">
-          <md-button class="md-raised md-primary" @click="rewardMe()">Mine TMC</md-button>
-        </div>
-      </div>
-      <h2>Cash Out</h2>
-      <div class="container">
-        <div class="button-container">
-        <md-input-container>
+      <md-card class="main">
+        <md-card-header>
+        <md-card-header-text>
+        <div class="md-title">{{ tmcSidechain + tmcMainchain }}</div>
+        <div class="md-subhead">TMC</div>
+        </md-card-header-text>
+        </md-card-header>
+      </md-card>
+      <md-card class="second">
+        <md-card-header>
+        <md-card-header-text>
+        <div class="md-title">{{ tmcSidechain }}</div>
+        <div class="md-subhead">TMC in sidechain</div>
+        </md-card-header-text>
+        </md-card-header>
+      </md-card>
+      <md-card class="second">
+        <md-card-header>
+        <md-card-header-text>
+        <div class="md-title">{{ tmcMainchain }}</div>
+        <div class="md-subhead">TMC in mainchain</div>
+        </md-card-header-text>
+        </md-card-header>
+      </md-card>
+      <md-card class="steppers">
+      <md-steppers md-vertical>
+        <md-step id="first" md-label="Reward Engine">
+          <div class="button-container">
+            <md-button class="md-raised md-primary" @click="rewardMe()">Mine TMC</md-button>
+          </div>
+        </md-step>
+
+        <md-step id="second" md-label="Cash Out">
+          <md-field>
           <label>Cash Out Value</label>
           <md-input type="text" v-model="cashOutValue" ></md-input>
-        </md-input-container>
+          </md-field>
           <md-button class="md-raised md-primary" @click="cashOut()">Cash Out</md-button>
-        </div>
-      </div>
-      <h2>Cash In</h2>
-      <div class="container">
-        <div class="button-container">
-        <md-input-container>
+        </md-step>
+
+        <md-step id="third" md-label="Cash In">
+          <md-field>
           <label>Cash In Value</label>
           <md-input type="text" v-model="cashInValue" ></md-input>
-        </md-input-container>
+          </md-field>
           <md-button class="md-raised md-primary" @click="cashIn()">Cash In</md-button>
-        </div>
-      </div>
+        </md-step>
+      </md-steppers>
+      </md-card>
     </div>
-    <div class="page-layout">
+    <div>
     </div>
   </div>
 </template>
@@ -43,6 +66,7 @@
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
+import 'vue-material/dist/theme/default.css'
 import axios from 'axios';
 
 import { default as Web3} from 'web3';
@@ -59,19 +83,12 @@ const wallet = key.getWallet()
 
 Vue.use(VueMaterial)
 
-Vue.material.registerTheme('blue', {
-  primary: 'blue',
-  accent: 'red',
-  warn: 'red'
-})
-
-Vue.material.setCurrentTheme('blue')
-
 export default {
   name: 'app',
   data() {
     return {
       walletAddress: '0x' + wallet.getAddress().toString('hex'),
+      walletPrivateKey: wallet.getPrivateKey().toString('hex'),
       walletMnemonic: mnemonic,
       tmcSidechain: 0,
       tmcMainchain: 0,
@@ -121,12 +138,25 @@ export default {
     padding-top: 30px;
     margin: 16px auto;
     display: block;
-    max-width: 800px;
+    max-width: 1000px;
   }
   .contaner {
     width: 100%;
   }
   .button-container {
     padding-top: 20px;
+  }
+  .md-card {
+    width: 320px;
+    margin: 4px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .md-card.steppers {
+    max-width: 100%;
+    width: 983px;
+    margin: 4px;
+    display: inline-block;
+    vertical-align: top;
   }
 </style>
