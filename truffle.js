@@ -18,8 +18,7 @@ module.exports = {
     },
     ropsten: {
       provider: function() {
-        const wallet = new HDWalletProvider(config.get('ropsten.mnemonic'), config.get('ropsten.url'));
-        return wallet
+        return new HDWalletProvider(config.get('ropsten.mnemonic'), config.get('ropsten.url'));
       },
       gas: 4712388,
       network_id: 3
