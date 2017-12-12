@@ -11,7 +11,11 @@ RUN \
 RUN cp go-ethereum/build/bin/geth /usr/bin && chmod +x /usr/bin/geth && \
     rm -rf go-ethereum
 
+COPY ./tomochain.json /build/tomochain.json
+COPY ./entrypoint.sh /build/entrypoint.sh
+RUN chmod +x /build/entrypoint.sh
+
 EXPOSE 8545
 EXPOSE 30303
 
-CMD ["/geth"]
+ENTRYPOINT ["/build/entrypoint.sh"]

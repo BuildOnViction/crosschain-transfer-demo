@@ -3,6 +3,10 @@ version: "3"
 services:
   tomochain:
     build: ./tomochain
+    image: tomo/tomochain
+    volumes:
+      - "tomochain:/build/tomochain"
+      - "./tomochain/.pwd:/build/.pwd"
     restart: "on-failure:10"
     ports:
       - "30303:30303"
@@ -17,7 +21,17 @@ services:
       - mongodb
       - tomochain
     ports:
-      - "80:80"
+      - "3001:80"
+    networks:
+      - front-net
+      - monitor-net
+
+  app:
+    build: ./
+    image: tomo/app
+    restart: "on-failure:10"
+    depends_on:
+      - tomochain
     networks:
       - front-net
       - monitor-net
