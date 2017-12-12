@@ -3,6 +3,7 @@ const express = require('express'),
   router = express.Router();
 const Web3 = require('web3');
 const contract = require('truffle-contract');
+const config = require('config');
 const RewardEngineArtifacts = require('../build/contracts/RewardEngine.json');
 const TomoCoinSidechainArtifacts = require('../build/contracts/TomoCoinSidechain.json');
 const TomoCoinMainchainArtifacts = require('../build/contracts/TomoCoinMainchain.json');
@@ -18,8 +19,8 @@ const CashOutMainchain = contract(CashOutMainchainArtifacts);
 const CashInSidechain = contract(CashInSidechainArtifacts);
 const CashInMainchain = contract(CashInMainchainArtifacts);
 
-const sidechain = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-const mainchain = new Web3(new Web3.providers.HttpProvider("http://localhost:8546"));
+const sidechain = new Web3(new Web3.providers.HttpProvider(config.get('sidechain.url')));
+const mainchain = new Web3(new Web3.providers.HttpProvider(config.get('mainchain.url')));
 
 RewardEngine.setProvider(sidechain.currentProvider);
 TomoCoinSidechain.setProvider(sidechain.currentProvider);

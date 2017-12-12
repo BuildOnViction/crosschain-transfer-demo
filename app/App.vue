@@ -83,8 +83,8 @@ import bip39 from 'bip39'
 import hdkey from 'ethereumjs-wallet/hdkey'
 
 const mnemonic = bip39.generateMnemonic()
-const key = hdkey.fromMasterSeed(mnemonic)
-const wallet = key.getWallet()
+const key = hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic))
+const wallet = key.derivePath("m/44'/60'/0'/0/0").getWallet()
 
 Vue.use(VueMaterial)
 

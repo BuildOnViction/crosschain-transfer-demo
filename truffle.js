@@ -1,4 +1,6 @@
 require('babel-register')
+var HDWalletProvider = require('truffle-hdwallet-provider');
+var config = require('config');
 
 module.exports = {
   networks: {
@@ -13,6 +15,14 @@ module.exports = {
       port: 8546,
       network_id: '*',
       gas: 4712388
-    }
+    },
+    ropsten: {
+      provider: function() {
+        const wallet = new HDWalletProvider(config.get('ropsten.mnemonic'), config.get('ropsten.url'));
+        return wallet
+      },
+      gas: 4712388,
+      network_id: 3
+    }   
   }
 }

@@ -38,7 +38,7 @@ module.exports = function(deployer) {
       });
     });
   }
-  if (deployer.network === 'mainchain') {
+  if (deployer.network === 'mainchain' || deployer.network === 'ropsten') {
     const tomoCommunityDepositMainchain = '0x005d86246b4ade22cdf3334858254cc918803087';
     return deployer.deploy(TomoCoinMainchain, tomoCommunityDepositMainchain).then(() => {
       return TomoCoinMainchain.deployed().then(function(tc) {
