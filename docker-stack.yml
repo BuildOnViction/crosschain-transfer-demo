@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  tomochain:
+    build: ./tomochain
+    restart: "on-failure:10"
+    ports:
+      - "30303:30303"
+    networks:
+      - back-net
+      - monitor-net
+
+  tmcplorer:
+    build: ./monitor/tmcplorer
+    restart: "on-failure:10"
+    depends_on:
+      - mongodb
+      - tomochain
+    ports:
+      - "80:80"
+    networks:
+      - front-net
+      - monitor-net
+
+  mongodb:
+    image: mongo:3.4
+    volumes:
+      - "mongodb:/data/db"
+    networks:
+      - back-net
+      - monitor-net
+
+volumes:
+  mongodb:
+  tomochain:
+
+networks:
+  front-net:
+  back-net:
+  monitor-net:
