@@ -1,7 +1,6 @@
 pragma solidity ^0.4.18;
 
 import "./TomoCoinSidechain.sol";
-import "./Lib.sol";
 
 contract CashInSidechain is Ownable {
   TomoCoinSidechain public token;
