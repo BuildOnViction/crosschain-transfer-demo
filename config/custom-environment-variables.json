@@ -1,0 +1,6 @@
+{
+  "ropsten": {
+    "url": "ROPSTEN_URL",
+    "mnemonic": "ROPSTEN_MNEMONIC"
+  }
+}

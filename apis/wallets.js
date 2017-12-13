@@ -53,7 +53,7 @@ router.post('/rewardMe', function(req, res, next) {
           return res.json({value});
         });
     }).catch((e) => {
-      return res.status(406).json(e);
+      return next(e);
     });
 });
 
@@ -84,7 +84,7 @@ router.post('/cashOut', function(req, res, next) {
           return res.json(ret);
         });
     }).catch((e) => {
-      return res.status(406).json(e);
+      return next(e);
     });
 });
 
@@ -115,7 +115,7 @@ router.post('/cashIn', function(req, res, next) {
           return res.json(ret);
         });
     }).catch((e) => {
-      return res.status(406).json(e);
+      return next(e);
     });
 });
 

@@ -1,0 +1,16 @@
+upstream be_app {
+    server app;
+}
+
+upstream be_tmcplorer {
+    server tmcplorer;
+}
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
+
+    location / {
+        proxy_pass http://be_app/;
+    }
+}

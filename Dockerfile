@@ -1,7 +1,7 @@
 FROM node:8
 MAINTAINER ToMo Team
 
-RUN npm install -g pm2
+RUN npm install -g pm2 truffle
 
 WORKDIR /build
 COPY ./package.json /build

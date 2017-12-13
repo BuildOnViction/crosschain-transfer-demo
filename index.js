@@ -20,6 +20,9 @@ app.use('/', function(req, res) {
   res.render('app');
 });
 
+// error handler
+app.use(require('./middlewares/error'));
+
 // start server
 const server = app.listen(config.get('server.port'), config.get('server.host'), function () {
   const host = server.address().address;

@@ -6,7 +6,7 @@ const Web3 = require('web3');
 module.exports = {
   networks: {
     sidechain: {
-      host: 'localhost',
+      host: config.get('sidechain.host'),
       port: 8545,
       network_id: '*',
       gas: 4712388
