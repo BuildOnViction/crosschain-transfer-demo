@@ -6,10 +6,11 @@ var CashInMainchain = artifacts.require('./CashInMainchain');
 var CashOutMainchain = artifacts.require('./CashOutMainchain');
 var TokenAdmin = artifacts.require('./TokenAdmin');
 var RewardEngine = artifacts.require('./RewardEngine');
+var config = require('config');
 
 module.exports = function(deployer) {
   if (deployer.network === 'sidechain') {
-    const tomoCommunityDepositSidechain = '0xbd9a8e9135d51f9cc2fcf96a42464aeeb3263bef';
+    const tomoCommunityDepositSidechain = config.get('rootAddressSidechain');
     return deployer.deploy(TomoCoinSidechain, tomoCommunityDepositSidechain).then(() => {
       return TomoCoinSidechain.deployed().then(function(tc) {
         return deployer.deploy(CashInSidechain, tc.address, tomoCommunityDepositSidechain).then(() => {
@@ -39,7 +40,7 @@ module.exports = function(deployer) {
     });
   }
   if (deployer.network === 'mainchain' || deployer.network === 'ropsten') {
-    const tomoCommunityDepositMainchain = '0x005d86246b4ade22cdf3334858254cc918803087';
+    const tomoCommunityDepositMainchain = config.get('rootAddressMainchain');
     return deployer.deploy(TomoCoinMainchain, tomoCommunityDepositMainchain).then(() => {
       return TomoCoinMainchain.deployed().then(function(tc) {
         return deployer.deploy(CashInMainchain, tc.address, tomoCommunityDepositMainchain).then(() => {

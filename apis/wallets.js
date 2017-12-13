@@ -19,19 +19,24 @@ const CashOutMainchain = contract(CashOutMainchainArtifacts);
 const CashInSidechain = contract(CashInSidechainArtifacts);
 const CashInMainchain = contract(CashInMainchainArtifacts);
 
-const sidechain = new Web3(new Web3.providers.HttpProvider(config.get('sidechain.url')));
-const mainchain = new Web3(new Web3.providers.HttpProvider(config.get('mainchain.url')));
+const sidechain = (new Web3(new Web3.providers.HttpProvider(config.get('urlSidechain')))).currentProvider;
+var mainchain = (new Web3(new Web3.providers.HttpProvider(config.get('urlMainchain')))).currentProvider;
+if (config.get('mainchainProvider') === 'ropsten') {
+  const HDWalletProvider = require('truffle-hdwallet-provider');
+  mainchain = new HDWalletProvider(config.get('ropsten.mnemonic'), config.get('ropsten.url'));
+}
 
-RewardEngine.setProvider(sidechain.currentProvider);
-TomoCoinSidechain.setProvider(sidechain.currentProvider);
-TomoCoinMainchain.setProvider(mainchain.currentProvider);
-CashOutSidechain.setProvider(sidechain.currentProvider);
-CashOutMainchain.setProvider(mainchain.currentProvider);
-CashInSidechain.setProvider(sidechain.currentProvider);
-CashInMainchain.setProvider(mainchain.currentProvider);
 
-const rootAddressSidechain = '0xbd9a8e9135d51f9cc2fcf96a42464aeeb3263bef';
-const rootAddressMainchain = '0x005d86246b4ade22cdf3334858254cc918803087';
+RewardEngine.setProvider(sidechain);
+TomoCoinSidechain.setProvider(sidechain);
+TomoCoinMainchain.setProvider(mainchain);
+CashOutSidechain.setProvider(sidechain);
+CashOutMainchain.setProvider(mainchain);
+CashInSidechain.setProvider(sidechain);
+CashInMainchain.setProvider(mainchain);
+
+const rootAddressSidechain = config.get('rootAddressSidechain');
+const rootAddressMainchain = config.get('rootAddressMainchain');
 
 // add new user device
 router.post('/rewardMe', function(req, res, next) {
