@@ -7,8 +7,9 @@
   "rootAddressMainchain": "0x324910363eb5dc76c0fe348e749adb627ed6f389",
   "urlSidechain": "http://localhost:8545",
   "urlMainchain": "http://localhost:8546",
+  "mainchainProvider": "ropsten",
   "ropsten": {
-    "url": "http://localhost:8546",
+    "url": "https://ropsten.infura.io/Your_Infura_Key",
     "mnemonic": "should_be_secured"
   }
 }
