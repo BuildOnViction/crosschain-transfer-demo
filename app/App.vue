@@ -99,7 +99,7 @@ export default {
       tmcMainchain: 0,
       cashOutValue: 0,
       cashInValue: 0,
-      logs: ['Hello friends, let try to use Tomo Wallet now']
+      logs: ['Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine']
     };
   },
   watch: {
@@ -124,7 +124,7 @@ export default {
         cashOutValue: this.cashOutValue
       })
         .then(res => {
-          this.logs.unshift('You cashed out ' + (this.tmcSidechain - parseFloat(res.data.sidechain/10**18)) + ' TMC');
+          this.logs.unshift('You cashed out ' + this.cashOutValue + ' TMC');
           this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
           this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
         });
@@ -135,7 +135,7 @@ export default {
         cashInValue: this.cashInValue
       })
         .then(res => {
-          this.logs.unshift('You cashed in ' + (parseFloat(res.data.sidechain/10**18) - this.tmcSidechain) + ' TMC');
+          this.logs.unshift('You cashed in ' + s.cashInValue + ' TMC');
           this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
           this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
         });
