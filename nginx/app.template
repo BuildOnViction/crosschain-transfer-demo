@@ -2,24 +2,11 @@ upstream be_app {
     server app;
 }
 
-upstream be_tmcplorer {
-    server tmcplorer;
-}
-
 server {
     listen 80 default_server;
     listen [::]:80 default_server ipv6only=on;
 
     location / {
         proxy_pass http://be_app/;
-    }
-}
-
-server {
-    listen 80;
-    server_name scan.testnet.tomocoin.io;
-
-    location / {
-        proxy_pass http://be_tmcplorer;
     }
 }

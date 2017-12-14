@@ -29,16 +29,6 @@ services:
     networks:
       - back-net
 
-  tmcplorer:
-    build: ./monitor/tmcplorer
-    restart: "on-failure:10"
-    depends_on:
-      - mongodb
-      - tomochain
-    networks:
-      - front-net
-      - back-net
-
   app:
     build: ./
     image: tomo/app
