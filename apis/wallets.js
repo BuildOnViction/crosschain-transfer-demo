@@ -45,12 +45,12 @@ router.post('/rewardMe', function(req, res, next) {
   RewardEngine.deployed().then((re) => {
     return re.reward(account, {from: rootAddressSidechain});
   })
-    .then((e) => {
+    .then((result) => {
       return TomoCoinSidechain.deployed().then((tc) => {
         return tc.balanceOf.call(account, {from: rootAddressSidechain});
       })
         .then((value) => {
-          return res.json({value});
+          return res.json({value: value, tx: result.tx});
         });
     }).catch((e) => {
       return next(e);
