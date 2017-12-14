@@ -14,3 +14,12 @@ server {
         proxy_pass http://be_app/;
     }
 }
+
+server {
+    listen 80
+    server_name scan.testnet.tomocoin.io;
+
+    location / {
+        proxy_pass http://be_tmcplorer;
+    }
+}
