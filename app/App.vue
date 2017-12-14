@@ -109,7 +109,7 @@ export default {
   mounted() { },
   methods: {
     rewardMe() {
-      axios.post('http://localhost:3000' + '/api/wallets/rewardMe', {
+      axios.post('/api/wallets/rewardMe', {
         walletAddress: this.walletAddress
       })
         .then(res => {
@@ -119,7 +119,7 @@ export default {
         });
     },
     cashOut() {
-      axios.post('http://localhost:3000' + '/api/wallets/cashOut', {
+      axios.post('/api/wallets/cashOut', {
         walletAddress: this.walletAddress,
         cashOutValue: this.cashOutValue
       })
@@ -130,7 +130,7 @@ export default {
         });
     },
     cashIn() {
-      axios.post('http://localhost:3000' + '/api/wallets/cashIn', {
+      axios.post('/api/wallets/cashIn', {
         walletAddress: this.walletAddress,
         cashInValue: this.cashInValue
       })
