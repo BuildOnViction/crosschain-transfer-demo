@@ -57,6 +57,9 @@
       </md-steppers>
       </md-card>
       <md-card class="steppers">
+      <div>
+        <md-progress-bar v-if="isProcessing" md-mode="indeterminate"></md-progress-bar>
+      </div>
       <md-card-content>
       <p class="md-body-1" v-for="msg in logs">{{ msg }}</p>
       </md-card-content>
@@ -99,6 +102,7 @@ export default {
       tmcMainchain: 0,
       cashOutValue: 0,
       cashInValue: 0,
+      isProcessing: false,
       logs: ['Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine']
     };
   },
@@ -109,33 +113,42 @@ export default {
   mounted() { },
   methods: {
     rewardMe() {
+      if (this.isProcessing) return;
+      this.isProcessing = true;
       axios.post('/api/wallets/rewardMe', {
         walletAddress: this.walletAddress
       })
         .then(res => {
           this.logs.unshift('Tomo rewarded you ' + (parseFloat(res.data.value/10**18) - this.tmcSidechain) + ' TMC');
+          this.isProcessing = false;
           this.tmcSidechain = parseFloat(res.data.value/10**18);
 
         });
     },
     cashOut() {
+      if (this.isProcessing) return;
+      this.isProcessing = true;
       axios.post('/api/wallets/cashOut', {
         walletAddress: this.walletAddress,
         cashOutValue: this.cashOutValue
       })
         .then(res => {
           this.logs.unshift('You cashed out ' + this.cashOutValue + ' TMC');
+          this.isProcessing = false;
           this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
           this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
         });
     },
     cashIn() {
+      if (this.isProcessing) return;
+      this.isProcessing = true;
       axios.post('/api/wallets/cashIn', {
         walletAddress: this.walletAddress,
         cashInValue: this.cashInValue
       })
         .then(res => {
-          this.logs.unshift('You cashed in ' + s.cashInValue + ' TMC');
+          this.logs.unshift('You cashed in ' + this.cashInValue + ' TMC');
+          this.isProcessing = false;
           this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
           this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
         });
