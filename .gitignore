@@ -2,7 +2,6 @@
 *.log
 config/local.json
 node_modules
-build/
 env/
 .env
 .pwd
