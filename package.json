@@ -4,7 +4,7 @@
   "description": "Tomo Reward Engine/CashIn/CashOut flows",
   "scripts": {
     "lint": "eslint ./",
-    "build": "truffle compile && webpack",
+    "build": "webpack",
     "dev": "npm run webpack & npm run nodemon",
     "contracts": "truffle deploy --reset --network sidechain --compile-all && truffle deploy --reset --network mainchain --compile-all",
     "nodemon": "./node_modules/.bin/nodemon index.js",
