@@ -35,6 +35,8 @@ services:
     restart: "on-failure:10"
     depends_on:
       - tomochain
+      - redis
+      - mongodb
     env_file: .env
     networks:
       - front-net
@@ -45,7 +47,6 @@ services:
     volumes:
       - "redis:/data"
     networks:
-      - monitor-net
       - back-net
 
   mongodb:
