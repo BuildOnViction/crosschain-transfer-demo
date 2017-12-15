@@ -17,7 +17,7 @@
   "urlSidechain": "http://tomochain:8545",
   "urlMainchain": "http://localhost:8546",
   "mnemonic": "should_be_secured",
-  "mainchainProvider": "ropsten",
+  "mainchainProvider": "rinkeby",
   "ropsten": "https://ropsten.infura.io/Your_Infura_Key",
   "rinkeby": "https://rinkeby.infura.io/Your_Infura_Key",
   "sidechain": {
