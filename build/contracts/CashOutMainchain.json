@@ -5,7 +5,7 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_to",
+          "name": "_user",
           "type": "address"
         },
         {
@@ -14,12 +14,7 @@
         }
       ],
       "name": "cashOut",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -39,32 +34,20 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "name": "_tomoCoinAddress",
-          "type": "address"
-        },
-        {
-          "name": "_tomoCommunityDeposit",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
       "constant": true,
+      "inputs": [],
       "name": "owner",
       "outputs": [
         {
           "name": "",
           "type": "address"
         }
-      ]
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
       "constant": false,
       "inputs": [
         {
@@ -73,7 +56,10 @@
         }
       ],
       "name": "transferOwnership",
-      "outputs": []
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": true,
@@ -103,23 +89,40 @@
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "CashOut",
+      "type": "event"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b60405160408061060383398101604052808051906020019091908051906020019091905050336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050506104fc806101076000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063224054431461007257806361d9f823146100b45780638da5cb5b14610109578063f2fde38b1461015e578063fc0c546a14610197575b600080fd5b341561007d57600080fd5b6100b2600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506101ec565b005b34156100bf57600080fd5b6100c761038a565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561011457600080fd5b61011c6103b0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016957600080fd5b610195600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103d5565b005b34156101a257600080fd5b6101aa6104aa565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024757600080fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1684846000604051602001526040518463ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b151561036a57600080fd5b6102c65a03f1151561037b57600080fd5b50505060405180519050505050565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561043057600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415156104a757806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b50565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058208e70146355aef1e6f9107121fde96a2be9b1a5fe9b68dcaa42274f5607dee7fb0029",
-  "deployedBytecode": "0x60606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063224054431461007257806361d9f823146100b45780638da5cb5b14610109578063f2fde38b1461015e578063fc0c546a14610197575b600080fd5b341561007d57600080fd5b6100b2600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506101ec565b005b34156100bf57600080fd5b6100c761038a565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561011457600080fd5b61011c6103b0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016957600080fd5b610195600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103d5565b005b34156101a257600080fd5b6101aa6104aa565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024757600080fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1684846000604051602001526040518463ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b151561036a57600080fd5b6102c65a03f1151561037b57600080fd5b50505060405180519050505050565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561043057600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415156104a757806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b50565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058208e70146355aef1e6f9107121fde96a2be9b1a5fe9b68dcaa42274f5607dee7fb0029",
-  "sourceMap": "562:453:1:-;;;678:211;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;349:10:0;341:5;;:18;;;;;;;;;;;;;;;;;;817:16:1;791:5;;:43;;;;;;;;;;;;;;;;;;863:21;840:20;;:44;;;;;;;;;;;;;;;;;;678:211;;562:453;;;;;;",
-  "deployedSourceMap": "562:453:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;893:120;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;637:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;291:20:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;439:124;;;;;;;;;;;;;;;;;;;;;;;;;;;;603:30:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;893:120;417:5:0;;;;;;;;;;;403:19;;:10;:19;;;395:28;;;;;;;;955:5:1;;;;;;;;;;;:18;;;974:20;;;;;;;;;;;996:3;1001:6;955:53;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;893:120;;:::o;637:35::-;;;;;;;;;;;;;:::o;291:20:0:-;;;;;;;;;;;;;:::o;439:124::-;417:5;;;;;;;;;;;403:19;;:10;:19;;;395:28;;;;;;;;524:1;504:22;;:8;:22;;;;500:59;;;544:8;536:5;;:16;;;;;;;;;;;;;;;;;;500:59;439:124;:::o;603:30:1:-;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.4.18;\nimport \"./TomoCoinMainchain.sol\";\n\ncontract CashInMainchain is Ownable {\n  TomoCoinMainchain public token;\n  address public tomoCommunityDeposit;\n\n  event CashIn( address _from, uint _value );\n\n  function CashInMainchain(\n    TomoCoinMainchain _tomoCoinAddress,\n    address _tomoCommunityDeposit\n  )\n  {\n    token = TomoCoinMainchain(_tomoCoinAddress);\n    tomoCommunityDeposit = _tomoCommunityDeposit;\n  }\n\n  function cashIn(address _from, uint256 _value) onlyOwner {\n    token.deposit(_from, _value);\n    CashIn(_from, _value);\n  }\n}\n\ncontract CashOutMainchain is Ownable {\n  TomoCoinMainchain public token;\n  address public tomoCommunityDeposit;\n\n\n  function CashOutMainchain(\n    TomoCoinMainchain _tomoCoinAddress,\n    address _tomoCommunityDeposit\n  )\n  {\n    token = TomoCoinMainchain(_tomoCoinAddress);\n    tomoCommunityDeposit = _tomoCommunityDeposit;\n  }\n\n  function cashOut(address _to, uint256 _value) onlyOwner {\n    token.transferFrom(tomoCommunityDeposit, _to, _value);\n  }\n}\n",
+  "bytecode": "0x6060604052341561000f57600080fd5b60405160408061066e83398101604052808051906020019091908051906020019091905050336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505050610567806101076000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063224054431461007257806361d9f823146100b45780638da5cb5b14610109578063f2fde38b1461015e578063fc0c546a14610197575b600080fd5b341561007d57600080fd5b6100b2600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506101ec565b005b34156100bf57600080fd5b6100c76103f5565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561011457600080fd5b61011c61041b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016957600080fd5b610195600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610440565b005b34156101a257600080fd5b6101aa610515565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024757600080fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1684846000604051602001526040518463ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b151561036a57600080fd5b6102c65a03f1151561037b57600080fd5b50505060405180519050507fab933177d8753a66dd869151cf9aa88649e067b7a4e2dad9d5d192d61cf593b08282604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a15050565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561049b57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614151561051257806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b50565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a72305820fc6c887b3cff9cff31b8a5f381a81bb067c5663330ad131f40e5663e94d46e690029",
+  "deployedBytecode": "0x60606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063224054431461007257806361d9f823146100b45780638da5cb5b14610109578063f2fde38b1461015e578063fc0c546a14610197575b600080fd5b341561007d57600080fd5b6100b2600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506101ec565b005b34156100bf57600080fd5b6100c76103f5565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561011457600080fd5b61011c61041b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016957600080fd5b610195600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610440565b005b34156101a257600080fd5b6101aa610515565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024757600080fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1684846000604051602001526040518463ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b151561036a57600080fd5b6102c65a03f1151561037b57600080fd5b50505060405180519050507fab933177d8753a66dd869151cf9aa88649e067b7a4e2dad9d5d192d61cf593b08282604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a15050565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561049b57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614151561051257806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b50565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a72305820fc6c887b3cff9cff31b8a5f381a81bb067c5663330ad131f40e5663e94d46e690029",
+  "sourceMap": "438:532:3:-;;;601:211;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;349:10:2;341:5;;:18;;;;;;;;;;;;;;;;;;740:16:3;714:5;;:43;;;;;;;;;;;;;;;;;;786:21;763:20;;:44;;;;;;;;;;;;;;;;;;601:211;;438:532;;;;;;",
+  "deployedSourceMap": "438:532:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;816:152;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;513:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;291:20:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;439:124;;;;;;;;;;;;;;;;;;;;;;;;;;;;479:30:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;816:152;417:5:2;;;;;;;;;;;403:19;;:10;:19;;;395:28;;;;;;;;880:5:3;;;;;;;;;;;:18;;;899:20;;;;;;;;;;;921:5;928:6;880:55;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;941:22;949:5;956:6;941:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;816:152;;:::o;513:35::-;;;;;;;;;;;;;:::o;291:20:2:-;;;;;;;;;;;;;:::o;439:124::-;417:5;;;;;;;;;;;403:19;;:10;:19;;;395:28;;;;;;;;524:1;504:22;;:8;:22;;;;500:59;;;544:8;536:5;;:16;;;;;;;;;;;;;;;;;;500:59;439:124;:::o;479:30:3:-;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.18;\nimport \"./TomoCoinMainchain.sol\";\n\ncontract CashInMainchain is Ownable {\n  TomoCoinMainchain public token;\n\n  event CashIn( address _user, uint _value );\n\n  function CashInMainchain(\n    TomoCoinMainchain _tomoCoinAddress\n  )\n  {\n    token = TomoCoinMainchain(_tomoCoinAddress);\n  }\n\n  function cashIn(address _user, uint256 _value) onlyOwner {\n    token.deposit(_user, _value);\n    CashIn(_user, _value);\n  }\n}\n\ncontract CashOutMainchain is Ownable {\n  TomoCoinMainchain public token;\n  address public tomoCommunityDeposit;\n\n  event CashOut( address _from, uint _value );\n\n  function CashOutMainchain(\n    TomoCoinMainchain _tomoCoinAddress,\n    address _tomoCommunityDeposit\n  )\n  {\n    token = TomoCoinMainchain(_tomoCoinAddress);\n    tomoCommunityDeposit = _tomoCommunityDeposit;\n  }\n\n  function cashOut(address _user, uint256 _value) onlyOwner {\n    token.transferFrom(tomoCommunityDeposit, _user, _value);\n    CashOut(_user, _value);\n  }\n}\n",
   "sourcePath": "/home/vagrant/projects/Tomo-CashProxy/contracts/TomoCoinProxyMainchain.sol",
   "ast": {
     "attributes": {
       "absolutePath": "/home/vagrant/projects/Tomo-CashProxy/contracts/TomoCoinProxyMainchain.sol",
       "exportedSymbols": {
         "CashInMainchain": [
-          705
+          1726
         ],
         "CashOutMainchain": [
-          748
+          1780
         ]
       }
     },
@@ -133,50 +136,40 @@
             ".18"
           ]
         },
-        "id": 651,
+        "id": 1680,
         "name": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:3"
       },
       {
         "attributes": {
-          "SourceUnit": 650,
+          "SourceUnit": 1679,
           "absolutePath": "/home/vagrant/projects/Tomo-CashProxy/contracts/TomoCoinMainchain.sol",
           "file": "./TomoCoinMainchain.sol",
-          "scope": 749,
+          "scope": 1781,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 652,
+        "id": 1681,
         "name": "ImportDirective",
-        "src": "25:33:1"
+        "src": "25:33:3"
       },
       {
         "attributes": {
-          "SourceUnit": 100,
-          "absolutePath": "/home/vagrant/projects/Tomo-CashProxy/contracts/Lib.sol",
-          "file": "./Lib.sol",
-          "scope": 749,
-          "symbolAliases": [
-            null
-          ],
-          "unitAlias": "",
           "contractDependencies": [
-            43
+            1072
           ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            705,
-            43
+            1726,
+            1072
           ],
-          "name": "CashInMainchain"
+          "name": "CashInMainchain",
+          "scope": 1781
         },
-        "id": 705,
-        "name": "ContractDefinition",
-        "src": "60:500:1",
         "children": [
           {
             "attributes": {
@@ -189,23 +182,23 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "Ownable",
-                  "referencedDeclaration": 43,
+                  "referencedDeclaration": 1072,
                   "type": "contract Ownable"
                 },
-                "id": 653,
+                "id": 1682,
                 "name": "UserDefinedTypeName",
-                "src": "88:7:1"
+                "src": "88:7:3"
               }
             ],
-            "id": 654,
+            "id": 1683,
             "name": "InheritanceSpecifier",
-            "src": "88:7:1"
+            "src": "88:7:3"
           },
           {
             "attributes": {
               "constant": false,
               "name": "token",
-              "scope": 705,
+              "scope": 1726,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract TomoCoinMainchain",
@@ -217,43 +210,17 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "TomoCoinMainchain",
-                  "referencedDeclaration": 649,
+                  "referencedDeclaration": 1678,
                   "type": "contract TomoCoinMainchain"
                 },
-                "id": 655,
+                "id": 1684,
                 "name": "UserDefinedTypeName",
-                "src": "100:17:1"
+                "src": "100:17:3"
               }
             ],
-            "id": 656,
+            "id": 1685,
             "name": "VariableDeclaration",
-            "src": "100:30:1"
-          },
-          {
-            "attributes": {
-              "constant": false,
-              "name": "tomoCommunityDeposit",
-              "scope": 705,
-              "stateVariable": true,
-              "storageLocation": "default",
-              "type": "address",
-              "value": null,
-              "visibility": "public"
-            },
-            "children": [
-              {
-                "attributes": {
-                  "name": "address",
-                  "type": "address"
-                },
-                "id": 657,
-                "name": "ElementaryTypeName",
-                "src": "134:7:1"
-              }
-            ],
-            "id": 658,
-            "name": "VariableDeclaration",
-            "src": "134:35:1"
+            "src": "100:30:3"
           },
           {
             "attributes": {
@@ -267,8 +234,8 @@
                     "attributes": {
                       "constant": false,
                       "indexed": false,
-                      "name": "_from",
-                      "scope": 664,
+                      "name": "_user",
+                      "scope": 1691,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -281,21 +248,21 @@
                           "name": "address",
                           "type": "address"
                         },
-                        "id": 659,
+                        "id": 1686,
                         "name": "ElementaryTypeName",
-                        "src": "188:7:1"
+                        "src": "149:7:3"
                       }
                     ],
-                    "id": 660,
+                    "id": 1687,
                     "name": "VariableDeclaration",
-                    "src": "188:13:1"
+                    "src": "149:13:3"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "indexed": false,
                       "name": "_value",
-                      "scope": 664,
+                      "scope": 1691,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -308,24 +275,24 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 661,
+                        "id": 1688,
                         "name": "ElementaryTypeName",
-                        "src": "203:4:1"
+                        "src": "164:4:3"
                       }
                     ],
-                    "id": 662,
+                    "id": 1689,
                     "name": "VariableDeclaration",
-                    "src": "203:11:1"
+                    "src": "164:11:3"
                   }
                 ],
-                "id": 663,
+                "id": 1690,
                 "name": "ParameterList",
-                "src": "186:30:1"
+                "src": "147:30:3"
               }
             ],
-            "id": 664,
+            "id": 1691,
             "name": "EventDefinition",
-            "src": "174:43:1"
+            "src": "135:43:3"
           },
           {
             "attributes": {
@@ -337,7 +304,7 @@
               ],
               "name": "CashInMainchain",
               "payable": false,
-              "scope": 705,
+              "scope": 1726,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -349,7 +316,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_tomoCoinAddress",
-                      "scope": 682,
+                      "scope": 1703,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "contract TomoCoinMainchain",
@@ -361,48 +328,22 @@
                         "attributes": {
                           "contractScope": null,
                           "name": "TomoCoinMainchain",
-                          "referencedDeclaration": 649,
+                          "referencedDeclaration": 1678,
                           "type": "contract TomoCoinMainchain"
                         },
-                        "id": 665,
+                        "id": 1692,
                         "name": "UserDefinedTypeName",
-                        "src": "251:17:1"
+                        "src": "212:17:3"
                       }
                     ],
-                    "id": 666,
+                    "id": 1693,
                     "name": "VariableDeclaration",
-                    "src": "251:34:1"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_tomoCommunityDeposit",
-                      "scope": 682,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "address",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "address",
-                          "type": "address"
-                        },
-                        "id": 667,
-                        "name": "ElementaryTypeName",
-                        "src": "291:7:1"
-                      }
-                    ],
-                    "id": 668,
-                    "name": "VariableDeclaration",
-                    "src": "291:29:1"
+                    "src": "212:34:3"
                   }
                 ],
-                "id": 669,
+                "id": 1694,
                 "name": "ParameterList",
-                "src": "245:79:1"
+                "src": "206:44:3"
               },
               {
                 "attributes": {
@@ -411,9 +352,9 @@
                   ]
                 },
                 "children": [],
-                "id": 670,
+                "id": 1695,
                 "name": "ParameterList",
-                "src": "327:0:1"
+                "src": "253:0:3"
               },
               {
                 "children": [
@@ -436,13 +377,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 656,
+                              "referencedDeclaration": 1685,
                               "type": "contract TomoCoinMainchain",
                               "value": "token"
                             },
-                            "id": 671,
+                            "id": 1696,
                             "name": "Identifier",
-                            "src": "333:5:1"
+                            "src": "259:5:3"
                           },
                           {
                             "attributes": {
@@ -463,20 +404,20 @@
                                 "attributes": {
                                   "argumentTypes": [
                                     {
-                                      "typeIdentifier": "t_contract$_TomoCoinMainchain_$649",
+                                      "typeIdentifier": "t_contract$_TomoCoinMainchain_$1678",
                                       "typeString": "contract TomoCoinMainchain"
                                     }
                                   ],
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 649,
+                                  "referencedDeclaration": 1678,
                                   "type": "type(contract TomoCoinMainchain)",
                                   "value": "TomoCoinMainchain"
                                 },
-                                "id": 672,
+                                "id": 1697,
                                 "name": "Identifier",
-                                "src": "341:17:1"
+                                "src": "267:17:3"
                               },
                               {
                                 "attributes": {
@@ -484,89 +425,38 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 666,
+                                  "referencedDeclaration": 1693,
                                   "type": "contract TomoCoinMainchain",
                                   "value": "_tomoCoinAddress"
                                 },
-                                "id": 673,
+                                "id": 1698,
                                 "name": "Identifier",
-                                "src": "359:16:1"
+                                "src": "285:16:3"
                               }
                             ],
-                            "id": 674,
+                            "id": 1699,
                             "name": "FunctionCall",
-                            "src": "341:35:1"
+                            "src": "267:35:3"
                           }
                         ],
-                        "id": 675,
+                        "id": 1700,
                         "name": "Assignment",
-                        "src": "333:43:1"
+                        "src": "259:43:3"
                       }
                     ],
-                    "id": 676,
+                    "id": 1701,
                     "name": "ExpressionStatement",
-                    "src": "333:43:1"
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "lValueRequested": false,
-                          "operator": "=",
-                          "type": "address"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 658,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 677,
-                            "name": "Identifier",
-                            "src": "382:20:1"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 668,
-                              "type": "address",
-                              "value": "_tomoCommunityDeposit"
-                            },
-                            "id": 678,
-                            "name": "Identifier",
-                            "src": "405:21:1"
-                          }
-                        ],
-                        "id": 679,
-                        "name": "Assignment",
-                        "src": "382:44:1"
-                      }
-                    ],
-                    "id": 680,
-                    "name": "ExpressionStatement",
-                    "src": "382:44:1"
+                    "src": "259:43:3"
                   }
                 ],
-                "id": 681,
+                "id": 1702,
                 "name": "Block",
-                "src": "327:104:1"
+                "src": "253:54:3"
               }
             ],
-            "id": 682,
+            "id": 1703,
             "name": "FunctionDefinition",
-            "src": "221:210:1"
+            "src": "182:125:3"
           },
           {
             "attributes": {
@@ -575,7 +465,7 @@
               "isConstructor": false,
               "name": "cashIn",
               "payable": false,
-              "scope": 705,
+              "scope": 1726,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -586,8 +476,8 @@
                   {
                     "attributes": {
                       "constant": false,
-                      "name": "_from",
-                      "scope": 704,
+                      "name": "_user",
+                      "scope": 1725,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -600,20 +490,20 @@
                           "name": "address",
                           "type": "address"
                         },
-                        "id": 683,
+                        "id": 1704,
                         "name": "ElementaryTypeName",
-                        "src": "451:7:1"
+                        "src": "327:7:3"
                       }
                     ],
-                    "id": 684,
+                    "id": 1705,
                     "name": "VariableDeclaration",
-                    "src": "451:13:1"
+                    "src": "327:13:3"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "_value",
-                      "scope": 704,
+                      "scope": 1725,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -626,19 +516,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 685,
+                        "id": 1706,
                         "name": "ElementaryTypeName",
-                        "src": "466:7:1"
+                        "src": "342:7:3"
                       }
                     ],
-                    "id": 686,
+                    "id": 1707,
                     "name": "VariableDeclaration",
-                    "src": "466:14:1"
+                    "src": "342:14:3"
                   }
                 ],
-                "id": 687,
+                "id": 1708,
                 "name": "ParameterList",
-                "src": "450:31:1"
+                "src": "326:31:3"
               },
               {
                 "attributes": {
@@ -647,9 +537,9 @@
                   ]
                 },
                 "children": [],
-                "id": 690,
+                "id": 1711,
                 "name": "ParameterList",
-                "src": "492:0:1"
+                "src": "368:0:3"
               },
               {
                 "attributes": {
@@ -664,18 +554,18 @@
                       "overloadedDeclarations": [
                         null
                       ],
-                      "referencedDeclaration": 23,
+                      "referencedDeclaration": 1052,
                       "type": "modifier ()",
                       "value": "onlyOwner"
                     },
-                    "id": 688,
+                    "id": 1709,
                     "name": "Identifier",
-                    "src": "482:9:1"
+                    "src": "358:9:3"
                   }
                 ],
-                "id": 689,
+                "id": 1710,
                 "name": "ModifierInvocation",
-                "src": "482:9:1"
+                "src": "358:9:3"
               },
               {
                 "children": [
@@ -713,7 +603,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "deposit",
-                              "referencedDeclaration": 648,
+                              "referencedDeclaration": 1677,
                               "type": "function (address,uint256) external returns (bool)"
                             },
                             "children": [
@@ -723,18 +613,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 656,
+                                  "referencedDeclaration": 1685,
                                   "type": "contract TomoCoinMainchain",
                                   "value": "token"
                                 },
-                                "id": 691,
+                                "id": 1712,
                                 "name": "Identifier",
-                                "src": "498:5:1"
+                                "src": "374:5:3"
                               }
                             ],
-                            "id": 693,
+                            "id": 1714,
                             "name": "MemberAccess",
-                            "src": "498:13:1"
+                            "src": "374:13:3"
                           },
                           {
                             "attributes": {
@@ -742,13 +632,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 684,
+                              "referencedDeclaration": 1705,
                               "type": "address",
-                              "value": "_from"
+                              "value": "_user"
                             },
-                            "id": 694,
+                            "id": 1715,
                             "name": "Identifier",
-                            "src": "512:5:1"
+                            "src": "388:5:3"
                           },
                           {
                             "attributes": {
@@ -756,23 +646,23 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 686,
+                              "referencedDeclaration": 1707,
                               "type": "uint256",
                               "value": "_value"
                             },
-                            "id": 695,
+                            "id": 1716,
                             "name": "Identifier",
-                            "src": "519:6:1"
+                            "src": "395:6:3"
                           }
                         ],
-                        "id": 696,
+                        "id": 1717,
                         "name": "FunctionCall",
-                        "src": "498:28:1"
+                        "src": "374:28:3"
                       }
                     ],
-                    "id": 697,
+                    "id": 1718,
                     "name": "ExpressionStatement",
-                    "src": "498:28:1"
+                    "src": "374:28:3"
                   },
                   {
                     "children": [
@@ -806,13 +696,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 664,
+                              "referencedDeclaration": 1691,
                               "type": "function (address,uint256)",
                               "value": "CashIn"
                             },
-                            "id": 698,
+                            "id": 1719,
                             "name": "Identifier",
-                            "src": "532:6:1"
+                            "src": "408:6:3"
                           },
                           {
                             "attributes": {
@@ -820,13 +710,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 684,
+                              "referencedDeclaration": 1705,
                               "type": "address",
-                              "value": "_from"
+                              "value": "_user"
                             },
-                            "id": 699,
+                            "id": 1720,
                             "name": "Identifier",
-                            "src": "539:5:1"
+                            "src": "415:5:3"
                           },
                           {
                             "attributes": {
@@ -834,65 +724,57 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 686,
+                              "referencedDeclaration": 1707,
                               "type": "uint256",
                               "value": "_value"
                             },
-                            "id": 700,
+                            "id": 1721,
                             "name": "Identifier",
-                            "src": "546:6:1"
+                            "src": "422:6:3"
                           }
                         ],
-                        "id": 701,
+                        "id": 1722,
                         "name": "FunctionCall",
-                        "src": "532:21:1"
+                        "src": "408:21:3"
                       }
                     ],
-                    "id": 702,
+                    "id": 1723,
                     "name": "ExpressionStatement",
-                    "src": "532:21:1"
+                    "src": "408:21:3"
                   }
                 ],
-                "id": 703,
+                "id": 1724,
                 "name": "Block",
-                "src": "492:66:1"
+                "src": "368:66:3"
               }
             ],
-            "id": 704,
+            "id": 1725,
             "name": "FunctionDefinition",
-            "src": "435:123:1"
+            "src": "311:123:3"
           }
-        ]
+        ],
+        "id": 1726,
+        "name": "ContractDefinition",
+        "src": "60:376:3"
       },
       {
         "attributes": {
-          "baseContracts": [
-            null
-          ],
           "contractDependencies": [
-            43
+            1072
           ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            748,
-            43
+            1780,
+            1072
           ],
           "name": "CashOutMainchain",
-          "scope": 749
+          "scope": 1781
         },
         "children": [
           {
             "attributes": {
-              "constant": false,
-              "name": "token",
-              "scope": 724,
-              "stateVariable": true,
-              "storageLocation": "default",
-              "type": "contract TomoCoin",
-              "value": null,
-              "visibility": "public",
               "arguments": [
                 null
               ]
@@ -902,23 +784,23 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "Ownable",
-                  "referencedDeclaration": 43,
+                  "referencedDeclaration": 1072,
                   "type": "contract Ownable"
                 },
-                "id": 706,
+                "id": 1727,
                 "name": "UserDefinedTypeName",
-                "src": "591:7:1"
+                "src": "467:7:3"
               }
             ],
-            "id": 707,
+            "id": 1728,
             "name": "InheritanceSpecifier",
-            "src": "591:7:1"
+            "src": "467:7:3"
           },
           {
             "attributes": {
               "constant": false,
               "name": "token",
-              "scope": 748,
+              "scope": 1780,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract TomoCoinMainchain",
@@ -928,31 +810,50 @@
             "children": [
               {
                 "attributes": {
-                  "name": "TomoCoinMainchain",
-                  "type": "contract TomoCoinMainchain",
                   "contractScope": null,
-                  "referencedDeclaration": 649
+                  "name": "TomoCoinMainchain",
+                  "referencedDeclaration": 1678,
+                  "type": "contract TomoCoinMainchain"
                 },
-                "id": 708,
+                "id": 1729,
                 "name": "UserDefinedTypeName",
-                "src": "603:17:1"
+                "src": "479:17:3"
               }
             ],
-            "id": 709,
+            "id": 1730,
             "name": "VariableDeclaration",
-            "src": "603:30:1"
+            "src": "479:30:3"
           },
           {
             "attributes": {
-              "anonymous": false,
-              "name": "tomoCommunityDeposit",
               "constant": false,
-              "scope": 748,
+              "name": "tomoCommunityDeposit",
+              "scope": 1780,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "address",
               "value": null,
               "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "type": "address"
+                },
+                "id": 1731,
+                "name": "ElementaryTypeName",
+                "src": "513:7:3"
+              }
+            ],
+            "id": 1732,
+            "name": "VariableDeclaration",
+            "src": "513:35:3"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "name": "CashOut"
             },
             "children": [
               {
@@ -962,7 +863,7 @@
                       "constant": false,
                       "indexed": false,
                       "name": "_from",
-                      "scope": 673,
+                      "scope": 1738,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -975,21 +876,21 @@
                           "name": "address",
                           "type": "address"
                         },
-                        "id": 668,
+                        "id": 1733,
                         "name": "ElementaryTypeName",
-                        "src": "179:7:2"
+                        "src": "568:7:3"
                       }
                     ],
-                    "id": 669,
+                    "id": 1734,
                     "name": "VariableDeclaration",
-                    "src": "179:13:2"
+                    "src": "568:13:3"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "indexed": false,
                       "name": "_value",
-                      "scope": 673,
+                      "scope": 1738,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1002,28 +903,24 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 670,
+                        "id": 1735,
                         "name": "ElementaryTypeName",
-                        "src": "194:4:2"
+                        "src": "583:4:3"
                       }
                     ],
-                    "id": 671,
+                    "id": 1736,
                     "name": "VariableDeclaration",
-                    "src": "194:11:2"
+                    "src": "583:11:3"
                   }
                 ],
-                "id": 710,
-                "name": "ElementaryTypeName",
-                "src": "637:7:1",
-                "attributes": {
-                  "name": "address",
-                  "type": "address"
-                }
+                "id": 1737,
+                "name": "ParameterList",
+                "src": "566:30:3"
               }
             ],
-            "id": 711,
-            "name": "VariableDeclaration",
-            "src": "637:35:1"
+            "id": 1738,
+            "name": "EventDefinition",
+            "src": "553:44:3"
           },
           {
             "attributes": {
@@ -1035,11 +932,10 @@
               ],
               "name": "CashOutMainchain",
               "payable": false,
-              "scope": 748,
+              "scope": 1780,
               "stateMutability": "nonpayable",
               "superFunction": null,
-              "visibility": "public",
-              "anonymous": false
+              "visibility": "public"
             },
             "children": [
               {
@@ -1048,42 +944,40 @@
                     "attributes": {
                       "constant": false,
                       "name": "_tomoCoinAddress",
-                      "scope": 729,
+                      "scope": 1756,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "contract TomoCoinMainchain",
                       "value": null,
-                      "visibility": "internal",
-                      "indexed": false
+                      "visibility": "internal"
                     },
                     "children": [
                       {
                         "attributes": {
                           "contractScope": null,
                           "name": "TomoCoinMainchain",
-                          "referencedDeclaration": 649,
+                          "referencedDeclaration": 1678,
                           "type": "contract TomoCoinMainchain"
                         },
-                        "id": 712,
+                        "id": 1739,
                         "name": "UserDefinedTypeName",
-                        "src": "709:17:1"
+                        "src": "632:17:3"
                       }
                     ],
-                    "id": 713,
+                    "id": 1740,
                     "name": "VariableDeclaration",
-                    "src": "709:34:1"
+                    "src": "632:34:3"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "_tomoCommunityDeposit",
-                      "scope": 729,
+                      "scope": 1756,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
                       "value": null,
-                      "visibility": "internal",
-                      "indexed": false
+                      "visibility": "internal"
                     },
                     "children": [
                       {
@@ -1091,19 +985,19 @@
                           "name": "address",
                           "type": "address"
                         },
-                        "id": 714,
+                        "id": 1741,
                         "name": "ElementaryTypeName",
-                        "src": "749:7:1"
+                        "src": "672:7:3"
                       }
                     ],
-                    "id": 715,
+                    "id": 1742,
                     "name": "VariableDeclaration",
-                    "src": "749:29:1"
+                    "src": "672:29:3"
                   }
                 ],
-                "id": 716,
+                "id": 1743,
                 "name": "ParameterList",
-                "src": "703:79:1"
+                "src": "626:79:3"
               },
               {
                 "attributes": {
@@ -1112,9 +1006,9 @@
                   ]
                 },
                 "children": [],
-                "id": 717,
+                "id": 1744,
                 "name": "ParameterList",
-                "src": "785:0:1"
+                "src": "708:0:3"
               },
               {
                 "children": [
@@ -1137,13 +1031,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 709,
+                              "referencedDeclaration": 1730,
                               "type": "contract TomoCoinMainchain",
                               "value": "token"
                             },
-                            "id": 718,
+                            "id": 1745,
                             "name": "Identifier",
-                            "src": "791:5:1"
+                            "src": "714:5:3"
                           },
                           {
                             "attributes": {
@@ -1164,20 +1058,20 @@
                                 "attributes": {
                                   "argumentTypes": [
                                     {
-                                      "typeIdentifier": "t_contract$_TomoCoinMainchain_$649",
+                                      "typeIdentifier": "t_contract$_TomoCoinMainchain_$1678",
                                       "typeString": "contract TomoCoinMainchain"
                                     }
                                   ],
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 649,
+                                  "referencedDeclaration": 1678,
                                   "type": "type(contract TomoCoinMainchain)",
                                   "value": "TomoCoinMainchain"
                                 },
-                                "id": 719,
+                                "id": 1746,
                                 "name": "Identifier",
-                                "src": "799:17:1"
+                                "src": "722:17:3"
                               },
                               {
                                 "attributes": {
@@ -1185,28 +1079,28 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 713,
+                                  "referencedDeclaration": 1740,
                                   "type": "contract TomoCoinMainchain",
                                   "value": "_tomoCoinAddress"
                                 },
-                                "id": 720,
+                                "id": 1747,
                                 "name": "Identifier",
-                                "src": "817:16:1"
+                                "src": "740:16:3"
                               }
                             ],
-                            "id": 721,
+                            "id": 1748,
                             "name": "FunctionCall",
-                            "src": "799:35:1"
+                            "src": "722:35:3"
                           }
                         ],
-                        "id": 722,
+                        "id": 1749,
                         "name": "Assignment",
-                        "src": "791:43:1"
+                        "src": "714:43:3"
                       }
                     ],
-                    "id": 723,
+                    "id": 1750,
                     "name": "ExpressionStatement",
-                    "src": "791:43:1"
+                    "src": "714:43:3"
                   },
                   {
                     "children": [
@@ -1227,13 +1121,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 711,
+                              "referencedDeclaration": 1732,
                               "type": "address",
                               "value": "tomoCommunityDeposit"
                             },
-                            "id": 724,
+                            "id": 1751,
                             "name": "Identifier",
-                            "src": "840:20:1"
+                            "src": "763:20:3"
                           },
                           {
                             "attributes": {
@@ -1241,62 +1135,54 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 715,
+                              "referencedDeclaration": 1742,
                               "type": "address",
                               "value": "_tomoCommunityDeposit"
                             },
-                            "id": 725,
+                            "id": 1752,
                             "name": "Identifier",
-                            "src": "863:21:1"
+                            "src": "786:21:3"
                           }
                         ],
-                        "id": 726,
+                        "id": 1753,
                         "name": "Assignment",
-                        "src": "840:44:1"
+                        "src": "763:44:3"
                       }
                     ],
-                    "id": 727,
+                    "id": 1754,
                     "name": "ExpressionStatement",
-                    "src": "840:44:1"
+                    "src": "763:44:3"
                   }
                 ],
-                "id": 728,
+                "id": 1755,
                 "name": "Block",
-                "src": "785:104:1"
+                "src": "708:104:3"
               }
             ],
-            "id": 729,
+            "id": 1756,
             "name": "FunctionDefinition",
-            "src": "678:211:1"
+            "src": "601:211:3"
           },
           {
             "attributes": {
               "constant": false,
               "implemented": true,
               "isConstructor": false,
-              "modifiers": [
-                null
-              ],
               "name": "cashOut",
               "payable": false,
-              "scope": 748,
+              "scope": 1780,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
             },
             "children": [
               {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
                 "children": [
                   {
                     "attributes": {
                       "constant": false,
-                      "name": "_to",
-                      "scope": 747,
+                      "name": "_user",
+                      "scope": 1779,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1306,25 +1192,23 @@
                     "children": [
                       {
                         "attributes": {
-                          "contractScope": null,
                           "name": "address",
-                          "referencedDeclaration": 1778,
                           "type": "address"
                         },
-                        "id": 730,
+                        "id": 1757,
                         "name": "ElementaryTypeName",
-                        "src": "910:7:1"
+                        "src": "833:7:3"
                       }
                     ],
-                    "id": 731,
+                    "id": 1758,
                     "name": "VariableDeclaration",
-                    "src": "910:11:1"
+                    "src": "833:13:3"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "_value",
-                      "scope": 747,
+                      "scope": 1779,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1337,19 +1221,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 732,
+                        "id": 1759,
                         "name": "ElementaryTypeName",
-                        "src": "923:7:1"
+                        "src": "848:7:3"
                       }
                     ],
-                    "id": 733,
+                    "id": 1760,
                     "name": "VariableDeclaration",
-                    "src": "923:14:1"
+                    "src": "848:14:3"
                   }
                 ],
-                "id": 734,
+                "id": 1761,
                 "name": "ParameterList",
-                "src": "909:29:1"
+                "src": "832:31:3"
               },
               {
                 "attributes": {
@@ -1358,544 +1242,150 @@
                   ]
                 },
                 "children": [],
-                "id": 737,
+                "id": 1764,
                 "name": "ParameterList",
-                "src": "949:0:1"
+                "src": "874:0:3"
               },
               {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "contract TomoCoinMainchain",
-                          "type_conversion": false,
-                          "operator": "="
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1786,
-                              "type": "contract TomoCoinMainchain",
-                              "value": "token"
-                            },
-                            "id": 1801,
-                            "name": "Identifier",
-                            "src": "353:5:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "sender",
-                              "referencedDeclaration": null,
-                              "type": "contract TomoCoinMainchain",
-                              "isStructConstructorCall": false,
-                              "names": [
-                                null
-                              ],
-                              "type_conversion": true
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": [
-                                    {
-                                      "typeIdentifier": "t_contract$_TomoCoinMainchain_$1778",
-                                      "typeString": "contract TomoCoinMainchain"
-                                    }
-                                  ],
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 1778,
-                                  "type": "type(contract TomoCoinMainchain)",
-                                  "value": "TomoCoinMainchain"
-                                },
-                                "id": 1802,
-                                "name": "Identifier",
-                                "src": "361:17:4"
-                              },
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 1796,
-                                  "type": "contract TomoCoinMainchain",
-                                  "value": "_tomoCoinAddress"
-                                },
-                                "id": 1803,
-                                "name": "Identifier",
-                                "src": "379:16:4"
-                              }
-                            ],
-                            "id": 1804,
-                            "name": "FunctionCall",
-                            "src": "361:35:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "value",
-                              "referencedDeclaration": null,
-                              "type": "uint256"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 907,
-                                  "type": "msg",
-                                  "value": "msg"
-                                },
-                                "id": 697,
-                                "name": "Identifier",
-                                "src": "463:3:2"
-                              }
-                            ],
-                            "id": 698,
-                            "name": "MemberAccess",
-                            "src": "463:9:2"
-                          }
-                        ],
-                        "id": 1805,
-                        "name": "Assignment",
-                        "src": "353:43:4"
-                      }
-                    ],
-                    "id": 735,
-                    "name": "Identifier",
-                    "src": "939:9:1",
-                    "attributes": {
-                      "argumentTypes": null,
-                      "overloadedDeclarations": [
-                        null
-                      ],
-                      "referencedDeclaration": 23,
-                      "type": "modifier ()",
-                      "value": "onlyOwner"
-                    }
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "lValueRequested": false,
-                          "operator": "=",
-                          "type": "address"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1788,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 1807,
-                            "name": "Identifier",
-                            "src": "402:20:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1798,
-                              "type": "address",
-                              "value": "_tomoCommunityDeposit"
-                            },
-                            "id": 1808,
-                            "name": "Identifier",
-                            "src": "425:21:4"
-                          }
-                        ],
-                        "id": 1809,
-                        "name": "Assignment",
-                        "src": "402:44:4"
-                      }
-                    ],
-                    "id": 1810,
-                    "name": "ExpressionStatement",
-                    "src": "402:44:4"
-                  }
-                ],
-                "id": 736,
-                "name": "ModifierInvocation",
-                "src": "939:9:1",
                 "attributes": {
                   "arguments": [
                     null
                   ]
-                }
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "bool",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                }
-                              ],
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "transferFrom",
-                              "referencedDeclaration": 373,
-                              "type": "function (address,address,uint256) external returns (bool)"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 709,
-                                  "type": "contract TomoCoinMainchain",
-                                  "value": "token"
-                                },
-                                "id": 738,
-                                "name": "Identifier",
-                                "src": "955:5:1"
-                              }
-                            ],
-                            "id": 740,
-                            "name": "MemberAccess",
-                            "src": "955:18:1"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 711,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 741,
-                            "name": "Identifier",
-                            "src": "974:20:1"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 731,
-                              "type": "address",
-                              "value": "_to"
-                            },
-                            "id": 742,
-                            "name": "Identifier",
-                            "src": "996:3:1"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 733,
-                              "type": "uint256",
-                              "value": "_value"
-                            },
-                            "id": 743,
-                            "name": "Identifier",
-                            "src": "1001:6:1"
-                          }
-                        ],
-                        "id": 744,
-                        "name": "FunctionCall",
-                        "src": "955:53:1"
-                      }
-                    ],
-                    "id": 745,
-                    "name": "ExpressionStatement",
-                    "src": "955:53:1"
-                  }
-                ],
-                "id": 746,
-                "name": "Block",
-                "src": "949:64:1"
-              }
-            ],
-            "id": 747,
-            "name": "FunctionDefinition",
-            "src": "893:120:1"
-          },
-          {
-            "attributes": {
-              "constant": false,
-              "implemented": true,
-              "isConstructor": false,
-              "modifiers": [
-                null
-              ],
-              "name": "cashIn",
-              "payable": false,
-              "scope": 1835,
-              "stateMutability": "nonpayable",
-              "superFunction": null,
-              "visibility": "public"
-            },
-            "children": [
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_from",
-                      "scope": 1834,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "address",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "address",
-                          "type": "address"
-                        },
-                        "id": 1813,
-                        "name": "ElementaryTypeName",
-                        "src": "471:7:4"
-                      }
-                    ],
-                    "id": 1814,
-                    "name": "VariableDeclaration",
-                    "src": "471:13:4"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_value",
-                      "scope": 1834,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "uint256",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "uint256",
-                          "type": "uint256"
-                        },
-                        "id": 1815,
-                        "name": "ElementaryTypeName",
-                        "src": "486:7:4"
-                      }
-                    ],
-                    "id": 1816,
-                    "name": "VariableDeclaration",
-                    "src": "486:14:4"
-                  }
-                ],
-                "id": 1817,
-                "name": "ParameterList",
-                "src": "470:31:4"
-              },
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
                 },
-                "children": [],
-                "id": 1820,
-                "name": "ParameterList",
-                "src": "512:0:4"
-              },
-              {
                 "children": [
                   {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "bool",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                }
-                              ],
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "transferFrom",
-                              "referencedDeclaration": 439,
-                              "type": "function (address,address,uint256) external returns (bool)"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 665,
-                                  "type": "contract TomoCoin",
-                                  "value": "token"
-                                },
-                                "id": 709,
-                                "name": "Identifier",
-                                "src": "550:5:2"
-                              }
-                            ],
-                            "id": 711,
-                            "name": "MemberAccess",
-                            "src": "550:18:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 704,
-                              "type": "address",
-                              "value": "_from"
-                            },
-                            "id": 712,
-                            "name": "Identifier",
-                            "src": "569:5:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 667,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 713,
-                            "name": "Identifier",
-                            "src": "576:20:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 706,
-                              "type": "uint256",
-                              "value": "_value"
-                            },
-                            "id": 714,
-                            "name": "Identifier",
-                            "src": "598:6:2"
-                          }
-                        ],
-                        "id": 715,
-                        "name": "FunctionCall",
-                        "src": "550:55:2"
-                      }
-                    ],
-                    "id": 1818,
-                    "name": "Identifier",
-                    "src": "502:9:4",
                     "attributes": {
                       "argumentTypes": null,
                       "overloadedDeclarations": [
                         null
                       ],
-                      "referencedDeclaration": 1152,
+                      "referencedDeclaration": 1052,
                       "type": "modifier ()",
                       "value": "onlyOwner"
-                    }
+                    },
+                    "id": 1762,
+                    "name": "Identifier",
+                    "src": "864:9:3"
+                  }
+                ],
+                "id": 1763,
+                "name": "ModifierInvocation",
+                "src": "864:9:3"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bool",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                },
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "transferFrom",
+                              "referencedDeclaration": 1402,
+                              "type": "function (address,address,uint256) external returns (bool)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1730,
+                                  "type": "contract TomoCoinMainchain",
+                                  "value": "token"
+                                },
+                                "id": 1765,
+                                "name": "Identifier",
+                                "src": "880:5:3"
+                              }
+                            ],
+                            "id": 1767,
+                            "name": "MemberAccess",
+                            "src": "880:18:3"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1732,
+                              "type": "address",
+                              "value": "tomoCommunityDeposit"
+                            },
+                            "id": 1768,
+                            "name": "Identifier",
+                            "src": "899:20:3"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1758,
+                              "type": "address",
+                              "value": "_user"
+                            },
+                            "id": 1769,
+                            "name": "Identifier",
+                            "src": "921:5:3"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1760,
+                              "type": "uint256",
+                              "value": "_value"
+                            },
+                            "id": 1770,
+                            "name": "Identifier",
+                            "src": "928:6:3"
+                          }
+                        ],
+                        "id": 1771,
+                        "name": "FunctionCall",
+                        "src": "880:55:3"
+                      }
+                    ],
+                    "id": 1772,
+                    "name": "ExpressionStatement",
+                    "src": "880:55:3"
                   },
                   {
                     "children": [
@@ -1929,13 +1419,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 673,
+                              "referencedDeclaration": 1738,
                               "type": "function (address,uint256)",
-                              "value": "CashIn"
+                              "value": "CashOut"
                             },
-                            "id": 717,
+                            "id": 1773,
                             "name": "Identifier",
-                            "src": "611:6:2"
+                            "src": "941:7:3"
                           },
                           {
                             "attributes": {
@@ -1943,13 +1433,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 704,
+                              "referencedDeclaration": 1758,
                               "type": "address",
-                              "value": "_from"
+                              "value": "_user"
                             },
-                            "id": 718,
+                            "id": 1774,
                             "name": "Identifier",
-                            "src": "618:5:2"
+                            "src": "949:5:3"
                           },
                           {
                             "attributes": {
@@ -1957,1279 +1447,55 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 706,
+                              "referencedDeclaration": 1760,
                               "type": "uint256",
                               "value": "_value"
                             },
-                            "id": 719,
+                            "id": 1775,
                             "name": "Identifier",
-                            "src": "625:6:2"
+                            "src": "956:6:3"
                           }
                         ],
-                        "id": 720,
+                        "id": 1776,
                         "name": "FunctionCall",
-                        "src": "611:21:2"
+                        "src": "941:22:3"
                       }
                     ],
-                    "id": 721,
+                    "id": 1777,
                     "name": "ExpressionStatement",
-                    "src": "611:21:2"
+                    "src": "941:22:3"
                   }
                 ],
-                "id": 1819,
-                "name": "ModifierInvocation",
-                "src": "502:9:4",
-                "attributes": {
-                  "arguments": [
-                    null
-                  ]
-                }
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "bool",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                }
-                              ],
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "deposit",
-                              "referencedDeclaration": 1777,
-                              "type": "function (address,uint256) external returns (bool)"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 1786,
-                                  "type": "contract TomoCoinMainchain",
-                                  "value": "token"
-                                },
-                                "id": 1821,
-                                "name": "Identifier",
-                                "src": "518:5:4"
-                              }
-                            ],
-                            "id": 1823,
-                            "name": "MemberAccess",
-                            "src": "518:13:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1814,
-                              "type": "address",
-                              "value": "_from"
-                            },
-                            "id": 1824,
-                            "name": "Identifier",
-                            "src": "532:5:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1816,
-                              "type": "uint256",
-                              "value": "_value"
-                            },
-                            "id": 1825,
-                            "name": "Identifier",
-                            "src": "539:6:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 697,
-                              "type": "uint256",
-                              "value": "_value"
-                            },
-                            "id": 707,
-                            "name": "Identifier",
-                            "src": "530:6:2"
-                          }
-                        ],
-                        "id": 1826,
-                        "name": "FunctionCall",
-                        "src": "518:28:4"
-                      }
-                    ],
-                    "id": 1827,
-                    "name": "ExpressionStatement",
-                    "src": "518:28:4"
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "tuple()",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                }
-                              ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1794,
-                              "type": "function (address,uint256)",
-                              "value": "CashIn"
-                            },
-                            "id": 1828,
-                            "name": "Identifier",
-                            "src": "552:6:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1814,
-                              "type": "address",
-                              "value": "_from"
-                            },
-                            "id": 1829,
-                            "name": "Identifier",
-                            "src": "559:5:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1816,
-                              "type": "uint256",
-                              "value": "_value"
-                            },
-                            "id": 1830,
-                            "name": "Identifier",
-                            "src": "566:6:4"
-                          }
-                        ],
-                        "id": 1831,
-                        "name": "FunctionCall",
-                        "src": "552:21:4"
-                      }
-                    ],
-                    "id": 1832,
-                    "name": "ExpressionStatement",
-                    "src": "552:21:4"
-                  }
-                ],
-                "id": 1833,
+                "id": 1778,
                 "name": "Block",
-                "src": "512:66:4"
+                "src": "874:94:3"
               }
             ],
-            "id": 1834,
+            "id": 1779,
             "name": "FunctionDefinition",
-            "src": "455:123:4"
+            "src": "816:152:3"
           }
         ],
-        "id": 748,
+        "id": 1780,
         "name": "ContractDefinition",
-        "src": "562:453:1"
-      },
-      {
-        "attributes": {
-          "baseContracts": [
-            null
-          ],
-          "contractDependencies": [
-            1172
-          ],
-          "contractKind": "contract",
-          "documentation": null,
-          "fullyImplemented": true,
-          "linearizedBaseContracts": [
-            1878,
-            1172
-          ],
-          "name": "CashOutMainchain",
-          "scope": 1879
-        },
-        "children": [
-          {
-            "attributes": {
-              "constant": false,
-              "name": "token",
-              "scope": 777,
-              "stateVariable": true,
-              "storageLocation": "default",
-              "type": "contract TomoCoin",
-              "value": null,
-              "visibility": "public",
-              "arguments": [
-                null
-              ]
-            },
-            "children": [
-              {
-                "attributes": {
-                  "contractScope": null,
-                  "name": "Ownable",
-                  "referencedDeclaration": 1172,
-                  "type": "contract Ownable"
-                },
-                "id": 1836,
-                "name": "UserDefinedTypeName",
-                "src": "611:7:4"
-              }
-            ],
-            "id": 1837,
-            "name": "InheritanceSpecifier",
-            "src": "611:7:4"
-          },
-          {
-            "attributes": {
-              "constant": false,
-              "name": "token",
-              "scope": 1878,
-              "stateVariable": true,
-              "storageLocation": "default",
-              "type": "contract TomoCoinMainchain",
-              "value": null,
-              "visibility": "public"
-            },
-            "children": [
-              {
-                "attributes": {
-                  "name": "TomoCoinMainchain",
-                  "type": "contract TomoCoinMainchain",
-                  "contractScope": null,
-                  "referencedDeclaration": 1778
-                },
-                "id": 1838,
-                "name": "UserDefinedTypeName",
-                "src": "623:17:4"
-              }
-            ],
-            "id": 1839,
-            "name": "VariableDeclaration",
-            "src": "623:30:4"
-          },
-          {
-            "attributes": {
-              "constant": false,
-              "implemented": true,
-              "isConstructor": true,
-              "modifiers": [
-                null
-              ],
-              "name": "tomoCommunityDeposit",
-              "payable": false,
-              "scope": 1878,
-              "stateMutability": "nonpayable",
-              "superFunction": null,
-              "visibility": "public",
-              "stateVariable": true,
-              "storageLocation": "default",
-              "type": "address",
-              "value": null
-            },
-            "children": [
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_tomoCoinAddress",
-                      "scope": 746,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "contract TomoCoin",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "contractScope": null,
-                          "name": "TomoCoin",
-                          "referencedDeclaration": 659,
-                          "type": "contract TomoCoin"
-                        },
-                        "id": 729,
-                        "name": "UserDefinedTypeName",
-                        "src": "768:8:2"
-                      }
-                    ],
-                    "id": 730,
-                    "name": "VariableDeclaration",
-                    "src": "768:25:2"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_tomoCommunityDeposit",
-                      "scope": 746,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "address",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "address",
-                          "type": "address"
-                        },
-                        "id": 731,
-                        "name": "ElementaryTypeName",
-                        "src": "799:7:2"
-                      }
-                    ],
-                    "id": 732,
-                    "name": "VariableDeclaration",
-                    "src": "799:29:2"
-                  }
-                ],
-                "id": 1840,
-                "name": "ElementaryTypeName",
-                "src": "657:7:4",
-                "attributes": {
-                  "name": "address",
-                  "type": "address"
-                }
-              },
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [],
-                "id": 734,
-                "name": "ParameterList",
-                "src": "835:0:2"
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "lValueRequested": false,
-                          "operator": "=",
-                          "type": "contract TomoCoin"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 726,
-                              "type": "contract TomoCoin",
-                              "value": "token"
-                            },
-                            "id": 735,
-                            "name": "Identifier",
-                            "src": "841:5:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "isStructConstructorCall": false,
-                              "lValueRequested": false,
-                              "names": [
-                                null
-                              ],
-                              "type": "contract TomoCoin",
-                              "type_conversion": true
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": [
-                                    {
-                                      "typeIdentifier": "t_contract$_TomoCoin_$659",
-                                      "typeString": "contract TomoCoin"
-                                    }
-                                  ],
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 659,
-                                  "type": "type(contract TomoCoin)",
-                                  "value": "TomoCoin"
-                                },
-                                "id": 736,
-                                "name": "Identifier",
-                                "src": "849:8:2"
-                              },
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 730,
-                                  "type": "contract TomoCoin",
-                                  "value": "_tomoCoinAddress"
-                                },
-                                "id": 737,
-                                "name": "Identifier",
-                                "src": "858:16:2"
-                              }
-                            ],
-                            "id": 738,
-                            "name": "FunctionCall",
-                            "src": "849:26:2"
-                          }
-                        ],
-                        "id": 739,
-                        "name": "Assignment",
-                        "src": "841:34:2"
-                      }
-                    ],
-                    "id": 740,
-                    "name": "ExpressionStatement",
-                    "src": "841:34:2"
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "lValueRequested": false,
-                          "operator": "=",
-                          "type": "address"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 728,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 741,
-                            "name": "Identifier",
-                            "src": "881:20:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 732,
-                              "type": "address",
-                              "value": "_tomoCommunityDeposit"
-                            },
-                            "id": 742,
-                            "name": "Identifier",
-                            "src": "904:21:2"
-                          }
-                        ],
-                        "id": 743,
-                        "name": "Assignment",
-                        "src": "881:44:2"
-                      }
-                    ],
-                    "id": 744,
-                    "name": "ExpressionStatement",
-                    "src": "881:44:2"
-                  }
-                ],
-                "id": 745,
-                "name": "Block",
-                "src": "835:95:2"
-              }
-            ],
-            "id": 1841,
-            "name": "VariableDeclaration",
-            "src": "657:35:4"
-          },
-          {
-            "attributes": {
-              "constant": false,
-              "implemented": true,
-              "isConstructor": true,
-              "modifiers": [
-                null
-              ],
-              "name": "CashOutMainchain",
-              "payable": false,
-              "scope": 1878,
-              "stateMutability": "nonpayable",
-              "superFunction": null,
-              "visibility": "public"
-            },
-            "children": [
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_tomoCoinAddress",
-                      "scope": 1859,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "contract TomoCoinMainchain",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "contractScope": null,
-                          "name": "TomoCoinMainchain",
-                          "referencedDeclaration": 1778,
-                          "type": "contract TomoCoinMainchain"
-                        },
-                        "id": 1842,
-                        "name": "UserDefinedTypeName",
-                        "src": "729:17:4"
-                      }
-                    ],
-                    "id": 1843,
-                    "name": "VariableDeclaration",
-                    "src": "729:34:4"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_tomoCommunityDeposit",
-                      "scope": 1859,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "address",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "address",
-                          "type": "address"
-                        },
-                        "id": 1844,
-                        "name": "ElementaryTypeName",
-                        "src": "769:7:4"
-                      }
-                    ],
-                    "id": 1845,
-                    "name": "VariableDeclaration",
-                    "src": "769:29:4"
-                  }
-                ],
-                "id": 1846,
-                "name": "ParameterList",
-                "src": "723:79:4"
-              },
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [],
-                "id": 1847,
-                "name": "ParameterList",
-                "src": "805:0:4"
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "contract TomoCoinMainchain",
-                          "type_conversion": false,
-                          "operator": "="
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1839,
-                              "type": "contract TomoCoinMainchain",
-                              "value": "token"
-                            },
-                            "id": 1848,
-                            "name": "Identifier",
-                            "src": "811:5:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "isStructConstructorCall": false,
-                              "lValueRequested": false,
-                              "names": [
-                                null
-                              ],
-                              "type": "contract TomoCoinMainchain",
-                              "type_conversion": true
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": [
-                                    {
-                                      "typeIdentifier": "t_contract$_TomoCoinMainchain_$1778",
-                                      "typeString": "contract TomoCoinMainchain"
-                                    }
-                                  ],
-                                  "isConstant": false,
-                                  "isLValue": false,
-                                  "isPure": false,
-                                  "lValueRequested": false,
-                                  "member_name": "bytesToAddress",
-                                  "referencedDeclaration": 1778,
-                                  "type": "type(contract TomoCoinMainchain)",
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "value": "TomoCoinMainchain"
-                                },
-                                "children": [
-                                  {
-                                    "attributes": {
-                                      "argumentTypes": null,
-                                      "overloadedDeclarations": [
-                                        null
-                                      ],
-                                      "referencedDeclaration": 99,
-                                      "type": "type(library Lib)",
-                                      "value": "Lib"
-                                    },
-                                    "id": 750,
-                                    "name": "Identifier",
-                                    "src": "977:3:2"
-                                  }
-                                ],
-                                "id": 1849,
-                                "name": "Identifier",
-                                "src": "819:17:4"
-                              },
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "isConstant": false,
-                                  "isLValue": false,
-                                  "isPure": false,
-                                  "lValueRequested": false,
-                                  "member_name": "data",
-                                  "referencedDeclaration": 1843,
-                                  "type": "contract TomoCoinMainchain",
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "value": "_tomoCoinAddress"
-                                },
-                                "children": [
-                                  {
-                                    "attributes": {
-                                      "argumentTypes": null,
-                                      "overloadedDeclarations": [
-                                        null
-                                      ],
-                                      "referencedDeclaration": 907,
-                                      "type": "msg",
-                                      "value": "msg"
-                                    },
-                                    "id": 752,
-                                    "name": "Identifier",
-                                    "src": "996:3:2"
-                                  }
-                                ],
-                                "id": 1850,
-                                "name": "Identifier",
-                                "src": "837:16:4"
-                              }
-                            ],
-                            "id": 1851,
-                            "name": "FunctionCall",
-                            "src": "819:35:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "value",
-                              "referencedDeclaration": null,
-                              "type": "uint256"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 907,
-                                  "type": "msg",
-                                  "value": "msg"
-                                },
-                                "id": 755,
-                                "name": "Identifier",
-                                "src": "1007:3:2"
-                              }
-                            ],
-                            "id": 756,
-                            "name": "MemberAccess",
-                            "src": "1007:9:2"
-                          }
-                        ],
-                        "id": 1852,
-                        "name": "Assignment",
-                        "src": "811:43:4"
-                      }
-                    ],
-                    "id": 1853,
-                    "name": "ExpressionStatement",
-                    "src": "811:43:4"
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "lValueRequested": false,
-                          "operator": "=",
-                          "type": "address"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1841,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 1854,
-                            "name": "Identifier",
-                            "src": "860:20:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1845,
-                              "type": "address",
-                              "value": "_tomoCommunityDeposit"
-                            },
-                            "id": 1855,
-                            "name": "Identifier",
-                            "src": "883:21:4"
-                          }
-                        ],
-                        "id": 1856,
-                        "name": "Assignment",
-                        "src": "860:44:4"
-                      }
-                    ],
-                    "id": 1857,
-                    "name": "ExpressionStatement",
-                    "src": "860:44:4"
-                  }
-                ],
-                "id": 1858,
-                "name": "Block",
-                "src": "805:104:4"
-              }
-            ],
-            "id": 1859,
-            "name": "FunctionDefinition",
-            "src": "698:211:4"
-          },
-          {
-            "attributes": {
-              "constant": false,
-              "implemented": true,
-              "isConstructor": false,
-              "modifiers": [
-                null
-              ],
-              "name": "cashOut",
-              "payable": false,
-              "scope": 1878,
-              "stateMutability": "nonpayable",
-              "superFunction": null,
-              "visibility": "public"
-            },
-            "children": [
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_to",
-                      "scope": 1877,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "address",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "address",
-                          "type": "address"
-                        },
-                        "id": 1860,
-                        "name": "ElementaryTypeName",
-                        "src": "930:7:4"
-                      }
-                    ],
-                    "id": 1861,
-                    "name": "VariableDeclaration",
-                    "src": "930:11:4"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_value",
-                      "scope": 1877,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "uint256",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "uint256",
-                          "type": "uint256"
-                        },
-                        "id": 1862,
-                        "name": "ElementaryTypeName",
-                        "src": "943:7:4"
-                      }
-                    ],
-                    "id": 1863,
-                    "name": "VariableDeclaration",
-                    "src": "943:14:4"
-                  }
-                ],
-                "id": 1864,
-                "name": "ParameterList",
-                "src": "929:29:4"
-              },
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [],
-                "id": 1867,
-                "name": "ParameterList",
-                "src": "969:0:4"
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "bool",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                }
-                              ],
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "transferFrom",
-                              "referencedDeclaration": 439,
-                              "type": "function (address,address,uint256) external returns (bool)"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 726,
-                                  "type": "contract TomoCoin",
-                                  "value": "token"
-                                },
-                                "id": 767,
-                                "name": "Identifier",
-                                "src": "1092:5:2"
-                              }
-                            ],
-                            "id": 769,
-                            "name": "MemberAccess",
-                            "src": "1092:18:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 728,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 770,
-                            "name": "Identifier",
-                            "src": "1111:20:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 762,
-                              "type": "address",
-                              "value": "_to"
-                            },
-                            "id": 771,
-                            "name": "Identifier",
-                            "src": "1133:3:2"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 764,
-                              "type": "uint256",
-                              "value": "_value"
-                            },
-                            "id": 772,
-                            "name": "Identifier",
-                            "src": "1138:6:2"
-                          }
-                        ],
-                        "id": 773,
-                        "name": "FunctionCall",
-                        "src": "1092:53:2"
-                      }
-                    ],
-                    "id": 1865,
-                    "name": "Identifier",
-                    "src": "959:9:4",
-                    "attributes": {
-                      "argumentTypes": null,
-                      "overloadedDeclarations": [
-                        null
-                      ],
-                      "referencedDeclaration": 1152,
-                      "type": "modifier ()",
-                      "value": "onlyOwner"
-                    }
-                  }
-                ],
-                "id": 1866,
-                "name": "ModifierInvocation",
-                "src": "959:9:4",
-                "attributes": {
-                  "arguments": [
-                    null
-                  ]
-                }
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "bool",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_address",
-                                  "typeString": "address"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                }
-                              ],
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "transferFrom",
-                              "referencedDeclaration": 1502,
-                              "type": "function (address,address,uint256) external returns (bool)"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 1839,
-                                  "type": "contract TomoCoinMainchain",
-                                  "value": "token"
-                                },
-                                "id": 1868,
-                                "name": "Identifier",
-                                "src": "975:5:4"
-                              }
-                            ],
-                            "id": 1870,
-                            "name": "MemberAccess",
-                            "src": "975:18:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1841,
-                              "type": "address",
-                              "value": "tomoCommunityDeposit"
-                            },
-                            "id": 1871,
-                            "name": "Identifier",
-                            "src": "994:20:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1861,
-                              "type": "address",
-                              "value": "_to"
-                            },
-                            "id": 1872,
-                            "name": "Identifier",
-                            "src": "1016:3:4"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 1863,
-                              "type": "uint256",
-                              "value": "_value"
-                            },
-                            "id": 1873,
-                            "name": "Identifier",
-                            "src": "1021:6:4"
-                          }
-                        ],
-                        "id": 1874,
-                        "name": "FunctionCall",
-                        "src": "975:53:4"
-                      }
-                    ],
-                    "id": 1875,
-                    "name": "ExpressionStatement",
-                    "src": "975:53:4"
-                  }
-                ],
-                "id": 1876,
-                "name": "Block",
-                "src": "969:64:4"
-              }
-            ],
-            "id": 1877,
-            "name": "FunctionDefinition",
-            "src": "913:120:4"
-          }
-        ],
-        "id": 1878,
-        "name": "ContractDefinition",
-        "src": "582:453:4"
+        "src": "438:532:3"
       }
     ],
-    "id": 749,
+    "id": 1781,
     "name": "SourceUnit",
-    "src": "0:1016:1"
+    "src": "0:971:3"
   },
   "compiler": {
     "name": "solc",
     "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
   },
   "networks": {
-    "1": {
-      "events": {},
-      "links": {
-        "Lib": "0x9cb52674687088c2abdca45cc0b3a00bab3cb890"
-      },
-      "address": "0xa13d8a87aa31028096e9159bdf13e3c7fa785476"
-    },
-    "3": {
+    "4": {
       "events": {},
       "links": {},
-      "address": "0xf44101009a9507773dc9820795ff5902d42d526e"
-    },
-    "1511942283642": {
-      "events": {},
-      "links": {
-        "Lib": "0x11a1253aadc05fb0af4dbedd666a78c66aa08c04"
-      },
-      "address": "0xa65fda7bde78b77fb29e574bfa952eda42c87d18"
-    },
-    "1511942273339": {
-      "events": {},
-      "links": {
-        "Lib": "0x9121d06fc9e2e422bf4bec5121a4d6e076b523ca"
-      }
+      "address": "0xac8dad78c861b7d51ef5b5cfdc6ee9548b22b608"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2017-12-14T02:59:21.308Z"
+  "updatedAt": "2017-12-15T10:36:25.831Z"
 }

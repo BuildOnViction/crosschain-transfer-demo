@@ -3,22 +3,19 @@ import "./TomoCoinMainchain.sol";
 
 contract CashInMainchain is Ownable {
   TomoCoinMainchain public token;
-  address public tomoCommunityDeposit;
 
-  event CashIn( address _from, uint _value );
+  event CashIn( address _user, uint _value );
 
   function CashInMainchain(
-    TomoCoinMainchain _tomoCoinAddress,
-    address _tomoCommunityDeposit
+    TomoCoinMainchain _tomoCoinAddress
   )
   {
     token = TomoCoinMainchain(_tomoCoinAddress);
-    tomoCommunityDeposit = _tomoCommunityDeposit;
   }
 
-  function cashIn(address _from, uint256 _value) onlyOwner {
-    token.deposit(_from, _value);
-    CashIn(_from, _value);
+  function cashIn(address _user, uint256 _value) onlyOwner {
+    token.deposit(_user, _value);
+    CashIn(_user, _value);
   }
 }
 
@@ -26,6 +23,7 @@ contract CashOutMainchain is Ownable {
   TomoCoinMainchain public token;
   address public tomoCommunityDeposit;
 
+  event CashOut( address _from, uint _value );
 
   function CashOutMainchain(
     TomoCoinMainchain _tomoCoinAddress,
@@ -36,7 +34,8 @@ contract CashOutMainchain is Ownable {
     tomoCommunityDeposit = _tomoCommunityDeposit;
   }
 
-  function cashOut(address _to, uint256 _value) onlyOwner {
-    token.transferFrom(tomoCommunityDeposit, _to, _value);
+  function cashOut(address _user, uint256 _value) onlyOwner {
+    token.transferFrom(tomoCommunityDeposit, _user, _value);
+    CashOut(_user, _value);
   }
 }

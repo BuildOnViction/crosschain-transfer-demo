@@ -3,15 +3,23 @@
     "host": "0.0.0.0",
     "port": 80
   },
+  "db": {
+    "uri": "mongodb://mongodb:27017/wallets"
+  },
+  "redis": {
+      "host": "redis",
+      "port": "6379",
+      "password": null,
+      "prefix": "ToMoWallet"
+  },
   "rootAddressSidechain": "0xB440fC1f9930d7Dd91B4ff4382341E386702b51A",
   "rootAddressMainchain": "0x324910363eb5dc76c0fe348e749adb627ed6f389",
   "urlSidechain": "http://tomochain:8545",
   "urlMainchain": "http://localhost:8546",
+  "mnemonic": "should_be_secured",
   "mainchainProvider": "ropsten",
-  "ropsten": {
-    "url": "https://ropsten.infura.io/Your_Infura_Key",
-    "mnemonic": "should_be_secured"
-  },
+  "ropsten": "https://ropsten.infura.io/Your_Infura_Key",
+  "rinkeby": "https://rinkeby.infura.io/Your_Infura_Key",
   "sidechain": {
     "host": "tomochain"
   }

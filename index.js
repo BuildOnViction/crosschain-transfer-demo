@@ -8,6 +8,11 @@ const validator = require('express-validator');
 
 // body parse
 const app = express();
+
+// add websocket
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(validator({}));
@@ -22,9 +27,10 @@ app.use('/', function(req, res) {
 
 // error handler
 app.use(require('./middlewares/error'));
+require('./sockets')(io);
 
 // start server
-const server = app.listen(config.get('server.port'), config.get('server.host'), function () {
+server.listen(config.get('server.port'), config.get('server.host'), function () {
   const host = server.address().address;
   const port = server.address().port;
   console.info('Server start at http://%s:%s', host, port);

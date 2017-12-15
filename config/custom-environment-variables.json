@@ -1,6 +1,5 @@
 {
-  "ropsten": {
-    "url": "ROPSTEN_URL",
-    "mnemonic": "ROPSTEN_MNEMONIC"
-  }
+  "mnemonic": "MNEMONIC",
+  "ropsten": "ROPSTEN_URL",
+  "rinkeby": "RINKEBY_URL"
 }

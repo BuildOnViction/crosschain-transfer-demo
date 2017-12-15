@@ -19,10 +19,17 @@ module.exports = {
     },
     ropsten: {
       provider: function() {
-        return new HDWalletProvider(config.get('ropsten.mnemonic'), config.get('ropsten.url'));
+        return new HDWalletProvider(config.get('mnemonic'), config.get('ropsten'));
       },
       gas: 2900000,
       network_id: 3
+    },
+    rinkeby: {
+      provider: function() {
+        return new HDWalletProvider(config.get('mnemonic'), config.get('rinkeby'));
+      },
+      gas: 2900000,
+      network_id: 4
     }   
   }
 }

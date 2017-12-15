@@ -6,6 +6,8 @@ contract CashInSidechain is Ownable {
   TomoCoinSidechain public token;
   address public tomoCommunityDeposit;
 
+  event CashIn( address _user, uint _value );
+
   function CashInSidechain(
     TomoCoinSidechain _tomoCoinAddress,
     address _tomoCommunityDeposit
@@ -15,28 +17,26 @@ contract CashInSidechain is Ownable {
     tomoCommunityDeposit = _tomoCommunityDeposit;
   }
 
-  function cashIn(address _to, uint256 _value) onlyOwner {
-    token.transferFrom(tomoCommunityDeposit, _to, _value);
+  function cashIn(address _user, uint256 _value) onlyOwner {
+    token.transferFrom(tomoCommunityDeposit, _user, _value);
+    CashIn(_user, _value);
   }
 }
 
 contract CashOutSidechain is Ownable {
   TomoCoinSidechain public token;
-  address public tomoCommunityDeposit;
 
-  event CashOut( address _from, uint _value );
+  event CashOut( address _user, uint _value );
 
   function CashOutSidechain(
-    TomoCoinSidechain _tomoCoinAddress,
-    address _tomoCommunityDeposit
+    TomoCoinSidechain _tomoCoinAddress
   )
   {
     token = TomoCoinSidechain(_tomoCoinAddress);
-    tomoCommunityDeposit = _tomoCommunityDeposit;
   }
 
-  function cashOut(address _from, uint256 _value) onlyOwner {
-    token.deposit(_from, _value);
-    CashOut(_from, _value);
+  function cashOut(address _user, uint256 _value) onlyOwner {
+    token.deposit(_user, _value);
+    CashOut(_user, _value);
   }
 }

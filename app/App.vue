@@ -10,7 +10,7 @@
       <md-card class="main">
         <md-card-header>
         <md-card-header-text>
-        <div class="md-title">{{ tmcSidechain + tmcMainchain }}</div>
+        <div class="md-title">{{ Math.floor((tmcSidechain + tmcMainchain) * 100)/100 }}</div>
         <div class="md-subhead">TMC</div>
         </md-card-header-text>
         </md-card-header>
@@ -18,7 +18,7 @@
       <md-card class="second">
         <md-card-header>
         <md-card-header-text>
-        <div class="md-title">{{ tmcSidechain }}</div>
+        <div class="md-title">{{ Math.floor(tmcSidechain * 100)/100 }}</div>
         <div class="md-subhead">TMC in sidechain</div>
         </md-card-header-text>
         </md-card-header>
@@ -26,7 +26,7 @@
       <md-card class="second">
         <md-card-header>
         <md-card-header-text>
-        <div class="md-title">{{ tmcMainchain }}</div>
+        <div class="md-title">{{ Math.floor(tmcMainchain * 100)/100 }}</div>
         <div class="md-subhead">TMC in mainchain</div>
         </md-card-header-text>
         </md-card-header>
@@ -35,7 +35,7 @@
       <md-steppers md-vertical>
         <md-step id="first" md-label="Reward Engine">
           <div class="button-container">
-            <md-button class="md-raised md-primary" @click="rewardMe()">Mine TMC</md-button>
+            <md-button class="md-raised md-primary" @click="reward()">Mine TMC</md-button>
           </div>
         </md-step>
 
@@ -77,6 +77,8 @@ import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/default.css'
 import axios from 'axios';
 
+import VueSocketio from 'vue-socket.io';
+
 import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract'
 
@@ -90,6 +92,7 @@ const key = hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic))
 const wallet = key.derivePath("m/44'/60'/0'/0/0").getWallet()
 
 Vue.use(VueMaterial)
+Vue.use(VueSocketio, 'http://localhost:3000')
 
 export default {
   name: 'app',
@@ -106,24 +109,43 @@ export default {
       logs: ['Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine']
     };
   },
+  sockets:{
+    connect: function(){
+      console.log('socket connected')
+      this.$socket.emit('user', {address: this.walletAddress})
+    },
+    reward: function(val){
+      this.logs.unshift('Tomo rewarded you ' + (parseFloat(val/10**18) - this.tmcSidechain) + ' TMC')
+      this.isProcessing = false;
+      this.tmcSidechain = parseFloat(val/10**18);
+    },
+    cashOut: function(res){
+      console.log('cashOut', res);
+      this.logs.unshift('You cashed out ' + this.cashOutValue + ' TMC');
+      this.isProcessing = false;
+      this.tmcSidechain = parseFloat(res.sidechain/10**18);
+      this.tmcMainchain = parseFloat(res.mainchain/10**18);
+    },
+    cashIn: function(res){
+      console.log('cashIn', res);
+      this.logs.unshift('You cashed in ' + this.cashInValue + ' TMC');
+      this.isProcessing = false;
+      this.tmcSidechain = parseFloat(res.sidechain/10**18);
+      this.tmcMainchain = parseFloat(res.mainchain/10**18);
+    }
+  },
   watch: {
     '$route'() { }
   },
   created() { },
   mounted() { },
   methods: {
-    rewardMe() {
+    reward() {
       if (this.isProcessing) return;
       this.isProcessing = true;
-      axios.post('/api/wallets/rewardMe', {
+      axios.post('/api/wallets/reward', {
         walletAddress: this.walletAddress
-      })
-        .then(res => {
-          this.logs.unshift('Tomo rewarded you ' + (parseFloat(res.data.value/10**18) - this.tmcSidechain) + ' TMC');
-          this.isProcessing = false;
-          this.tmcSidechain = parseFloat(res.data.value/10**18);
-
-        });
+      });
     },
     cashOut() {
       if (this.isProcessing) return;
@@ -131,13 +153,7 @@ export default {
       axios.post('/api/wallets/cashOut', {
         walletAddress: this.walletAddress,
         cashOutValue: this.cashOutValue
-      })
-        .then(res => {
-          this.logs.unshift('You cashed out ' + this.cashOutValue + ' TMC');
-          this.isProcessing = false;
-          this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
-          this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
-        });
+      });
     },
     cashIn() {
       if (this.isProcessing) return;
@@ -145,13 +161,7 @@ export default {
       axios.post('/api/wallets/cashIn', {
         walletAddress: this.walletAddress,
         cashInValue: this.cashInValue
-      })
-        .then(res => {
-          this.logs.unshift('You cashed in ' + this.cashInValue + ' TMC');
-          this.isProcessing = false;
-          this.tmcSidechain = parseFloat(res.data.sidechain/10**18);
-          this.tmcMainchain = parseFloat(res.data.mainchain/10**18);
-        });
+      });
     }
   }
 };

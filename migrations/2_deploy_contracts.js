@@ -19,7 +19,7 @@ module.exports = function(deployer) {
           });
         })
           .then(() => {
-            return deployer.deploy(CashOutSidechain, tc.address, tomoCommunityDepositSidechain);
+            return deployer.deploy(CashOutSidechain, tc.address);
           })
           .then(()  => {
             return CashOutSidechain.deployed().then(cos => {
@@ -39,11 +39,11 @@ module.exports = function(deployer) {
       });
     });
   }
-  if (deployer.network === 'mainchain' || deployer.network === 'ropsten') {
+  if (deployer.network === 'mainchain' || deployer.network === 'ropsten' || deployer.network === 'rinkeby') {
     const tomoCommunityDepositMainchain = config.get('rootAddressMainchain');
     return deployer.deploy(TomoCoinMainchain, tomoCommunityDepositMainchain).then(() => {
       return TomoCoinMainchain.deployed().then(function(tc) {
-        return deployer.deploy(CashInMainchain, tc.address, tomoCommunityDepositMainchain).then(() => {
+        return deployer.deploy(CashInMainchain, tc.address).then(() => {
           return CashInMainchain.deployed().then(cim => {
             return tc.approve(cim.address, '40000000000000000000000000').then(() => {
               return tc.add(cim.address);

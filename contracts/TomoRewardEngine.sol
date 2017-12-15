@@ -12,6 +12,8 @@ contract RewardEngine {
   uint256 public constant totalRewardCap = 40000000 * 10**decimals; // 40% tomocoin
   uint256 public rewardCap;
 
+  event Reward( address _to, uint _value );
+
   function RewardEngine(
     TomoCoinSidechain _tomoCoinAddress,
     address _tomoCommunityDeposit
@@ -29,5 +31,6 @@ contract RewardEngine {
     uint256 bonus = rewardCap * 1 / 10000000;
     rewardCap = rewardCap - bonus;
     token.transferFrom(tomoCommunityDeposit, userWallet, bonus);
+    Reward(userWallet, bonus);
   }
 }

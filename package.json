@@ -38,6 +38,7 @@
     "vue-loader": "^13.5.0",
     "vue-material": "1.0.0-beta-7",
     "vue-router": "^3.0.1",
+    "vue-socket.io": "^2.1.1-a",
     "vue-template-compiler": "^2.5.9",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
@@ -50,8 +51,12 @@
     "ethereumjs-wallet": "^0.6.0",
     "express": "^4.16.2",
     "express-validator": "^4.3.0",
-    "web3": "^0.20.2",
+    "kue": "^0.11.6",
+    "mongoose": "^4.13.7",
+    "redis": "^2.8.0",
+    "socket.io": "^2.0.4",
     "truffle-contract": "^1.1.11",
-    "truffle-hdwallet-provider": "0.0.3"
+    "truffle-hdwallet-provider": "0.0.3",
+    "web3": "^0.20.2"
   }
 }
