@@ -4,7 +4,6 @@ MAINTAINER ToMo Team
 RUN npm install -g pm2 truffle
 
 WORKDIR /build
-ENV NODE_ENV production
 
 COPY ./package.json /build
 RUN npm install
