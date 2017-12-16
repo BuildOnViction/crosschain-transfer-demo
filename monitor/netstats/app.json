@@ -15,7 +15,7 @@
       "RPC_PORT"        : "8545",
       "LISTENING_PORT"  : "30303",
       "INSTANCE_NAME"   : "Tomo",
-      "WS_SERVER"       : "ws://netstats:3000",
+      "WS_SERVER"       : "ws://localhost:3000",
       "WS_SECRET"       : "eth-net-stats-secret",
       "VERBOSITY"       : 2
     }
