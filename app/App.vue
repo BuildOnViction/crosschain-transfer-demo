@@ -40,17 +40,19 @@
         </md-step>
 
         <md-step id="second" md-label="Cash Out">
-          <md-field>
+          <md-field :class="cashOutValidation">
           <label>Cash Out Value</label>
           <md-input type="text" v-model="cashOutValue" ></md-input>
+          <span class="md-error">Cash out value must be less than {{ tmcSidechain }} and greater than zero</span>
           </md-field>
           <md-button class="md-raised md-primary" @click="cashOut()">Cash Out</md-button>
         </md-step>
 
         <md-step id="third" md-label="Cash In">
-          <md-field>
+          <md-field :class="cashInValidation">
           <label>Cash In Value</label>
           <md-input type="text" v-model="cashInValue" ></md-input>
+          <span class="md-error">Cash in value must be less than {{ tmcMainchain }} and greater than zero</span>
           </md-field>
           <md-button class="md-raised md-primary" @click="cashIn()">Cash In</md-button>
         </md-step>
@@ -109,9 +111,20 @@ export default {
       logs: ['Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine']
     };
   },
+  computed: {
+    cashOutValidation () {
+      return {
+        'md-invalid': (parseFloat(this.cashOutValue) <= 0 || parseFloat(this.cashOutValue) > parseFloat(this.tmcSidechain))
+      }
+    },
+    cashInValidation () {
+      return {
+        'md-invalid': (parseFloat(this.cashInValue) <= 0 || parseFloat(this.cashInValue) > parseFloat(this.tmcMainchain))
+      }
+    }
+  },
   sockets:{
     connect: function(){
-      console.log('socket connected')
       this.$socket.emit('user', {address: this.walletAddress})
     },
     reward: function(val){
@@ -120,14 +133,12 @@ export default {
       this.tmcSidechain = parseFloat(val/10**18);
     },
     cashOut: function(res){
-      console.log('cashOut', res);
       this.logs.unshift('You cashed out ' + this.cashOutValue + ' TMC');
       this.isProcessing = false;
       this.tmcSidechain = parseFloat(res.sidechain/10**18);
       this.tmcMainchain = parseFloat(res.mainchain/10**18);
     },
     cashIn: function(res){
-      console.log('cashIn', res);
       this.logs.unshift('You cashed in ' + this.cashInValue + ' TMC');
       this.isProcessing = false;
       this.tmcSidechain = parseFloat(res.sidechain/10**18);
