@@ -38,6 +38,8 @@ services:
       - redis
       - mongodb
     env_file: .env
+    volumes:
+      - "contracts:/build/build/contracts"
     networks:
       - front-net
       - back-net
@@ -60,6 +62,7 @@ volumes:
   mongodb:
   tomochain:
   redis:
+  contracts:
 
 networks:
   front-net:
