@@ -108,18 +108,22 @@ export default {
       cashOutValue: '',
       cashInValue: '',
       isProcessing: false,
+      isCashInValidated: false,
+      isCashOutValidated: false,
       logs: ['Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine']
     };
   },
   computed: {
     cashOutValidation () {
+      this.isCashOutValidated = this.cashOutValue && (parseFloat(this.cashOutValue) <= 0 || parseFloat(this.cashOutValue) > parseFloat(this.tmcSidechain))
       return {
-        'md-invalid': this.cashOutValue && (parseFloat(this.cashOutValue) <= 0 || parseFloat(this.cashOutValue) > parseFloat(this.tmcSidechain))
+        'md-invalid': this.isCashOutValidated
       }
     },
     cashInValidation () {
+      this.isCashInValidated = this.cashInValue && (parseFloat(this.cashInValue) <= 0 || parseFloat(this.cashInValue) > parseFloat(this.tmcMainchain))
       return {
-        'md-invalid': this.cashInValue && (parseFloat(this.cashInValue) <= 0 || parseFloat(this.cashInValue) > parseFloat(this.tmcMainchain))
+        'md-invalid': this.isCashInValidated
       }
     }
   },
@@ -159,7 +163,7 @@ export default {
       });
     },
     cashOut() {
-      if (this.isProcessing) return;
+      if (!this.isCashOutValidated || this.isProcessing) return;
       this.isProcessing = true;
       axios.post('/api/wallets/cashOut', {
         walletAddress: this.walletAddress,
@@ -167,7 +171,7 @@ export default {
       });
     },
     cashIn() {
-      if (this.isProcessing) return;
+      if (!this.isCashInValidated || this.isProcessing) return;
       this.isProcessing = true;
       axios.post('/api/wallets/cashIn', {
         walletAddress: this.walletAddress,
