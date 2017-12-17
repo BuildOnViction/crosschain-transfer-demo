@@ -105,8 +105,8 @@ export default {
       walletMnemonic: mnemonic,
       tmcSidechain: 0,
       tmcMainchain: 0,
-      cashOutValue: 0,
-      cashInValue: 0,
+      cashOutValue: '',
+      cashInValue: '',
       isProcessing: false,
       logs: ['Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine']
     };
@@ -114,12 +114,12 @@ export default {
   computed: {
     cashOutValidation () {
       return {
-        'md-invalid': (parseFloat(this.cashOutValue) <= 0 || parseFloat(this.cashOutValue) > parseFloat(this.tmcSidechain))
+        'md-invalid': this.cashOutValue && (parseFloat(this.cashOutValue) <= 0 || parseFloat(this.cashOutValue) > parseFloat(this.tmcSidechain))
       }
     },
     cashInValidation () {
       return {
-        'md-invalid': (parseFloat(this.cashInValue) <= 0 || parseFloat(this.cashInValue) > parseFloat(this.tmcMainchain))
+        'md-invalid': this.cashInValue && (parseFloat(this.cashInValue) <= 0 || parseFloat(this.cashInValue) > parseFloat(this.tmcMainchain))
       }
     }
   },
