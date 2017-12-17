@@ -163,7 +163,7 @@ export default {
       });
     },
     cashOut() {
-      if (!this.isCashOutValidated || this.isProcessing) return;
+      if (this.isCashOutValidated || this.isProcessing) return;
       this.isProcessing = true;
       axios.post('/api/wallets/cashOut', {
         walletAddress: this.walletAddress,
@@ -171,7 +171,7 @@ export default {
       });
     },
     cashIn() {
-      if (!this.isCashInValidated || this.isProcessing) return;
+      if (this.isCashInValidated || this.isProcessing) return;
       this.isProcessing = true;
       axios.post('/api/wallets/cashIn', {
         walletAddress: this.walletAddress,
