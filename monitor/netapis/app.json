@@ -1,6 +1,6 @@
 [
   {
-    "name"              : "node-app",
+    "name"              : "node-apis",
     "script"            : "app.js",
     "log_date_format"   : "YYYY-MM-DD HH:mm Z",
     "merge_logs"        : false,
@@ -15,8 +15,7 @@
       "RPC_PORT"        : "8545",
       "LISTENING_PORT"  : "30303",
       "INSTANCE_NAME"   : "Tomo",
-      "WS_SERVER"       : "ws://localhost:3000",
-      "WS_SECRET"       : "eth-net-stats-secret",
+      "WS_SERVER"       : "ws://netstats:3000",
       "VERBOSITY"       : 2
     }
   }

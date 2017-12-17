@@ -44,12 +44,24 @@ services:
       - front-net
       - back-net
 
-  stats:
+  netapis:
+    build: ./monitor/netapis
+    image: tomo/netapis
+    restart: "on-failure:10"
+    env_file: .env
+    depends_on:
+      - tomochain
+    networks:
+      - back-net
+
+  netstats:
     build: ./monitor/netstats
     image: tomo/netstats
     restart: "on-failure:10"
+    env_file: .env
     depends_on:
       - tomochain
+      - netapis
     ports:
       - "3000:3000"
     networks:

@@ -2,6 +2,10 @@ upstream be_app {
     server app;
 }
 
+upstream be_stats {
+    server netstats:3000;
+}
+
 server {
     listen 80 default_server;
     listen [::]:80 default_server ipv6only=on;
@@ -13,5 +17,14 @@ server {
         proxy_set_header Host $host;
         proxy_http_version 1.1;
         proxy_pass http://be_app/;
+    }
+}
+
+server {
+    listen 80;
+    server_name stats.tomocoin.io;
+
+    location / {
+        proxy_pass http://be_stats/;
     }
 }
