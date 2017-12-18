@@ -20,14 +20,14 @@ app.use(validator({}));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('./build'));
-app.use(require('./apis'));
+// app.use(require('./apis'));
 app.use('/', function(req, res) {
   res.render('app');
 });
 
 // error handler
-app.use(require('./middlewares/error'));
-require('./sockets')(io);
+// app.use(require('./middlewares/error'));
+// require('./sockets')(io);
 
 // start server
 server.listen(config.get('server.port'), config.get('server.host'), function () {
