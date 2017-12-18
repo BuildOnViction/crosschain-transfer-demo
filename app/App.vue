@@ -1,74 +1,168 @@
 <template>
   <div id="app">
-    <div class="page-layout">
-      <div class="md-display-2">Tomo Wallet</div>
-      <div class="container">
-        <p>Your address: {{ walletAddress }}</p>
-        <p>Your backup key: <code>{{ walletMnemonic }}</code></p>
-        <p>Your private key: <code>{{ walletPrivateKey }}</code></p>
-      </div>
-      <md-card class="main">
-        <md-card-header>
-        <md-card-header-text>
-        <div class="md-title">{{ Math.floor((tmcSidechain + tmcMainchain) * 100)/100 }}</div>
-        <div class="md-subhead">TMC</div>
-        </md-card-header-text>
-        </md-card-header>
+    <div v-if="state=='getStart'" class="page-layout getStartScreen">
+      <md-card class="md-primary" md-with-hover>
+        <md-ripple>
+          <md-card-header>
+            <div class="md-title">Welcome to TomoWallet</div>
+            <div class="md-subhead">Testnet mode</div>
+          </md-card-header>
+
+          <md-card-content>
+            The Tomowallet on a new blockchain with <b>Zero fee</b> and <b>Instant confirmation</b>.
+            <br/>
+            Create a new wallet and let's experience!
+          </md-card-content>
+
+          <md-card-actions>
+            <md-button class="md-raised" :md-ripple="true" @click="createWallet">
+              <md-icon>add</md-icon> Create New Wallet
+            </md-button>
+          </md-card-actions>
+        </md-ripple>
       </md-card>
-      <md-card class="second">
-        <md-card-header>
-        <md-card-header-text>
-        <div class="md-title">{{ Math.floor(tmcSidechain * 100)/100 }}</div>
-        <div class="md-subhead">TMC in sidechain</div>
-        </md-card-header-text>
-        </md-card-header>
-      </md-card>
-      <md-card class="second">
-        <md-card-header>
-        <md-card-header-text>
-        <div class="md-title">{{ Math.floor(tmcMainchain * 100)/100 }}</div>
-        <div class="md-subhead">TMC in mainchain</div>
-        </md-card-header-text>
-        </md-card-header>
-      </md-card>
-      <md-card class="steppers">
-      <md-steppers md-vertical>
-        <md-step id="first" md-label="Reward Engine">
-          <div class="button-container">
-            <md-button class="md-raised md-primary" @click="reward()">Mine TMC</md-button>
+    </div>
+    <div v-if="state == 'mainScreen'" class="page-layout mainScreen">
+      <md-toolbar class="md-large md-primary">
+        <div class="md-toolbar-row">
+          <div class="md-toolbar-section-start">
+            <h3 class="md-title" style="flex: 1">Your TomoWallet</h3>
           </div>
-        </md-step>
 
-        <md-step id="second" md-label="Cash Out">
-          <md-field :class="cashOutValidation">
-          <label>Cash Out Value</label>
-          <md-input type="text" v-model="cashOutValue" ></md-input>
-          <span class="md-error">Cash out value must be less than {{ tmcSidechain }} and greater than zero</span>
-          </md-field>
-          <md-button class="md-raised md-primary" @click="cashOut()">Cash Out</md-button>
-        </md-step>
+          <div class="md-toolbar-section-end">
+            <md-button class="md-icon-button">
+              <md-icon>refresh</md-icon>
+            </md-button>
 
-        <md-step id="third" md-label="Cash In">
-          <md-field :class="cashInValidation">
-          <label>Cash In Value</label>
-          <md-input type="text" v-model="cashInValue" ></md-input>
-          <span class="md-error">Cash in value must be less than {{ tmcMainchain }} and greater than zero</span>
-          </md-field>
-          <md-button class="md-raised md-primary" @click="cashIn()">Cash In</md-button>
-        </md-step>
-      </md-steppers>
-      </md-card>
-      <md-card class="steppers">
-      <div>
-        <md-progress-bar v-if="isProcessing" md-mode="indeterminate"></md-progress-bar>
+            <md-menu md-direction="bottom-start" md-align-trigger>
+              <md-button md-menu-trigger>
+                <md-icon>more_vert</md-icon>
+              </md-button>
+
+              <md-menu-content>
+                <md-menu-item><md-button class="md-primary">Show Your Private Key</md-button></md-menu-item>
+                <md-menu-item><md-button class="md-primary">Show Your Backup Key</md-button></md-menu-item>
+                <md-menu-item><md-button class="md-accent" @click="deleteWallet">Delete My Wallet</md-button></md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </div>
+
+        <div class="sumaryCoin">
+          <h3>You have total:</h3>
+          <h1>
+            <strong>{{Math.floor((tmcSidechain + tmcMainchain) * 100)/100}}</strong>
+            <small>TMC</small>
+            <span v-if="expandSumaryCoin">
+              = {{Math.floor(tmcSidechain * 100)/100}} <small>TMC in Sidechian</small> + {{Math.floor(tmcSidechain * 100)/100}} <small>TMC in Mainchain</small>
+            </span>
+            <md-button class="md-icon-button" @click="toggleExpandSumaryCoin">
+              <md-icon v-if="expandSumaryCoin">keyboard_arrow_left</md-icon>
+              <md-icon v-else>info_outline</md-icon>
+            </md-button>
+          </h1>
+          <h4>{{walletAddress}}</h4>
+        </div>
+      </md-toolbar>
+
+
+      <md-empty-state v-if="!hasCoin"
+        md-icon="devices_other"
+        md-label="Get your first Tomocoins"
+        md-description="Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine">
+        <md-button class="md-raised md-primary" @click="reward()">Mine TMC</md-button>
+      </md-empty-state>
+      <div v-else>
+        <div class="cash-in-out">
+          <div class="md-layout md-gutter">
+            <div class="md-layout-item md-size-10">
+            </div>
+            <div class="md-layout-item md-size-33">
+              <md-card class="second">
+                <md-card-header>
+                  <md-card-header-text>
+                    <div class="md-title side-chain">
+                      {{ Math.floor(tmcSidechain * 100)/100 }}
+                      <small>TMC in Sidechain</small>
+                    </div>
+                  </md-card-header-text>
+                </md-card-header>
+                <md-card-content>
+                  The coins in <strong class="side-chain">sidechain</strong>. You can cashout to <strong class="main-chain">mainchain</strong> and bal bla bal bal bal bla bla bla bla bla bla
+                </md-card-content>
+              </md-card>
+            </div>
+            <div class="md-layout-item md-size-15">
+              <div class="cash-action">
+                <md-button class="md-primary md-raised" @click="showCashOut">
+                  Cash Out
+                  <md-icon>arrow_forward</md-icon>
+                </md-button>
+              </div>
+              <div class="cash-action">
+                <md-button class="md-accent md-raised" @click="showCashIn">
+                  <md-icon>arrow_back</md-icon>
+                  Cash In
+                </md-button>
+              </div>
+            </div>
+            <div class="md-layout-item md-size-33">
+              <md-card class="second">
+                <md-card-header>
+                  <md-card-header-text>
+                    <div class="md-title main-chain">
+                      {{ Math.floor(tmcMainchain * 100)/100 }}
+                      <small>TMC in Mainchain</small>
+                    </div>
+                  </md-card-header-text>
+                </md-card-header>
+                <md-card-content>
+                  The coins in <strong class="main-chain">mainchain</strong>. You can cashin to <strong class="side-chain">sidechain</strong> and bal bal bal bal bal bla bla bla bla bla bla bla
+                </md-card-content>
+              </md-card>
+            </div>
+          </div>
+        </div>
       </div>
-      <md-card-content>
-      <p class="md-body-1" v-for="msg in logs">{{ msg }}</p>
-      </md-card-content>
-      </md-card>
+      <div>
+        <div>
+          <md-progress-bar v-if="isProcessing" md-mode="indeterminate"></md-progress-bar>
+        </div>
+        <div>
+          <p class="md-body-1" v-for="msg in logs" :key="msg">
+            {{ msg }}
+          </p>
+        </div>
+      </div>
     </div>
-    <div>
-    </div>
+    <md-dialog-confirm
+      :md-active.sync="showDialogConfirmDeleteWallet"
+      md-title="Do you want delete this wallet?"
+      md-content="When wallet was deleted, you cannot recover your wallet. But don't worry, this is testnet only :)"
+      md-confirm-text="Delete"
+      md-cancel-text="Cancel"
+      @md-confirm="onConfirm" />
+    <md-dialog-prompt
+      :md-active.sync="showPromptCashIn"
+      v-model="cashInValue"
+      md-title="How many coins to cash in?"
+      md-input-placeholder="Amount"
+      md-confirm-text="Done"
+      @md-confirm="cashIn" />
+    <md-dialog-prompt
+      :md-active.sync="showPromptCashOut"
+      v-model="cashOutValue"
+      md-title="How many coins to cash out?"
+      md-input-placeholder="Amount"
+      md-confirm-text="Done"
+      @md-confirm="cashOut" />
+
+    <md-snackbar md-position="left"
+      :md-duration="4000"
+      :md-active.sync="showAlert" md-persistent>
+      <span>{{msgAlert}}</span>
+      <md-button class="md-primary" @click="showAlert = false">Got it!</md-button>
+    </md-snackbar>
   </div>
 </template>
 
@@ -99,32 +193,49 @@ Vue.use(VueSocketio, '/')
 export default {
   name: 'app',
   data() {
+    var walletAddress = '0x' + wallet.getAddress().toString('hex');
+    var walletPrivateKey = wallet.getPrivateKey().toString('hex');
+    var walletMnemonic = mnemonic;
+    if (localStorage.wallet) {
+      var localWallet = JSON.parse(localStorage.wallet);
+      walletAddress = localWallet.walletAddress
+      walletPrivateKey = localWallet.walletPrivateKey;
+      walletMnemonic = localWallet.walletMnemonic;
+    }
     return {
-      walletAddress: '0x' + wallet.getAddress().toString('hex'),
-      walletPrivateKey: wallet.getPrivateKey().toString('hex'),
-      walletMnemonic: mnemonic,
+      showDialogConfirmDeleteWallet: false,
+      showPromptCashOut: false,
+      showPromptCashIn: false,
+      showAlert: false,
+      msgAlert: '',
+      expandSumaryCoin: false,
+      state: localStorage.wallet ? 'mainScreen' : 'getStart',
+      walletAddress: walletAddress,
+      walletPrivateKey: walletPrivateKey,
+      walletMnemonic: walletMnemonic,
       tmcSidechain: 0,
       tmcMainchain: 0,
       cashOutValue: '',
       cashInValue: '',
       isProcessing: false,
-      isCashInValidated: false,
-      isCashOutValidated: false,
-      logs: ['Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine']
+      logs: []
     };
   },
   computed: {
+    hasCoin() {
+      return Math.floor((this.tmcSidechain + this.tmcMainchain) * 100)/100 > 0
+    },
     cashOutValidation () {
-      this.isCashOutValidated = this.cashOutValue && (parseFloat(this.cashOutValue) <= 0 || parseFloat(this.cashOutValue) > parseFloat(this.tmcSidechain))
-      return {
-        'md-invalid': this.isCashOutValidated
-      }
+      var isCashOutValidated = isNaN(parseFloat(this.cashOutValue)) ||
+        parseFloat(this.cashOutValue) <= 0 ||
+        parseFloat(this.cashOutValue) > parseFloat(this.tmcSidechain)
+      return isCashOutValidated ? `Cash out value must be less than ${this.tmcSidechain} and greater than zero` : ''
     },
     cashInValidation () {
-      this.isCashInValidated = this.cashInValue && (parseFloat(this.cashInValue) <= 0 || parseFloat(this.cashInValue) > parseFloat(this.tmcMainchain))
-      return {
-        'md-invalid': this.isCashInValidated
-      }
+      var isCashInValidated = isNaN(parseFloat(this.cashInValue)) ||
+        parseFloat(this.cashInValue) <= 0 ||
+        parseFloat(this.cashInValue) > parseFloat(this.tmcMainchain)
+      return isCashInValidated ? `Cash in value must be less than ${this.tmcMainchain} and greater than zero` : ''
     }
   },
   sockets:{
@@ -155,6 +266,33 @@ export default {
   created() { },
   mounted() { },
   methods: {
+    createWallet() {
+      localStorage.wallet = JSON.stringify({
+        walletAddress: this.walletAddress,
+        walletPrivateKey: this.walletPrivateKey,
+        walletMnemonic: this.walletMnemonic
+      });
+
+      this.state = 'mainScreen';
+    },
+    deleteWallet() {
+      this.showDialogConfirmDeleteWallet = true;
+    },
+    onConfirm() {
+      delete localStorage.wallet;
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    },
+    toggleExpandSumaryCoin() {
+      this.expandSumaryCoin = !this.expandSumaryCoin;
+    },
+    showCashOut() {
+      this.showPromptCashOut = true;
+    },
+    showCashIn() {
+      this.showPromptCashIn = true;
+    },
     reward() {
       if (this.isProcessing) return;
       this.isProcessing = true;
@@ -163,48 +301,123 @@ export default {
       });
     },
     cashOut() {
-      if (this.isCashOutValidated || this.isProcessing) return;
+      if (this.cashOutValidation) {
+        this.msgAlert = this.cashOutValidation;
+        this.showAlert = true;
+        return;
+      }
+      if (this.isProcessing) return;
       this.isProcessing = true;
       axios.post('/api/wallets/cashOut', {
         walletAddress: this.walletAddress,
         cashOutValue: this.cashOutValue
       });
+      this.cashOutValue = '';
     },
     cashIn() {
-      if (this.isCashInValidated || this.isProcessing) return;
+      if (this.cashInValidation) {
+        this.msgAlert = this.cashInValidation;
+        this.showAlert = true;
+        return;
+      }
+      if (this.isProcessing) return;
       this.isProcessing = true;
       axios.post('/api/wallets/cashIn', {
         walletAddress: this.walletAddress,
         cashInValue: this.cashInValue
       });
+      this.cashInValue = '';
     }
   }
 };
 </script>
+
 <style>
-  .page-layout, .footer {
-    padding-top: 30px;
-    margin: 16px auto;
-    display: block;
-    max-width: 1000px;
+  .getStartScreen {
+    padding-top: 100px;
   }
-  .contaner {
+  .getStartScreen .md-primary {
+    width: 400px;
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .getStartScreen .md-primary .md-ripple .md-button-content {
+    color: #333333;
+  }
+
+  .mainScreen .md-toolbar .md-button.md-accent {
+    color: #333333 !important;
+  }
+
+  .sumaryCoin {
+    margin-left: 8px
+  }
+
+  .sumaryCoin h3 {
+    margin-bottom: 40px;
+  }
+  .sumaryCoin h1 {
+    font-size: 40px;
+    line-height: 0px;
+  }
+
+  .sumaryCoin h1 strong {
+    font-size: 70px;
+  }
+
+  .sumaryCoin h1 small {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  .sumaryCoin h1 .md-icon-button {
+    height: 35px;
+    min-width: 35px;
+    width: 35px;
+    opacity: 0.8;
+  }
+  .sumaryCoin h1 .md-icon-button .md-icon {
+    font-size: 18px !important;
+  }
+
+  .sumaryCoin h4 {
+    line-height: 0px;
+  }
+
+  .cash-in-out {
+    margin: 20px;
+  }
+
+  .cash-in-out .md-title {
+    font-size: 70px;
+    line-height: 90px;
+    color: #448aff;
+  }
+
+  .cash-in-out .md-card .side-chain {
+    color: #448aff;
+  }
+
+  .cash-in-out .md-card .main-chain {
+    color: #ff5252;
+  }
+
+  .cash-in-out .md-title small{
+    font-size: 20px;
+    opacity: 0.8;
+  }
+
+  .cash-action {
+    text-align: center;
+  }
+
+  .cash-action .md-button {
     width: 100%;
   }
-  .button-container {
-    padding-top: 20px;
-  }
-  .md-card {
-    width: 320px;
-    margin: 4px;
-    display: inline-block;
-    vertical-align: top;
-  }
-  .md-card.steppers {
-    max-width: 100%;
-    width: 983px;
-    margin: 4px;
-    display: inline-block;
-    vertical-align: top;
+
+  .cash-action:first-child {
+    margin-top: 30px;
   }
 </style>
