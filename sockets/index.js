@@ -1,6 +1,7 @@
 'use strict';
 const contracts = require('../models/blockchain');
 const cache = require('../models/redis');
+const db = require('../models/mongodb');
 const {RewardEngine,
   rootAddressSidechain,
   rootAddressMainchain,
@@ -30,6 +31,8 @@ const sockets = (io) => {
           return tc.balanceOf.call(account, {from: rootAddressSidechain});
         })
           .then((value) => {
+            const rewardValue = value.toNumber();
+            db.Wallet.reward({walletAddress: account, tmcSidechain: rewardValue});
             io.to(account).emit('reward', value.toNumber());
           });
       });
@@ -62,6 +65,11 @@ const sockets = (io) => {
               })
             })
             .then((ret) => {
+              db.Wallet.cashOut({
+                walletAddress: account,
+                tmcSidechain: ret.sidechain,
+                tmcMainchain: ret.mainchain
+              });
               io.to(account).emit('cashOut', ret);;
             });
         });
@@ -97,6 +105,11 @@ const sockets = (io) => {
               })
             })
             .then((ret) => {
+              db.Wallet.cashIn({
+                walletAddress: account,
+                tmcSidechain: ret.sidechain,
+                tmcMainchain: ret.mainchain
+              });
               io.to(account).emit('cashIn', ret);;
             });
         });
@@ -106,6 +119,26 @@ const sockets = (io) => {
 
   io.on('connection', function (socket) {
     socket.on('user', function (data) {
+      db.Wallet.findOne({
+        walletAddress: data.address
+      }).then(w => {
+        if (!w) return false;
+        socket.emit('user', {
+          tmcSidechain: parseFloat(w.tmcSidechain || 0),
+          tmcMainchain: parseFloat(w.tmcMainchain || 0),
+          logs: w.logs.map(l => {
+            return {
+              msg: l.message,
+              type: l.type,
+              change: l.change,
+              time: l.time,
+              tmcSidechain: parseFloat(l.tmcSidechain),
+              tmcMainchain: parseFloat(l.tmcMainchain),
+              total: parseFloat(l.tmcSidechain) + parseFloat(l.tmcMainchain)
+            } 
+          })
+        });
+      });
       socket.join(data.address);
     });
   });

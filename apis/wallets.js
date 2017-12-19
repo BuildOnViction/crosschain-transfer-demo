@@ -2,6 +2,7 @@
 const express = require('express'),
   router = express.Router();
 const Web3 = require('web3');
+const db = require('../models/mongodb');
 
 const {RewardEngine,
   rootAddressSidechain,
@@ -51,6 +52,26 @@ router.post('/cashIn', function(req, res, next) {
   }).catch((e) => {
     return next(e);
   });
+});
+
+router.get('/get/:walletAddress', function(req, res, next) {
+
+  const walletAddress = req.params.walletAddress;
+  console.info('Get Wallet details', walletAddress);
+
+  db.Wallet.findOne({
+    walletAddress: walletAddress
+  }).then(w => {
+    if (w) {
+      return res.json(w);
+    }
+    return res.json({
+      walletAddress: walletAddress,
+      tmcSidechain: "0",
+      tmcMainchain: "0",
+      logs: []
+    });
+  }).catch(e => next(e));
 });
 
 module.exports = router;

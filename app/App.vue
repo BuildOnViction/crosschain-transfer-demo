@@ -61,10 +61,10 @@
         <div class="sumaryCoin">
           <h3>You have total:</h3>
           <h1>
-            <strong>{{(tmcSidechain + tmcMainchain).toFixed(2)}}</strong>
+            <strong>{{(Math.floor((tmcSidechain + tmcMainchain)*100)/100).toFixed(2)}}</strong>
             <small>TMC</small>
             <span v-if="expandSumaryCoin">
-              = {{tmcSidechain.toFixed(2)}} <small>TMC in Sidechian</small> + {{tmcMainchain.toFixed(2)}} <small>TMC in Mainchain</small>
+              = {{tmcSidechain}} <small>TMC in Tomochain</small> + {{tmcMainchain}} <small>TMC in Ethereum</small>
             </span>
             <md-button class="md-icon-button" @click="toggleExpandSumaryCoin">
               <md-icon v-if="expandSumaryCoin">keyboard_arrow_left</md-icon>
@@ -93,12 +93,13 @@
                   <md-card-header-text>
                     <div class="md-title side-chain">
                       {{ tmcSidechain.toFixed(2) }}
+                      <small>TMC in <a href="https://stats.tomocoin.io" target="blank">Tomochain</a></small>
                     </div>
                     <div class="md-subhead color-side-chain">TMC in Sidechain</div>
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
-                  The coins in <strong class="side-chain">sidechain</strong>. You can cashout to <strong class="main-chain">mainchain</strong> and bal bla bal bal bal bla bla bla bla bla bla
+                The coins you have in <strong class="side-chain">tomochain</strong>. You can transfer the coins to <strong class="main-chain">ethereum</strong> by clicking <strong>cash out</strong> button.
                 </md-card-content>
               </md-card>
             </div>
@@ -122,12 +123,13 @@
                   <md-card-header-text>
                     <div class="md-title main-chain">
                       {{ tmcMainchain.toFixed(2) }}
+                      <small>TMC in Ethereum</small>
                     </div>
                     <div class="md-subhead color-main-chain">TMC in Mainchain</div>
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
-                  The coins in <strong class="main-chain">mainchain</strong>. You can cashin to <strong class="side-chain">sidechain</strong> and bal bal bal bal bal bla bla bla bla bla bla bla
+                The coins you have in <strong class="main-chain">ethereum</strong>. You can transfer the coins to <strong class="side-chain">tomochain</strong> by clicking <strong>cash in</strong> button.
                 </md-card-content>
               </md-card>
             </div>
@@ -144,8 +146,8 @@
               <md-table-head style="width: 230px">Time</md-table-head>
               <md-table-head>Type</md-table-head>
               <md-table-head>Detail</md-table-head>
-              <md-table-head md-numeric>TMC in Sidechain</md-table-head>
-              <md-table-head md-numeric>TMC in Mainchain</md-table-head>
+              <md-table-head md-numeric>TMC in Tomochain</md-table-head>
+              <md-table-head md-numeric>TMC in Ethereum</md-table-head>
               <md-table-head md-numeric>Total TMC</md-table-head>
             </md-table-row>
 
@@ -163,15 +165,15 @@
               <md-table-cell>{{e.msg}}</md-table-cell>
               <md-table-cell md-numeric>
                 <span class="color-side-chain">
-                  {{e.tmcSidechain.toFixed(2)}}
+                  {{e.tmcSidechain}}
                 </span>
               </md-table-cell>
               <md-table-cell md-numeric>
                 <span class="color-main-chain">
-                  {{e.tmcMainchain.toFixed(2)}}
+                  {{e.tmcMainchain}}
                 </span>
               </md-table-cell>
-              <md-table-cell md-numeric>{{e.total.toFixed(2)}}</md-table-cell>
+              <md-table-cell md-numeric>{{e.total}}</md-table-cell>
             </md-table-row>
           </md-table>
         </div>
@@ -187,14 +189,14 @@
     <md-dialog-prompt
       :md-active.sync="showPromptCashIn"
       v-model="cashInValue"
-      md-title="How many coins to cash in?"
+      md-title="How many coins do you want to transfer (cash in)?"
       md-input-placeholder="Amount"
       md-confirm-text="Done"
       @md-confirm="cashIn" />
     <md-dialog-prompt
       :md-active.sync="showPromptCashOut"
       v-model="cashOutValue"
-      md-title="How many coins to cash out?"
+      md-title="How many coins do you want to transfer (cash out)?"
       md-input-placeholder="Amount"
       md-confirm-text="Done"
       @md-confirm="cashOut" />
@@ -233,10 +235,6 @@ Vue.use(VueMaterial)
 Vue.use(VueSocketio, '/')
 
 
-//////
-// Vue.use(VueSocketio, 'https://testnet.tomocoin.io');
-// axios.defaults.baseURL = 'https://testnet.tomocoin.io'
-
 export default {
   name: 'app',
   data() {
@@ -267,7 +265,7 @@ export default {
       cashOutValue: '',
       cashInValue: '',
       isProcessing: false,
-      logs: localStorage.logs ? JSON.parse(localStorage.logs) : [{
+      logs: [{
         time: new Date(),
         msg: 'Your TomoWallet created',
         tmcMainchain: 0,
@@ -297,6 +295,12 @@ export default {
   sockets:{
     connect: function(){
       this.$socket.emit('user', {address: this.walletAddress})
+    },
+    user: function(user){
+      this.logs = user.logs;
+      this.tmcSidechain = parseFloat(user.tmcSidechain);
+      this.tmcMainchain = parseFloat(user.tmcMainchain);
+      localStorage.logs = JSON.stringify(this.logs);
     },
     reward: function(val){
       this.logs.unshift({
