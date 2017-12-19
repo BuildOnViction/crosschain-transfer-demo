@@ -93,9 +93,8 @@
                   <md-card-header-text>
                     <div class="md-title side-chain">
                       {{ tmcSidechain.toFixed(2) }}
-                      <small>TMC in <a href="https://stats.tomocoin.io" target="blank">Tomochain</a></small>
                     </div>
-                    <div class="md-subhead color-side-chain">TMC in Sidechain</div>
+                    <div class="md-subhead color-side-chain">TMC in <a href="https://stats.tomocoin.io" target="blank">Tomochain</a></div>
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
@@ -123,9 +122,8 @@
                   <md-card-header-text>
                     <div class="md-title main-chain">
                       {{ tmcMainchain.toFixed(2) }}
-                      <small>TMC in Ethereum</small>
                     </div>
-                    <div class="md-subhead color-main-chain">TMC in Mainchain</div>
+                    <div class="md-subhead color-main-chain">TMC in Ethereum</div>
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
