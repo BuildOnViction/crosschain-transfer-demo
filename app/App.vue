@@ -51,10 +51,10 @@
         <div class="sumaryCoin">
           <h3>You have total:</h3>
           <h1>
-            <strong>{{Math.floor((tmcSidechain + tmcMainchain) * 100)/100}}</strong>
+            <strong>{{(tmcSidechain + tmcMainchain).toFixed(2)}}</strong>
             <small>TMC</small>
             <span v-if="expandSumaryCoin">
-              = {{Math.floor(tmcSidechain * 100)/100}} <small>TMC in Sidechian</small> + {{Math.floor(tmcSidechain * 100)/100}} <small>TMC in Mainchain</small>
+              = {{tmcSidechain.toFixed(2)}} <small>TMC in Sidechian</small> + {{tmcSidechain.toFixed(2)}} <small>TMC in Mainchain</small>
             </span>
             <md-button class="md-icon-button" @click="toggleExpandSumaryCoin">
               <md-icon v-if="expandSumaryCoin">keyboard_arrow_left</md-icon>
@@ -82,7 +82,7 @@
                 <md-card-header>
                   <md-card-header-text>
                     <div class="md-title side-chain">
-                      {{ Math.floor(tmcSidechain * 100)/100 }}
+                      {{ tmcSidechain.toFixed(2) }}
                       <small>TMC in Sidechain</small>
                     </div>
                   </md-card-header-text>
@@ -111,7 +111,7 @@
                 <md-card-header>
                   <md-card-header-text>
                     <div class="md-title main-chain">
-                      {{ Math.floor(tmcMainchain * 100)/100 }}
+                      {{ tmcMainchain.toFixed(2) }}
                       <small>TMC in Mainchain</small>
                     </div>
                   </md-card-header-text>
@@ -128,10 +128,42 @@
         <div>
           <md-progress-bar v-if="isProcessing" md-mode="indeterminate"></md-progress-bar>
         </div>
-        <div>
-          <p class="md-body-1" v-for="msg in logs" :key="msg">
-            {{ msg }}
-          </p>
+        <div class="log-table">
+          <md-table md-card>
+            <md-table-row>
+              <md-table-head style="width: 230px">Time</md-table-head>
+              <md-table-head>Type</md-table-head>
+              <md-table-head>Detail</md-table-head>
+              <md-table-head md-numeric>TMC in Sidechain</md-table-head>
+              <md-table-head md-numeric>TMC in Mainchain</md-table-head>
+              <md-table-head md-numeric>Total TMC</md-table-head>
+            </md-table-row>
+
+            <md-table-row v-for="(e, i) in logs" :key="i">
+              <md-table-cell>{{new Date(e.time).toLocaleString()}}</md-table-cell>
+              <md-table-cell>
+                <span class="type" :class="`type-${e.type}`">
+                  {{e.type}}
+                  <md-icon v-if="e.type == 'message'">chat_bubble_outline</md-icon>
+                  <md-icon v-if="e.type == 'reward'">attach_money</md-icon>
+                  <md-icon v-if="e.type == 'cashOut'">arrow_forward</md-icon>
+                  <md-icon v-if="e.type == 'cashIn'">arrow_back</md-icon>
+                </span>
+              </md-table-cell>
+              <md-table-cell>{{e.msg}}</md-table-cell>
+              <md-table-cell md-numeric>
+                <span class="color-side-chain">
+                  {{e.tmcSidechain.toFixed(2)}}
+                </span>
+              </md-table-cell>
+              <md-table-cell md-numeric>
+                <span class="color-main-chain">
+                  {{e.tmcMainchain.toFixed(2)}}
+                </span>
+              </md-table-cell>
+              <md-table-cell md-numeric>{{e.total.toFixed(2)}}</md-table-cell>
+            </md-table-row>
+          </md-table>
         </div>
       </div>
     </div>
@@ -190,6 +222,11 @@ const wallet = key.derivePath("m/44'/60'/0'/0/0").getWallet()
 Vue.use(VueMaterial)
 Vue.use(VueSocketio, '/')
 
+
+//////
+// Vue.use(VueSocketio, 'https://testnet.tomocoin.io');
+// axios.defaults.baseURL = 'https://testnet.tomocoin.io'
+
 export default {
   name: 'app',
   data() {
@@ -218,12 +255,19 @@ export default {
       cashOutValue: '',
       cashInValue: '',
       isProcessing: false,
-      logs: []
+      logs: localStorage.logs ? JSON.parse(localStorage.logs) : [{
+        time: new Date(),
+        msg: 'Your TomoWallet created',
+        tmcMainchain: 0,
+        tmcSidechain: 0,
+        total: 0,
+        type: 'message'
+      }]
     };
   },
   computed: {
     hasCoin() {
-      return Math.floor((this.tmcSidechain + this.tmcMainchain) * 100)/100 > 0
+      return this.tmcSidechain + this.tmcMainchain > 0
     },
     cashOutValidation () {
       var isCashOutValidated = isNaN(parseFloat(this.cashOutValue)) ||
@@ -243,21 +287,49 @@ export default {
       this.$socket.emit('user', {address: this.walletAddress})
     },
     reward: function(val){
-      this.logs.unshift('Tomo rewarded you ' + (parseFloat(val/10**18) - this.tmcSidechain) + ' TMC')
+      this.logs.unshift({
+        time: new Date(),
+        msg: 'Tomo rewarded you ' + (parseFloat(val/10**18) - this.tmcSidechain) + ' TMC',
+        tmcSidechain: (parseFloat(val/10**18) - this.tmcSidechain),
+        tmcMainchain: this.tmcMainchain,
+        total: parseFloat(val/10**18),
+        type: 'reward'
+      });
+      localStorage.logs = JSON.stringify(this.logs);
       this.isProcessing = false;
       this.tmcSidechain = parseFloat(val/10**18);
     },
     cashOut: function(res){
-      this.logs.unshift('You cashed out ' + this.cashOutValue + ' TMC');
       this.isProcessing = false;
       this.tmcSidechain = parseFloat(res.sidechain/10**18);
       this.tmcMainchain = parseFloat(res.mainchain/10**18);
+
+      this.logs.unshift({
+        time: new Date(),
+        msg: 'You cashed out ' + this.cashOutValue + ' TMC',
+        tmcSidechain: this.tmcSidechain,
+        tmcMainchain: this.tmcMainchain,
+        total: this.tmcSidechain + this.tmcMainchain,
+        type: 'cashOut'
+      });
+      localStorage.logs = JSON.stringify(this.logs);
+      this.cashOutValue = '';
     },
     cashIn: function(res){
-      this.logs.unshift('You cashed in ' + this.cashInValue + ' TMC');
       this.isProcessing = false;
       this.tmcSidechain = parseFloat(res.sidechain/10**18);
       this.tmcMainchain = parseFloat(res.mainchain/10**18);
+
+      this.logs.unshift({
+        time: new Date(),
+        msg: 'You cashed in ' + this.cashInValue + ' TMC',
+        tmcSidechain: this.tmcSidechain,
+        tmcMainchain: this.tmcMainchain,
+        total: this.tmcSidechain + this.tmcMainchain,
+        type: 'cashIn'
+      });
+      localStorage.logs = JSON.stringify(this.logs);
+      this.cashInValue = '';
     }
   },
   watch: {
@@ -312,7 +384,6 @@ export default {
         walletAddress: this.walletAddress,
         cashOutValue: this.cashOutValue
       });
-      this.cashOutValue = '';
     },
     cashIn() {
       if (this.cashInValidation) {
@@ -326,13 +397,21 @@ export default {
         walletAddress: this.walletAddress,
         cashInValue: this.cashInValue
       });
-      this.cashInValue = '';
     }
   }
 };
 </script>
 
 <style>
+
+  .color-side-chain {
+    color: #448aff;
+  }
+
+  .color-main-chain {
+    color: #ff5252;
+  }
+
   .getStartScreen {
     padding-top: 100px;
   }
@@ -419,5 +498,38 @@ export default {
 
   .cash-action:first-child {
     margin-top: 30px;
+  }
+
+  .log-table {
+    padding: 20px;
+  }
+
+  .log-table .type {
+    padding: 2px 3px 0 10px;
+    display: inline-block;
+    color: #ffffff;
+    border-radius: 100px;
+    font-weight: bold;
+  }
+
+  .log-table .type-message {
+    background: gray;
+  }
+
+  .log-table .type-reward {
+    background: #009688;
+  }
+
+  .log-table .type-cashOut {
+    background: #448aff;
+  }
+
+  .log-table .type-cashIn {
+    background: #ff5252;
+  }
+
+  .log-table .type .md-icon {
+    font-size: 15px !important;
+    color: inherit;
   }
 </style>
