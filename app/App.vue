@@ -30,9 +30,7 @@
           </div>
 
           <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button">
-              <md-icon>refresh</md-icon>
-            </md-button>
+            <md-button v-if="hasCoin" class="md-raised" @click="reward()">Mine more TomoCoins</md-button>
 
             <md-menu md-direction="bottom-start" md-align-trigger>
               <md-button md-menu-trigger>
@@ -40,11 +38,19 @@
               </md-button>
 
               <md-menu-content>
-                <md-menu-item><md-button class="md-primary">Show Your Private Key</md-button></md-menu-item>
-                <md-menu-item><md-button class="md-primary">Show Your Backup Key</md-button></md-menu-item>
+                <md-menu-item><md-button class="md-primary" @click="showPrivateKey = true">Show Your Private Key</md-button></md-menu-item>
+                <md-menu-item><md-button class="md-primary" @click="showBackupKey = true">Show Your Backup Key</md-button></md-menu-item>
                 <md-menu-item><md-button class="md-accent" @click="deleteWallet">Delete My Wallet</md-button></md-menu-item>
               </md-menu-content>
             </md-menu>
+            <md-dialog-alert
+              :md-active.sync="showPrivateKey"
+              md-title="Your private key"
+              :md-content="`Make it safe: <br/><strong>${walletPrivateKey}</strong>`" />
+            <md-dialog-alert
+              :md-active.sync="showBackupKey"
+              md-title="Your backup key"
+              :md-content="`Make it safe: <br/><strong>${walletMnemonic}</strong>`" />
           </div>
         </div>
 
@@ -54,7 +60,7 @@
             <strong>{{(tmcSidechain + tmcMainchain).toFixed(2)}}</strong>
             <small>TMC</small>
             <span v-if="expandSumaryCoin">
-              = {{tmcSidechain.toFixed(2)}} <small>TMC in Sidechian</small> + {{tmcSidechain.toFixed(2)}} <small>TMC in Mainchain</small>
+              = {{tmcSidechain.toFixed(2)}} <small>TMC in Sidechian</small> + {{tmcMainchain.toFixed(2)}} <small>TMC in Mainchain</small>
             </span>
             <md-button class="md-icon-button" @click="toggleExpandSumaryCoin">
               <md-icon v-if="expandSumaryCoin">keyboard_arrow_left</md-icon>
@@ -69,8 +75,8 @@
       <md-empty-state v-if="!hasCoin"
         md-icon="devices_other"
         md-label="Get your first Tomocoins"
-        md-description="Hello friends, click MINE TMC to receive your first Tomocoins from Tomo Reward Engine">
-        <md-button class="md-raised md-primary" @click="reward()">Mine TMC</md-button>
+        md-description="Hello friends, click MINE TomoCoin to receive your first Tomocoins from Tomo Reward Engine">
+        <md-button class="md-raised md-primary" @click="reward()">Mine TomoCoin</md-button>
       </md-empty-state>
       <div v-else>
         <div class="cash-in-out">
@@ -244,6 +250,8 @@ export default {
       showPromptCashOut: false,
       showPromptCashIn: false,
       showAlert: false,
+      showPrivateKey: false,
+      showBackupKey: false,
       msgAlert: '',
       expandSumaryCoin: false,
       state: localStorage.wallet ? 'mainScreen' : 'getStart',
@@ -430,7 +438,8 @@ export default {
   }
 
   .sumaryCoin {
-    margin-left: 8px
+    padding: 0 8px;
+    width: 100%;
   }
 
   .sumaryCoin h3 {
