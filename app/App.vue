@@ -360,6 +360,7 @@ export default {
     },
     onConfirm() {
       delete localStorage.wallet;
+      delete localStorage.logs;
       setTimeout(() => {
         window.location.reload();
       }, 500);
