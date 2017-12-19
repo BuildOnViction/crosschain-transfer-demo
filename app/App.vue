@@ -76,7 +76,7 @@
       </md-toolbar>
 
 
-      <md-empty-state v-if="hasCoin"
+      <md-empty-state v-if="!hasCoin"
         md-icon="devices_other"
         md-label="Get your first Tomocoins"
         md-description="Hello friends, click MINE TomoCoin to receive your first Tomocoins from Tomo Reward Engine">
@@ -142,7 +142,7 @@
           <md-table md-card>
             <md-table-row>
               <md-table-head style="width: 230px">Time</md-table-head>
-              <md-table-head style="width: 150px">Type</md-table-head>
+              <md-table-head style="width: 160px">Type</md-table-head>
               <md-table-head>Detail</md-table-head>
               <md-table-head md-numeric>TMC in Tomochain</md-table-head>
               <md-table-head md-numeric>TMC in Ethereum</md-table-head>
