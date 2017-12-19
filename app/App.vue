@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <div v-if="state=='getStart'" class="page-layout getStartScreen">
+      <video src="http://static-p.iuqo.com/media/home/home/video/cloud2.mp4" autoplay="" loop="" muted=""></video>
+      <div class="logo">
+        <img src="https://tomocoin-ico.herokuapp.com/img/logo.svg">
+      </div>
       <md-card class="md-primary" md-with-hover>
         <md-ripple>
           <md-card-header>
@@ -423,6 +427,31 @@ export default {
 
   .getStartScreen {
     padding-top: 100px;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color: rgba(68, 138, 255, 0.5);
+  }
+
+  .getStartScreen .logo {
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .getStartScreen .logo image {
+    width: 60px;
+  }
+
+  .getStartScreen video {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover;
   }
   .getStartScreen .md-primary {
     width: 400px;
