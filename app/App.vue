@@ -13,7 +13,7 @@
           </md-card-header>
 
           <md-card-content>
-            The Tomowallet on a new blockchain with <b>Zero fee</b> and <b>Instant confirmation</b>.
+          The Tomowallet works on two blockchain. The first one is <a href="https://stats.tomocoin.io" targe="_blank">Tomochain</a>  - <b>Zero fee</b> and <b>Instant confirmation</b>. The second one is <a href="https://www.rinkeby.io">Rinkeby</a>.
             <br/>
             Create a new wallet and let's experience!
           </md-card-content>
