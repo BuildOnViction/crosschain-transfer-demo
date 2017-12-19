@@ -76,7 +76,7 @@
       </md-toolbar>
 
 
-      <md-empty-state v-if="!hasCoin"
+      <md-empty-state v-if="hasCoin"
         md-icon="devices_other"
         md-label="Get your first Tomocoins"
         md-description="Hello friends, click MINE TomoCoin to receive your first Tomocoins from Tomo Reward Engine">
@@ -92,9 +92,9 @@
                 <md-card-header>
                   <md-card-header-text>
                     <div class="md-title side-chain">
-                      {{ (Math.floor(tmcSidechain*100)/100).toFixed(2) }}
-                      <small>TMC in <a href="https://stats.tomocoin.io" target="blank">Tomochain</a></small>
+                      {{ tmcSidechain.toFixed(2) }}
                     </div>
+                    <div class="md-subhead color-side-chain">TMC in <a href="https://stats.tomocoin.io" target="blank">Tomochain</a></div>
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
@@ -121,9 +121,9 @@
                 <md-card-header>
                   <md-card-header-text>
                     <div class="md-title main-chain">
-                      {{ (Math.floor(tmcMainchain*100)/100).toFixed(2) }}
-                      <small>TMC in Ethereum</small>
+                      {{ tmcMainchain.toFixed(2) }}
                     </div>
+                    <div class="md-subhead color-main-chain">TMC in Ethereum</div>
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
@@ -432,7 +432,6 @@ export default {
     width: 100vw;
     height: 100vh;
     position: relative;
-    background-color: rgba(68, 138, 255, 0.5);
   }
 
   .getStartScreen .logo {
@@ -526,6 +525,11 @@ export default {
 
   .cash-in-out .md-title small{
     font-size: 20px;
+    opacity: 0.8;
+  }
+
+  .cash-in-out .md-subhead {
+    font-size: 18px;
     opacity: 0.8;
   }
 
