@@ -7,8 +7,8 @@ upstream be_stats {
 }
 
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server ipv6only=on;
+    listen 80;
+    server_name testnet.tomocoin.io;
 
     location / {
         proxy_set_header Upgrade $http_upgrade;
@@ -21,8 +21,8 @@ server {
 }
 
 server {
-    listen 80;
-    server_name stats.tomocoin.io;
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
 
     location / {
         proxy_set_header Upgrade $http_upgrade;
