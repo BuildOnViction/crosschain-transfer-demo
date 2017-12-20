@@ -77,10 +77,10 @@
         <div class="sumaryCoin">
           <h3>You have total:</h3>
           <h1>
-            <strong>{{(Math.floor((tmcSidechain + tmcMainchain)*100)/100).toFixed(2)}}</strong>
+            <strong>{{(tmcSidechain + tmcMainchain).toFixed(2)}}</strong>
             <small>TMC</small>
             <span v-if="expandSumaryCoin">
-              = {{tmcSidechain}} <small>TMC in Tomochain</small> + {{tmcMainchain}} <small>TMC in Ethereum</small>
+              = {{tmcSidechain.toFixed(2)}} <small>TMC in Tomochain</small> + {{tmcMainchain.toFixed(2)}} <small>TMC in Ethereum</small>
             </span>
             <md-button class="md-icon-button" @click="toggleExpandSumaryCoin">
               <md-icon v-if="expandSumaryCoin">keyboard_arrow_left</md-icon>
@@ -92,7 +92,7 @@
       </md-toolbar>
 
 
-      <md-empty-state v-if="hasCoin"
+      <md-empty-state v-if="!hasCoin"
         md-icon="devices_other"
         md-label="Get your first Tomocoins"
         md-description="Hello friends, click MINE TomoCoin to receive your first Tomocoins from Tomo Reward Engine">
@@ -159,7 +159,7 @@
           <md-table md-card>
             <md-table-row>
               <md-table-head style="width: 230px">Time</md-table-head>
-              <md-table-head>Type</md-table-head>
+              <md-table-head style="width: 160px">Type</md-table-head>
               <md-table-head>Detail</md-table-head>
               <md-table-head md-numeric>TMC in Tomochain</md-table-head>
               <md-table-head md-numeric>TMC in Ethereum</md-table-head>
@@ -180,15 +180,15 @@
               <md-table-cell>{{e.msg}}</md-table-cell>
               <md-table-cell md-numeric>
                 <span class="color-side-chain">
-                  {{e.tmcSidechain}}
+                  {{(e.tmcSidechain || tmcSidechain) .toFixed(2)}}
                 </span>
               </md-table-cell>
               <md-table-cell md-numeric>
                 <span class="color-main-chain">
-                  {{e.tmcMainchain}}
+                  {{(e.tmcMainchain || tmcMainchain).toFixed(2)}}
                 </span>
               </md-table-cell>
-              <md-table-cell md-numeric>{{e.total}}</md-table-cell>
+              <md-table-cell md-numeric>{{(e.total || (tmcSidechain + tmcMainchain)).toFixed(2)}}</md-table-cell>
             </md-table-row>
           </md-table>
         </div>
