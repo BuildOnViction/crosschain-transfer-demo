@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y git
 
 RUN npm install -g pm2
 
-RUN git clone https://github.com/cubedro/eth-netstats /netstats
+COPY ./ /netstats
 
 RUN cd /netstats && \
     npm install && npm install -g grunt-cli && grunt
