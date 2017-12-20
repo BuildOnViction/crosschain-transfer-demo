@@ -45,6 +45,32 @@ const getMainchainAddresses = () => {
     return CashOutMainchain.deployed().then(com => {
       ret.cashOutAddress = com.address;
       return ret;
+    }).then(() => {
+      return CashInMainchain.deployed().then(cim => {
+        ret.cashInAddress = cim.address;
+        return ret;
+      });
+    });
+  });
+};
+
+const getSidechainAddresses = () => {
+  const ret = {};
+  return TomoCoinSidechain.deployed().then(tc => {
+    ret.tmcAddress = tc.address;
+    return CashOutSidechain.deployed().then(com => {
+      ret.cashOutAddress = com.address;
+      return ret;
+    }).then(() => {
+      return CashInSidechain.deployed().then(cim => {
+        ret.cashInAddress = cim.address;
+        return ret;
+      });
+    }).then(() => {
+      return RewardEngine.deployed().then(re => {
+        ret.rewardEngineAddress = re.address;
+        return ret;
+      });
     });
   });
 };
@@ -59,5 +85,6 @@ module.exports = {
   CashInMainchain,
   rootAddressSidechain,
   rootAddressMainchain,
-  getMainchainAddresses
+  getMainchainAddresses,
+  getSidechainAddresses
 };

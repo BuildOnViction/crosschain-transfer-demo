@@ -67,12 +67,29 @@
 <p>Tomocoin Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/token/' + mainchainInformation.tmcAddress">{{ mainchainInformation.tmcAddress }}</a></p>
 <p>CashOut Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashOutAddress">{{ mainchainInformation.cashOutAddress }}</a></p>
 <p>CashIn Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashInAddress">{{ mainchainInformation.cashInAddress }}</a></p>
+<p>Github: <a target="_blank" href="https://github.com/TOMOAPP/Tomo-CashFlows-PoC">https://github.com/TOMOAPP/Tomo-CashFlows-PoC</a></p>
 <p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
 </md-content>
             <md-dialog-actions>
               <md-button class="md-primary" @click="showMainchainInformation = false">Close</md-button>
             </md-dialog-actions>
         </md-dialog>
+
+        <md-dialog :md-active.sync="showSidechainInformation">
+            <md-dialog-title>Tomochain</md-dialog-title>
+            <md-content>
+<p>Reward Engine Smart Contract: {{ sidechainInformation.rewardEngineAddress }}</p>
+<p>Tomocoin Smart Contract: {{ sidechainInformation.tmcAddress }}</p>
+<p>CashOut Smart Contract: {{ sidechainInformation.cashOutAddress }}</p>
+<p>CashIn Smart Contract: {{ sidechainInformation.cashInAddress }}</a></p>
+<p>Github: <a target="_blank" href="https://github.com/TOMOAPP/Tomo-CashFlows-PoC">https://github.com/TOMOAPP/Tomo-CashFlows-PoC</a></p>
+<p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
+</md-content>
+            <md-dialog-actions>
+              <md-button class="md-primary" @click="showSidechainInformation = false">Close</md-button>
+            </md-dialog-actions>
+        </md-dialog>
+
 
         <div class="sumaryCoin">
           <h3>You have total:</h3>
@@ -114,7 +131,7 @@
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
-                The coins you have in <strong class="side-chain">tomochain</strong>. You can transfer the coins to <strong class="main-chain">ethereum</strong> by clicking <strong>cash out</strong> button.
+                The coins you have in <strong class="side-chain">tomochain</strong>. You can transfer the coins to <strong class="main-chain">ethereum</strong> by clicking <strong>cash out</strong> button. <a @click="showSidechainInformation = true" href="#">View more ></a>
                 </md-card-content>
               </md-card>
             </div>
@@ -265,6 +282,7 @@ export default {
       showPrivateKey: false,
       showBackupKey: false,
       showMainchainInformation: false,
+      showSidechainInformation: false,
       msgAlert: '',
       expandSumaryCoin: false,
       state: localStorage.wallet ? 'mainScreen' : 'getStart',
@@ -272,6 +290,7 @@ export default {
       walletPrivateKey: walletPrivateKey,
       walletMnemonic: walletMnemonic,
       mainchainInformation: '',
+      sidechainInformation: '',
       tmcSidechain: 0,
       tmcMainchain: 0,
       cashOutValue: '',
@@ -309,7 +328,6 @@ export default {
       this.$socket.emit('user', {address: this.walletAddress})
     },
     user: function(user){
-      console.log(user);
       this.logs = user.logs;
       this.mainchainInformation = user.mainchainInformation;
       this.sidechainInformation = user.sidechainInformation;

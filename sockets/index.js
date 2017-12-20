@@ -11,7 +11,8 @@ const {RewardEngine,
   CashInMainchain,
   TomoCoinSidechain,
   TomoCoinMainchain,
-  getMainchainAddresses
+  getMainchainAddresses,
+  getSidechainAddresses
 } = require('../models/blockchain');
 
 const q = require('../queues');
@@ -123,22 +124,25 @@ const sockets = (io) => {
       db.Wallet.findOne({
         walletAddress: data.address
       }).then(w => {
-        getMainchainAddresses().then(addresses => {
-          socket.emit('user', {
-            mainchainInformation: addresses,
-            tmcSidechain: parseFloat((w || {}).tmcSidechain || 0),
-            tmcMainchain: parseFloat((w || {}).tmcMainchain || 0),
-            logs: ((w || {}).logs || []).map(l => {
-              return {
-                msg: l.message,
-                type: l.type,
-                change: l.change,
-                time: l.time,
-                tmcSidechain: parseFloat(l.tmcSidechain),
-                tmcMainchain: parseFloat(l.tmcMainchain),
-                total: parseFloat(l.tmcSidechain) + parseFloat(l.tmcMainchain)
-              } 
-            })
+        getMainchainAddresses().then(mc => {
+          getSidechainAddresses().then(sc => {
+            socket.emit('user', {
+              mainchainInformation: mc,
+              sidechainInformation: sc,
+              tmcSidechain: parseFloat((w || {}).tmcSidechain || 0),
+              tmcMainchain: parseFloat((w || {}).tmcMainchain || 0),
+              logs: ((w || {}).logs || []).map(l => {
+                return {
+                  msg: l.message,
+                  type: l.type,
+                  change: l.change,
+                  time: l.time,
+                  tmcSidechain: parseFloat(l.tmcSidechain),
+                  tmcMainchain: parseFloat(l.tmcMainchain),
+                  total: parseFloat(l.tmcSidechain) + parseFloat(l.tmcMainchain)
+                } 
+              })
+            });
           });
         });
       });
