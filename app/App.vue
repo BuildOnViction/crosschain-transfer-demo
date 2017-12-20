@@ -61,36 +61,6 @@
               :md-content="`Make it safe: <br/><strong>${walletMnemonic}</strong>`" />
           </div>
         </div>
-        <md-dialog :md-active.sync="showMainchainInformation">
-            <md-dialog-title>Ethereum Rinkeby</md-dialog-title>
-            <md-content>
-<p>Tomocoin Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/token/' + mainchainInformation.tmcAddress">{{ mainchainInformation.tmcAddress }}</a></p>
-<p>CashOut Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashOutAddress">{{ mainchainInformation.cashOutAddress }}</a></p>
-<p>CashIn Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashInAddress">{{ mainchainInformation.cashInAddress }}</a></p>
-<p>Github: <a target="_blank" href="https://github.com/TOMOAPP/Tomo-CashFlows-PoC">https://github.com/TOMOAPP/Tomo-CashFlows-PoC</a></p>
-<p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
-</md-content>
-            <md-dialog-actions>
-              <md-button class="md-primary" @click="showMainchainInformation = false">Close</md-button>
-            </md-dialog-actions>
-        </md-dialog>
-
-        <md-dialog :md-active.sync="showSidechainInformation">
-            <md-dialog-title>Tomochain</md-dialog-title>
-            <md-content>
-<p>Reward Engine Smart Contract: {{ sidechainInformation.rewardEngineAddress }}</p>
-<p>Tomocoin Smart Contract: {{ sidechainInformation.tmcAddress }}</p>
-<p>CashOut Smart Contract: {{ sidechainInformation.cashOutAddress }}</p>
-<p>CashIn Smart Contract: {{ sidechainInformation.cashInAddress }}</a></p>
-<p>Github: <a target="_blank" href="https://github.com/TOMOAPP/Tomo-CashFlows-PoC">https://github.com/TOMOAPP/Tomo-CashFlows-PoC</a></p>
-<p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
-</md-content>
-            <md-dialog-actions>
-              <md-button class="md-primary" @click="showSidechainInformation = false">Close</md-button>
-            </md-dialog-actions>
-        </md-dialog>
-
-
         <div class="sumaryCoin">
           <h3>You have total:</h3>
           <h1>
@@ -118,24 +88,40 @@
       <div v-else>
         <div class="cash-in-out">
           <div class="md-layout md-gutter">
-            <div class="md-layout-item md-size-10">
-            </div>
-            <div class="md-layout-item md-size-33">
+            <div class="md-layout-item md-size-40">
               <md-card class="second">
-                <md-card-header>
-                  <md-card-header-text>
-                    <div class="md-title side-chain">
-                      {{ tmcSidechain.toFixed(2) }}
-                    </div>
-                    <div class="md-subhead color-side-chain">TMC in <a href="https://stats.tomocoin.io" target="blank">Tomochain</a></div>
-                  </md-card-header-text>
-                </md-card-header>
-                <md-card-content>
-                The coins you have in <strong class="side-chain">tomochain</strong>. You can transfer the coins to <strong class="main-chain">ethereum</strong> by clicking <strong>cash out</strong> button. <a @click="showSidechainInformation = true" href="#">View more ></a>
-                </md-card-content>
+                <md-card-area>
+                  <md-card-header>
+                    <md-card-header-text>
+                      <div class="md-title side-chain">
+                        {{ tmcSidechain.toFixed(2) }}
+                      </div>
+                      <div class="md-subhead color-side-chain">TMC in <a href="https://stats.tomocoin.io" target="blank">Tomochain</a></div>
+                    </md-card-header-text>
+                  </md-card-header>
+                  <md-card-content>
+                  The coins you have in <strong class="side-chain">tomochain</strong>. You can transfer the coins to <strong class="main-chain">ethereum</strong> by clicking <strong>cash out</strong> button.
+                  </md-card-content>
+                </md-card-area>
+                <md-card-expand>
+                  <md-card-actions>
+                    <md-card-expand-trigger>
+                      <md-button>More Info</md-button>
+                    </md-card-expand-trigger>
+                  </md-card-actions>
+                  <md-card-expand-content>
+                    <md-card-content>
+                      <p>Reward Engine Smart Contract: {{ sidechainInformation.rewardEngineAddress }}</p>
+                      <p>Tomocoin Smart Contract: {{ sidechainInformation.tmcAddress }}</p>
+                      <p>CashOut Smart Contract: {{ sidechainInformation.cashOutAddress }}</p>
+                      <p>CashIn Smart Contract: {{ sidechainInformation.cashInAddress }}</p>
+                      <p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
+                    </md-card-content>
+                  </md-card-expand-content>
+                </md-card-expand>
               </md-card>
             </div>
-            <div class="md-layout-item md-size-15">
+            <div class="md-layout-item md-size-20">
               <div class="cash-action">
                 <md-button class="md-primary md-raised" @click="showCashOut">
                   Cash Out
@@ -149,30 +135,44 @@
                 </md-button>
               </div>
             </div>
-            <div class="md-layout-item md-size-33">
+            <div class="md-layout-item md-size-40">
               <md-card class="second">
-                <md-card-header>
-                  <md-card-header-text>
-                    <div class="md-title main-chain">
-                      {{ tmcMainchain.toFixed(2) }}
-                    </div>
-                    <div class="md-subhead color-main-chain">TMC in Ethereum</div>
-                  </md-card-header-text>
-                </md-card-header>
-                <md-card-content>
-                The coins you have in <strong class="main-chain">ethereum</strong>. You can transfer the coins to <strong class="side-chain">tomochain</strong> by clicking <strong>cash in</strong> button. <a @click="showMainchainInformation = true" href="#">View more ></a>
-                </md-button>
-                </md-card-content>
+                <md-card-area>
+                  <md-card-header>
+                    <md-card-header-text>
+                      <div class="md-title main-chain">
+                        {{ tmcMainchain.toFixed(2) }}
+                      </div>
+                      <div class="md-subhead color-main-chain">TMC in Ethereum</div>
+                    </md-card-header-text>
+                  </md-card-header>
+                  <md-card-content>
+                  The coins you have in <strong class="main-chain">ethereum</strong>. You can transfer the coins to <strong class="side-chain">tomochain</strong> by clicking <strong>cash in</strong> button.
+                  </md-card-content>
+                </md-card-area>
+                <md-card-expand>
+                  <md-card-actions>
+                    <md-card-expand-trigger>
+                      <md-button>More Info</md-button>
+                    </md-card-expand-trigger>
+                  </md-card-actions>
+                  <md-card-expand-content>
+                    <md-card-content>
+                      <p>Tomocoin Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/token/' + mainchainInformation.tmcAddress">{{ mainchainInformation.tmcAddress }}</a></p>
+                      <p>CashOut Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashOutAddress">{{ mainchainInformation.cashOutAddress }}</a></p>
+                      <p>CashIn Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashInAddress">{{ mainchainInformation.cashInAddress }}</a></p>
+                      <p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
+                    </md-card-content>
+                  </md-card-expand-content>
+                </md-card-expand>
               </md-card>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <div>
-          <md-progress-bar v-if="isProcessing" md-mode="indeterminate"></md-progress-bar>
-        </div>
         <div class="log-table">
+          <md-progress-bar v-if="isProcessing" md-mode="indeterminate"></md-progress-bar>
           <md-table md-card>
             <md-table-row>
               <md-table-head style="width: 230px">Time</md-table-head>
@@ -281,8 +281,6 @@ export default {
       showAlert: false,
       showPrivateKey: false,
       showBackupKey: false,
-      showMainchainInformation: false,
-      showSidechainInformation: false,
       msgAlert: '',
       expandSumaryCoin: false,
       state: localStorage.wallet ? 'mainScreen' : 'getStart',
@@ -574,6 +572,7 @@ export default {
 
   .cash-action .md-button {
     width: 100%;
+    margin: 10px 0;
   }
 
   .cash-action:first-child {
