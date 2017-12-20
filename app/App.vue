@@ -111,11 +111,11 @@
                   </md-card-actions>
                   <md-card-expand-content>
                     <md-card-content>
-                      <p>Reward Engine Smart Contract: {{ sidechainInformation.rewardEngineAddress }}</p>
-                      <p>Tomocoin Smart Contract: {{ sidechainInformation.tmcAddress }}</p>
-                      <p>CashOut Smart Contract: {{ sidechainInformation.cashOutAddress }}</p>
-                      <p>CashIn Smart Contract: {{ sidechainInformation.cashInAddress }}</p>
-                      <p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
+                      <div style="margin-bottom: 15px;">Reward Engine Smart Contract: {{ sidechainInformation.rewardEngineAddress }}</div>
+                      <div style="margin-bottom: 15px;">Tomocoin Smart Contract: {{ sidechainInformation.tmcAddress }}</div>
+                      <div style="margin-bottom: 15px;">CashOut Smart Contract: {{ sidechainInformation.cashOutAddress }}</div>
+                      <div style="margin-bottom: 15px;">CashIn Smart Contract: {{ sidechainInformation.cashInAddress }}</div>
+                      <div>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</div>
                     </md-card-content>
                   </md-card-expand-content>
                 </md-card-expand>
@@ -158,10 +158,10 @@
                   </md-card-actions>
                   <md-card-expand-content>
                     <md-card-content>
-                      <p>Tomocoin Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/token/' + mainchainInformation.tmcAddress">{{ mainchainInformation.tmcAddress }}</a></p>
-                      <p>CashOut Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashOutAddress">{{ mainchainInformation.cashOutAddress }}</a></p>
-                      <p>CashIn Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashInAddress">{{ mainchainInformation.cashInAddress }}</a></p>
-                      <p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
+                      <div style="margin-bottom: 15px;">Tomocoin Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/token/' + mainchainInformation.tmcAddress">{{ mainchainInformation.tmcAddress }}</a></div>
+                      <div style="margin-bottom: 15px;">CashOut Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashOutAddress">{{ mainchainInformation.cashOutAddress }}</a></div>
+                      <div style="margin-bottom: 15px;">CashIn Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashInAddress">{{ mainchainInformation.cashInAddress }}</a></div>
+                      <div>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</div>
                     </md-card-content>
                   </md-card-expand-content>
                 </md-card-expand>
