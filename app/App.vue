@@ -5,7 +5,7 @@
       <div class="logo">
         <img src="https://tomocoin-ico.herokuapp.com/img/logo.svg">
       </div>
-      <md-card class="md-primary" md-with-hover>
+      <md-card class="md-primary welcome-board" md-with-hover>
         <md-ripple>
           <md-card-header>
             <div class="md-title">Welcome to TomoWallet</div>
@@ -13,8 +13,12 @@
           </md-card-header>
 
           <md-card-content>
-          The Tomowallet works on two blockchain. The first one is <a href="https://stats.tomocoin.io" targe="_blank">Tomochain</a>  - <b>Zero fee</b> and <b>Instant confirmation</b>. The second one is <a href="https://www.rinkeby.io">Rinkeby</a>.
-            <br/>
+            The Tomowallet works on two blockchain. The first one is <a href="https://stats.tomocoin.io" target="_blank"><b>Tomochain</b></a> (zero fee and Instant confirmation). The second one is <a href="https://www.rinkeby.io" target="_blank"><b>Ethereum Rinkeby</b></a>.
+          </md-card-content>
+          <md-card-content>
+            This demo will show you how to earn Tomocoins (TMC) from RewardEngine, how to transfer TMC from Tomochain to Ethereum (CashOut) and how to transfer TMC from Ethereum from Tomochain.
+          </md-card-content>
+          <md-card-content>
             Create a new wallet and let's experience!
           </md-card-content>
 
@@ -57,6 +61,18 @@
               :md-content="`Make it safe: <br/><strong>${walletMnemonic}</strong>`" />
           </div>
         </div>
+        <md-dialog :md-active.sync="showMainchainInformation">
+            <md-dialog-title>Ethereum Rinkeby</md-dialog-title>
+            <md-content>
+<p>Tomocoin Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/token/' + mainchainInformation.tmcAddress">{{ mainchainInformation.tmcAddress }}</a></p>
+<p>CashOut Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashOutAddress">{{ mainchainInformation.cashOutAddress }}</a></p>
+<p>CashIn Smart Contract: <a target='_blank' :href="'https://rinkeby.etherscan.io/address/' + mainchainInformation.cashInAddress">{{ mainchainInformation.cashInAddress }}</a></p>
+<p>Do not send ethers nor tokens to any of the addresses above. They are for test only and we are not likely to have control of them in mainnet.</p>
+</md-content>
+            <md-dialog-actions>
+              <md-button class="md-primary" @click="showMainchainInformation = false">Close</md-button>
+            </md-dialog-actions>
+        </md-dialog>
 
         <div class="sumaryCoin">
           <h3>You have total:</h3>
@@ -127,7 +143,8 @@
                   </md-card-header-text>
                 </md-card-header>
                 <md-card-content>
-                The coins you have in <strong class="main-chain">ethereum</strong>. You can transfer the coins to <strong class="side-chain">tomochain</strong> by clicking <strong>cash in</strong> button.
+                The coins you have in <strong class="main-chain">ethereum</strong>. You can transfer the coins to <strong class="side-chain">tomochain</strong> by clicking <strong>cash in</strong> button. <a @click="showMainchainInformation = true" href="#">View more ></a>
+                </md-button>
                 </md-card-content>
               </md-card>
             </div>
@@ -217,11 +234,6 @@ import axios from 'axios';
 
 import VueSocketio from 'vue-socket.io';
 
-import { default as Web3} from 'web3';
-import { default as contract } from 'truffle-contract'
-
-import RewardEngineArtifacts from '../build/contracts/RewardEngine.json'
-
 import bip39 from 'bip39'
 import hdkey from 'ethereumjs-wallet/hdkey'
 
@@ -252,12 +264,14 @@ export default {
       showAlert: false,
       showPrivateKey: false,
       showBackupKey: false,
+      showMainchainInformation: false,
       msgAlert: '',
       expandSumaryCoin: false,
       state: localStorage.wallet ? 'mainScreen' : 'getStart',
       walletAddress: walletAddress,
       walletPrivateKey: walletPrivateKey,
       walletMnemonic: walletMnemonic,
+      mainchainInformation: '',
       tmcSidechain: 0,
       tmcMainchain: 0,
       cashOutValue: '',
@@ -295,7 +309,10 @@ export default {
       this.$socket.emit('user', {address: this.walletAddress})
     },
     user: function(user){
+      console.log(user);
       this.logs = user.logs;
+      this.mainchainInformation = user.mainchainInformation;
+      this.sidechainInformation = user.sidechainInformation;
       this.tmcSidechain = parseFloat(user.tmcSidechain);
       this.tmcMainchain = parseFloat(user.tmcMainchain);
       localStorage.logs = JSON.stringify(this.logs);
@@ -576,5 +593,8 @@ export default {
   .log-table .type .md-icon {
     font-size: 15px !important;
     color: inherit;
+  }
+  .welcome-board a {
+    color: white !important;
   }
 </style>

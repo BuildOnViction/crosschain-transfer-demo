@@ -38,6 +38,17 @@ CashInMainchain.setProvider(mainchain);
 const rootAddressSidechain = config.get('rootAddressSidechain');
 const rootAddressMainchain = config.get('rootAddressMainchain');
 
+const getMainchainAddresses = () => {
+  const ret = {};
+  return TomoCoinMainchain.deployed().then(tc => {
+    ret.tmcAddress = tc.address;
+    return CashOutMainchain.deployed().then(com => {
+      ret.cashOutAddress = com.address;
+      return ret;
+    });
+  });
+};
+
 module.exports = {
   RewardEngine,
   TomoCoinSidechain,
@@ -47,5 +58,6 @@ module.exports = {
   CashInSidechain,
   CashInMainchain,
   rootAddressSidechain,
-  rootAddressMainchain
+  rootAddressMainchain,
+  getMainchainAddresses
 };
