@@ -10,8 +10,3 @@ There are two Blockchain is Tomo Testnet Infrastructure. The first one is Rinkeb
 - CashIn
 - CashOut
 
-## Tomochain
-Tomochain is a sidechain, using Ethereum Clinque with Block Time is two seconds.
-
-
-To be updated
