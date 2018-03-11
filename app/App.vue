@@ -176,7 +176,7 @@
           <md-table md-card>
             <md-table-row>
               <md-table-head style="width: 230px">Time</md-table-head>
-              <md-table-head style="width: 160px">Type</md-table-head>
+              <md-table-head style="width: 250px">Type</md-table-head>
               <md-table-head>Detail</md-table-head>
               <md-table-head md-numeric>TMC in Tomochain</md-table-head>
               <md-table-head md-numeric>TMC in Ethereum</md-table-head>
